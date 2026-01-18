@@ -4,7 +4,7 @@ import click
 from rich.console import Console
 
 from ask import __version__
-from ask.commands import create, copy, sync, list_skills, add_agent
+from ask.commands import create, copy, sync, list_skills, add_agent, remove
 
 console = Console()
 
@@ -24,6 +24,7 @@ def main(ctx):
 main.add_command(create.create)
 main.add_command(copy.copy)
 main.add_command(sync.sync)
+main.add_command(remove.remove)
 main.add_command(list_skills.list_cmd, name="list")
 main.add_command(add_agent.add_agent)
 

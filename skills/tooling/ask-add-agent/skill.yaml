@@ -1,4 +1,4 @@
-name: add-agent
+name: ask-add-agent
 version: 1.0.0
 category: tooling
 description: How to add support for new AI code editors to Agent Skill Kit

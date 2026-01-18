@@ -62,3 +62,30 @@ class BaseAdapter:
         target.write_text(content)
         
         return {"status": "copied", "target": str(target)}
+
+    def remove_skill(self, skill: Dict, name: str = None) -> Dict:
+        """
+        Remove a skill from the agent's directory.
+        
+        Args:
+            skill: Skill dictionary (must at least contain 'name')
+            name: Optional specific name (overrides skill['name'])
+            
+        Returns:
+            status dict with: status ('removed', 'not_found', 'error'), target
+        """
+        name_to_use = name or skill.get("name")
+        target = self.get_target_path(skill, name_to_use)
+        
+        if not target.exists():
+            return {"status": "not_found", "target": str(target)}
+            
+        try:
+            if target.is_dir():
+                import shutil
+                shutil.rmtree(target)
+            else:
+                target.unlink()
+            return {"status": "removed", "target": str(target)}
+        except Exception as e:
+            return {"status": "error", "error": str(e), "target": str(target)}

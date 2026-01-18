@@ -77,6 +77,13 @@ def skill(name: str, category: str, description: str):
         console.print("[red]❌ Invalid skill name. Use lowercase letters, numbers, and hyphens only.[/red]")
         raise click.Abort()
     
+    # Enforce/Suggest 'ask-' prefix
+    if not name.startswith("ask-"):
+        suggested_name = f"ask-{name}"
+        if Confirm.ask(f"\n[yellow]Recommended:[/yellow] Add 'ask-' prefix? (Use '{suggested_name}')", default=True):
+            name = suggested_name
+            console.print(f"Using name: [cyan]{name}[/cyan]")
+    
     # Get category
     if not category:
         console.print("\n[bold]Categories:[/bold]")
