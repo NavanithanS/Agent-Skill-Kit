@@ -1,0 +1,15 @@
+name: ask-commit-assistance
+version: 1.0.0
+category: coding
+description: Assist with code review, staging, and committing changes.
+tags:
+  - git
+  - commit
+  - code-review
+  - refactor
+agents:
+  - antigravity
+  - cursor
+  - gemini
+  - claude
+  - codex

@@ -89,9 +89,12 @@ Each skill is a directory containing:
 *   **`skill.yaml`**: Metadata (name, description, tags, supported agents).
 *   **`README.md`**: The actual prompt/instructions for the AI.
 
+> [!IMPORTANT]
+> **Naming Convention**: All skill names must start with the `ask-` prefix (e.g., `ask-bug-finder`, `ask-commit-assistance`).
+
 ```yaml
 # skill.yaml
-name: bug-finder
+name: ask-bug-finder
 version: 1.0.0
 category: coding
 agents:
