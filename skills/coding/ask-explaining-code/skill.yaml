@@ -1,0 +1,16 @@
+name: ask-explaining-code
+version: 1.0.0
+category: coding
+description: Explains code using analogies, ASCII diagrams, and step-by-step walkthroughs
+tags:
+  - code-explanation
+  - learning
+  - teaching
+  - analogies
+  - visualization
+agents:
+  - codex
+  - gemini
+  - claude
+  - antigravity
+  - cursor

@@ -1,4 +1,4 @@
-name: code-reviewer
+name: ask-code-reviewer
 version: 1.0.0
 category: coding
 description: An AI code reviewer that provides constructive feedback on code changes.

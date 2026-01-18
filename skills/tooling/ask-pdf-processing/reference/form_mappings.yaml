@@ -1,0 +1,151 @@
+# Form Field Mappings Reference
+
+Example configurations for common PDF form types.
+
+## Basic Contact Form
+
+```yaml
+form_type: contact
+fields:
+  - pdf_field: "full_name"
+    source: "name"
+    required: true
+    
+  - pdf_field: "email_address"
+    source: "email"
+    required: true
+    validation: email
+    
+  - pdf_field: "phone_number"
+    source: "phone"
+    required: false
+    format: "(###) ###-####"
+    
+  - pdf_field: "message_body"
+    source: "message"
+    max_length: 500
+```
+
+## Application Form
+
+```yaml
+form_type: application
+fields:
+  # Personal Information
+  - pdf_field: "applicant_first_name"
+    source: "first_name"
+    required: true
+    
+  - pdf_field: "applicant_last_name"
+    source: "last_name"
+    required: true
+    
+  - pdf_field: "date_of_birth"
+    source: "dob"
+    format: "MM/DD/YYYY"
+    
+  # Address
+  - pdf_field: "street_address"
+    source: "address.street"
+    
+  - pdf_field: "city"
+    source: "address.city"
+    
+  - pdf_field: "state"
+    source: "address.state"
+    type: dropdown
+    options:
+      - "CA"
+      - "NY"
+      - "TX"
+      
+  - pdf_field: "zip_code"
+    source: "address.zip"
+    validation: "^\\d{5}(-\\d{4})?$"
+    
+  # Checkboxes
+  - pdf_field: "agree_terms"
+    source: "agreed_to_terms"
+    type: checkbox
+    checked_value: "Yes"
+    unchecked_value: "Off"
+```
+
+## Invoice Template
+
+```yaml
+form_type: invoice
+fields:
+  # Header
+  - pdf_field: "invoice_number"
+    source: "id"
+    format: "INV-{:06d}"
+    
+  - pdf_field: "invoice_date"
+    source: "date"
+    format: "%B %d, %Y"
+    
+  - pdf_field: "due_date"
+    source: "due_date"
+    format: "%B %d, %Y"
+    
+  # Client
+  - pdf_field: "client_name"
+    source: "client.name"
+    
+  - pdf_field: "client_address"
+    source: "client.address"
+    multiline: true
+    
+  # Totals
+  - pdf_field: "subtotal"
+    source: "subtotal"
+    format: "${:,.2f}"
+    
+  - pdf_field: "tax"
+    source: "tax"
+    format: "${:,.2f}"
+    
+  - pdf_field: "total"
+    source: "total"
+    format: "${:,.2f}"
+```
+
+## Field Type Reference
+
+| Type | PDF Field Type | Python Value |
+|------|---------------|--------------|
+| text | `/Tx` | `str` |
+| checkbox | `/Btn` | `"Yes"` / `"Off"` |
+| radio | `/Btn` | Selected option string |
+| dropdown | `/Ch` | Selected option string |
+| signature | `/Sig` | (requires special handling) |
+
+## Mapping Data Sources
+
+```yaml
+# Nested object access
+source: "user.profile.name"  # Accesses data["user"]["profile"]["name"]
+
+# Array access
+source: "items[0].description"  # Accesses data["items"][0]["description"]
+
+# Default values
+source: "optional_field"
+default: "N/A"
+
+# Computed values
+source: null
+compute: "date.today().strftime('%Y-%m-%d')"
+```
+
+## Validation Rules
+
+```yaml
+validation:
+  email: "^[\\w.-]+@[\\w.-]+\\.\\w+$"
+  phone: "^\\+?1?[-.\\s]?\\(?\\d{3}\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{4}$"
+  zip: "^\\d{5}(-\\d{4})?$"
+  date: "^\\d{2}/\\d{2}/\\d{4}$"
+  ssn: "^\\d{3}-\\d{2}-\\d{4}$"
+```

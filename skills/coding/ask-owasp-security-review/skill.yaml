@@ -1,0 +1,16 @@
+name: ask-owasp-security-review
+version: 1.0.0
+category: coding
+description: Conduct a thorough static security review of code, identifying vulnerabilities aligned with OWASP Top 10 risks, with severity ratings and remediation suggestions.
+tags:
+  - security
+  - owasp
+  - vulnerability
+  - code-review
+  - static-analysis
+  - audit
+agents:
+  - codex
+  - gemini
+  - claude
+  - antigravity

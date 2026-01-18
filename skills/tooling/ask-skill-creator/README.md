@@ -46,14 +46,18 @@ When asked to create a skill, clarify:
 ### Step 2: Choose a Name
 
 Skill names must follow these rules:
+- **Prefix**: Must start with `ask-` (e.g., `ask-python-refactor`)
 - **Format**: lowercase with hyphens (kebab-case)
 - **Length**: 2-50 characters
-- **Start**: Must begin with a letter
+- **Start**: Must begin with `ask-`
 - **Characters**: letters, numbers, hyphens only
 
+> [!IMPORTANT]
+> All skills MUST have the `ask-` prefix. This is a mandatory naming convention.
+
 ```
-✓ Good: python-refactor, git-workflow, code-review, api-design
-✗ Bad:  MySkill, skill_1, 1st-skill, x
+✓ Good: ask-python-refactor, ask-git-workflow, ask-code-review, ask-api-design
+✗ Bad:  python-refactor, MySkill, skill_1, 1st-skill, x
 ```
 
 ### Step 3: Determine Category
@@ -169,13 +173,13 @@ Check that:
 
 **AI Response**:
 
-1. **Name**: `python-docstrings`
+1. **Name**: `ask-python-docstrings`
 2. **Category**: `coding`
 3. **Files created**:
 
-`skills/coding/python-docstrings/skill.yaml`:
+`skills/coding/ask-python-docstrings/skill.yaml`:
 ```yaml
-name: python-docstrings
+name: ask-python-docstrings
 version: 1.0.0
 category: coding
 description: Guidelines for writing clear, consistent Python docstrings
@@ -191,7 +195,7 @@ agents:
   - antigravity
 ```
 
-`skills/coding/python-docstrings/README.md`:
+`skills/coding/ask-python-docstrings/README.md`:
 ```markdown
 # Python Docstrings
 

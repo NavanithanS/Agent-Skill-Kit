@@ -1,0 +1,16 @@
+name: ask-unit-test-generation
+version: 1.0.0
+category: coding
+description: Automates creation of comprehensive unit tests for functions or classes, emphasizing coverage of edge cases and assertions.
+tags:
+  - testing
+  - unit-tests
+  - pytest
+  - jest
+  - tdd
+  - quality-assurance
+agents:
+  - codex
+  - gemini
+  - claude
+  - antigravity

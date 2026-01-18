@@ -1,0 +1,20 @@
+name: ask-pdf-processing
+version: 1.0.0
+category: tooling
+description: PDF text extraction, form filling, and merging using pypdf and pdfplumber
+tags:
+  - pdf
+  - extraction
+  - forms
+  - merge
+  - automation
+  - document-processing
+agents:
+  - codex
+  - gemini
+  - claude
+  - antigravity
+  - cursor
+dependencies:
+  - pypdf
+  - pdfplumber

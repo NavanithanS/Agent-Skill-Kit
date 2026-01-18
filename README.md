@@ -69,10 +69,15 @@ ask list
 **AI-Assisted** (Recommended):
 Simply ask your AI agent to create a skill for you:
 ```
-"Create a new skill for Docker best practices"
-"Make a skill that teaches REST API design"
+Create a new skill for Docker best practices
+
+Make a skill that teaches REST API design
+
+create new skill: explaining-code
+Purpose: Explains code using analogies, ASCII diagrams, and step-by-step walkthroughs. Triggered by queries like "How does this work?"
+Instructions emphasize conversational tone, multiple analogies, and highlighting common misconceptions.
 ```
-*Prerequisites: Deploy `ask-skill-creator` to your agent first (see [Available Skills](#-available-skills)).*
+*Prerequisites: Deploy `ask-skill-creator` to your agent first (see [Tooling Skills](#tooling-skills-meta-skills)).*
 
 **Manual CLI** (Alternative):
 Launch the interactive wizard to generate a standardized skill template.
@@ -109,75 +114,16 @@ ASK comes with a curated collection of skills to boost your AI agent's capabilit
 
 ### Coding Skills
 
-#### 🐛 ask-bug-finder
-**Description**: Best practices for systematic bug hunting and debugging
-
-**How to Use**:
-```bash
-# Deploy to all agents
-ask copy --skill ask-bug-finder --all
-
-# Deploy to specific agent
-ask copy gemini --skill ask-bug-finder
-```
-
-**Use Cases**:
-- Systematic debugging of complex issues
-- Reproducing and isolating bugs
-- Using debugging tools effectively (debuggers, loggers, profilers)
-- Avoiding common bug patterns (off-by-one errors, null references, race conditions)
-- Binary search debugging and git bisect workflows
-
----
-
-#### 🔄 ask-python-refactor
-**Description**: Best practices and guidelines for Python code refactoring
-
-**How to Use**:
-```bash
-ask copy antigravity --skill ask-python-refactor
-```
-
-**Use Cases**:
-- Improving Python code quality and maintainability
-- Applying clean code principles to Python projects
-- Refactoring legacy Python code
-- Following Python-specific best practices and idioms
-
----
-
-#### ✅ ask-commit-assistance
-**Description**: Assist with code review, staging, and committing changes
-
-**How to Use**:
-```bash
-# Make this available to your preferred agent
-ask copy cursor --skill ask-commit-assistance
-```
-
-**Use Cases**:
-- Automated code review before commits
-- Generating meaningful commit messages (short and long formats)
-- Staging files systematically
-- Ensuring code quality before version control
-- Creating professional commit messages following best practices
-
----
-
-#### 🔍 code-reviewer
-**Description**: An AI code reviewer that provides constructive feedback on code changes
-
-**How to Use**:
-```bash
-ask copy --skill code-reviewer --all
-```
-
-**Use Cases**:
-- Getting feedback on code quality, security, and performance
-- Identifying potential bugs and anti-patterns
-- Ensuring code follows best practices
-- Pre-commit code quality checks
-- Learning from constructive code review feedback
+| Skill | Description | Use Cases |
+|-------|-------------|-----------|
+| **[bug-finder](skills/coding/ask-bug-finder/README.md)** | Best practices for systematic bug hunting and debugging | • Debugging complex issues<br>• Isolating bugs<br>• Using debugging tools |
+| **[code-reviewer](skills/coding/ask-code-reviewer/README.md)** | AI code reviewer providing constructive feedback | • Code quality checks<br>• Security & performance review<br>• Learning best practices |
+| **[commit-assistance](skills/coding/ask-commit-assistance/README.md)** | Assist with code review, staging, and committing | • Pre-commit review<br>• Meaningful commit messages<br>• Staging files |
+| **[explaining-code](skills/coding/ask-explaining-code/README.md)** | Explains code using analogies and diagrams | • Understanding complex code<br>• Visualizing flow<br>• Learning new codebases |
+| **[owasp-security-review](skills/coding/ask-owasp-security-review/README.md)** | Static code analysis aligned with OWASP Top 10 | • Security scanning<br>• Identifying vulnerabilities<br>• Compliance checks |
+| **[python-refactor](skills/coding/ask-python-refactor/README.md)** | Guidelines for Python code refactoring | • Improving code quality<br>• Refactoring legacy code<br>• Python best practices |
+| **[refactoring-readability](skills/coding/ask-refactoring-readability/README.md)** | Improves code structure for clarity | • Renaming vars/functions<br>• Reducing complexity<br>• Improving readability |
+| **[unit-test-generation](skills/coding/ask-unit-test-generation/README.md)** | Automates creation of comprehensive unit tests | • Generating new tests<br>• Covering edge cases<br>• Improving coverage |
 
 ---
 
@@ -204,7 +150,7 @@ ask sync all
 
 **Example Workflow**:
 1. Deploy this skill to your agent: `ask copy gemini --skill ask-skill-creator`
-2. Ask your agent: "Create a skill called 'docker-best-practices' for containerization guidelines"
+2. Ask your agent: "Create a skill called 'ask-docker-best-practices' for containerization guidelines"
 3. The agent generates the skill files automatically
 
 ---
@@ -229,6 +175,22 @@ ask copy antigravity --skill ask-add-agent
 2. Run the wizard: `ask add-agent`
 3. Or ask your agent to help: "Add support for Windsurf editor"
 4. The agent follows the documented process to create the adapter
+
+---
+
+#### 📄 ask-pdf-processing
+**Description**: Handle PDF text extraction, form filling, and merging
+
+**How to Use**:
+```bash
+ask copy antigravity --skill ask-pdf-processing
+```
+
+**Use Cases**:
+- Extracting text from PDF documents
+- Processing PDF forms
+- Merging multiple PDFs
+- PDF automation workflows
 
 ---
 

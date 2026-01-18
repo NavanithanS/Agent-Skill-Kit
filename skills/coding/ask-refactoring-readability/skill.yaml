@@ -1,0 +1,15 @@
+name: ask-refactoring-readability
+version: 1.0.0
+category: coding
+description: Refactor code to enhance readability, following principles like DRY, meaningful names, and modularization.
+tags:
+  - refactoring
+  - readability
+  - clean-code
+  - maintainability
+  - best-practices
+agents:
+  - codex
+  - gemini
+  - claude
+  - antigravity
