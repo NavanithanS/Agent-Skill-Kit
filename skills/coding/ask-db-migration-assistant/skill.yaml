@@ -1,0 +1,8 @@
+name: ask-db-migration-assistant
+version: 1.0.0
+category: coding
+agents:
+  - gemini
+  - claude
+  - cursor
+  - antigravity

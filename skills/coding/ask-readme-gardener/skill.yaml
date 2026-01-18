@@ -1,0 +1,8 @@
+name: ask-readme-gardener
+version: 1.0.0
+category: coding
+agents:
+  - gemini
+  - claude
+  - cursor
+  - antigravity
