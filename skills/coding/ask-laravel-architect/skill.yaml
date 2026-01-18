@@ -1,0 +1,16 @@
+name: ask-laravel-architect
+version: 1.0.0
+category: coding
+description: Senior scaffolding skill. Handles SQL vs Mongo (Jenssegers/Official), SoftDeletes, and strict API standards.
+tags:
+  - laravel
+  - php
+  - architecture
+  - mongodb
+  - sql
+agents:
+  - codex
+  - gemini
+  - claude
+  - antigravity
+  - cursor

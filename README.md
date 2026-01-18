@@ -127,6 +127,8 @@ ASK comes with a curated collection of skills to boost your AI agent's capabilit
 | **[code-reviewer](skills/coding/ask-code-reviewer/README.md)** | AI code reviewer providing constructive feedback | • Code quality checks<br>• Security & performance review<br>• Learning best practices |
 | **[commit-assistance](skills/coding/ask-commit-assistance/README.md)** | Assist with code review, staging, and committing | • Pre-commit review<br>• Meaningful commit messages<br>• Staging files |
 | **[explaining-code](skills/coding/ask-explaining-code/README.md)** | Explains code using analogies and diagrams | • Understanding complex code<br>• Visualizing flow<br>• Learning new codebases |
+| **[laravel-architect](skills/coding/ask-laravel-architect/README.md)** | Senior scaffolding skill for Laravel (SQL/Mongo) | • Logic Layer separation<br>• Hybrid SQL/Mongo Relations<br>• Test-Driven Scaffolding |
+| **[laravel-mechanic](skills/coding/ask-laravel-mechanic/README.md)** | Senior maintenance skill for database safety | • Zero Data Loss protocol<br>• N+1 Query prevention<br>• Queue debugging & forensics |
 | **[owasp-security-review](skills/coding/ask-owasp-security-review/README.md)** | Static code analysis aligned with OWASP Top 10 | • Security scanning<br>• Identifying vulnerabilities<br>• Compliance checks |
 | **[python-refactor](skills/coding/ask-python-refactor/README.md)** | Guidelines for Python code refactoring | • Improving code quality<br>• Refactoring legacy code<br>• Python best practices |
 | **[refactoring-readability](skills/coding/ask-refactoring-readability/README.md)** | Improves code structure for clarity | • Renaming vars/functions<br>• Reducing complexity<br>• Improving readability |

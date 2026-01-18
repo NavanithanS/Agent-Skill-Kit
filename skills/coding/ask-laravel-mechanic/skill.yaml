@@ -1,0 +1,16 @@
+name: ask-laravel-mechanic
+version: 1.0.0
+category: coding
+description: Senior maintenance skill. Enforces "Zero Data Loss" policies and handles Mongo/SQL debugging.
+tags:
+  - laravel
+  - maintenance
+  - debugging
+  - mongodb
+  - sql
+agents:
+  - codex
+  - gemini
+  - claude
+  - antigravity
+  - cursor
