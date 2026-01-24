@@ -47,3 +47,44 @@ description: {description}
 {readme}
 """
         return content
+
+    def install_resources(self, skill: Dict, target_dir: Path, dry_run: bool = False) -> Dict[str, bool]:
+        """
+        Install scripts and sidecar files to the skill directory.
+        """
+        import shutil
+        
+        skill_path_str = skill.get("_path")
+        if not skill_path_str:
+            return {"conflict": False}
+            
+        skill_path = Path(skill_path_str)
+        conflicts = []
+        resources_to_copy = ["scripts", "reference", "images", "assets", "examples.md", "reference.md"]
+        
+        # Check conflicts
+        for resource in resources_to_copy:
+            src = skill_path / resource
+            dst = target_dir / resource
+            if src.exists() and dst.exists():
+                 conflicts.append(f"Resource exists: {dst}")
+
+        if conflicts:
+            return {"conflict": True, "details": ", ".join(conflicts)}
+            
+        if dry_run:
+            return {"conflict": False}
+            
+        # Perform Copy
+        for resource in resources_to_copy:
+            src = skill_path / resource
+            dst = target_dir / resource
+            
+            if src.exists():
+                if src.is_dir():
+                    # copytree fails if dst exists, but we checked conflicts above
+                    shutil.copytree(src, dst)
+                else:
+                    shutil.copy2(src, dst)
+                    
+        return {"conflict": False}

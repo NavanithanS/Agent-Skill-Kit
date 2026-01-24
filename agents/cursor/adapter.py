@@ -46,4 +46,64 @@ class CursorAdapter(BaseAdapter):
 
 {readme}
 """
+        # Add references to sidecar files if they exist
+        skill_name = name
+        if skill.get("_scripts") or skill.get("_reference") or skill.get("_examples"):
+             content += f"\n\n> [!NOTE]\n> This skill uses auxiliary resources located in: `.cursor/rules/.scripts/{skill_name}/`"
+             
         return content
+
+    def install_resources(self, skill: Dict, target_dir: Path, dry_run: bool = False) -> Dict[str, bool]:
+        """
+        Install scripts and sidecar files to .cursor/rules/.scripts/<skill-name>/
+        """
+        import shutil
+        
+        skill_name = skill.get("name")
+        if not skill_name:
+            return {"conflict": False}
+            
+        skill_path_str = skill.get("_path")
+        if not skill_path_str:
+            return {"conflict": False}
+        
+        skill_path = Path(skill_path_str)
+        
+        # Cursor rules are flat files in .cursor/rules/
+        # We want to store resources in .cursor/rules/.scripts/<skill-name>/
+        # target_dir is .cursor/rules/
+        storage_dir = target_dir / ".scripts" / skill_name
+        
+        conflicts = []
+        resources_to_copy = ["scripts", "reference", "images", "assets", "examples.md", "reference.md"]
+        
+        # Check conflicts
+        for resource in resources_to_copy:
+            src = skill_path / resource
+            dst = storage_dir / resource
+            if src.exists() and dst.exists():
+                 conflicts.append(f"Resource exists: {dst}")
+
+        if conflicts:
+            return {"conflict": True, "details": ", ".join(conflicts)}
+            
+        if dry_run:
+            return {"conflict": False}
+            
+        # Perform Copy
+        for resource in resources_to_copy:
+            src = skill_path / resource
+            dst = storage_dir / resource
+            
+            if src.exists():
+                # Ensure storage dir exists
+                dst.parent.mkdir(parents=True, exist_ok=True)
+                
+                if src.is_dir():
+                    if dst.exists():
+                        shutil.rmtree(dst)
+                    shutil.copytree(src, dst)
+                else:
+                    shutil.copy2(src, dst)
+                    
+        return {"conflict": False}
