@@ -1,0 +1,15 @@
+name: ask-vue-mechanic
+version: 1.0.0
+category: coding
+description: Expert maintenance skill for Vue 3 within Laravel Inertia. Fixes navigation reloads, prop mismatches, and reactivity issues.
+tags:
+  - vue
+  - laravel
+  - inertia
+  - debugging
+  - maintenance
+agents:
+  - antigravity
+  - gemini
+  - claude
+  - cursor

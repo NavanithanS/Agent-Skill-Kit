@@ -1,0 +1,14 @@
+name: ask-vue-architect
+version: 1.0.0
+category: coding
+description: Expert scaffolding for Vue 3. Specialized for Laravel Inertia stacks, but supports Nuxt/Vite. Enforces Composition API & TypeScript.
+tags:
+  - vue
+  - laravel
+  - inertia
+  - typescript
+agents:
+  - antigravity
+  - gemini
+  - claude
+  - cursor
