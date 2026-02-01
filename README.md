@@ -91,7 +91,17 @@ Synchronize your entire skill library to all supported agents at once.
 ask sync all
 ```
 
-### 5. Add Support for New Agents
+### 5. Update Skills
+Keep your installed skills up-to-date with the latest versions from the repository.
+```bash
+ask update
+```
+Features:
+- **Version Checks**: Compares installed version vs source.
+- **Interactive**: Select which skills to update (or use `--yes` to update all).
+- **Safe**: Automatic backup (`SKILL.md.bak`) created before overwriting.
+
+### 6. Add Support for New Agents
 Want to use **Windsurf** or **Aider**? Use the scaffold wizard:
 ```bash
 ask add-agent
