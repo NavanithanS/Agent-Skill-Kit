@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agent-skill-kit"
-version = "0.1.0"
+version = "0.1.1"
 description = "Centralized skills repository and CLI toolkit for AI agents"
 readme = "README.md"
 license = "MIT"
@@ -41,4 +41,4 @@ dev = [
 ask = "ask.cli:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["ask"]
+packages = ["ask", "agents", "skills"]

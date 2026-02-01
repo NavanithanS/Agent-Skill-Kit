@@ -10,10 +10,18 @@ from typing import Optional
 def get_project_root() -> Path:
     """Get the Agent Skill Kit project root directory."""
     current = Path(__file__).resolve()
+    
+    # 1. Dev Mode: Look for pyproject.toml
     for parent in current.parents:
         if (parent / "pyproject.toml").exists():
             return parent
-    return Path.cwd()
+            
+    # 2. Package Mode: Fallback to the directory containing the 'ask' package
+    # filesystem.py is in locally installed ask/utils/filesystem.py
+    # ask package root is current.parent.parent
+    # We return the directory CONTAINING ask (e.g. site-packages)
+    # so that root / "skills" finds the sibling skills package
+    return current.parent.parent.parent
 
 
 def get_skills_dir() -> Path:
