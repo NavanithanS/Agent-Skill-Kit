@@ -1,3 +1,8 @@
+---
+name: ask-skill-creator
+description: Teaches AI agents how to create skills for Agent Skill Kit
+---
+
 # Skill Creator
 
 A meta-skill that teaches AI agents how to create skills for Agent Skill Kit.
@@ -151,7 +156,6 @@ description: Brief description
 Create the skill directory structure:
 
 ```
-skills/<category>/<skill-name>/
 skills/<category>/<skill-name>/
 ├── skill.yaml    # Metadata
 ├── README.md     # Documentation

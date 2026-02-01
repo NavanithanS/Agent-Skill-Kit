@@ -1,0 +1,14 @@
+name: ask-fastapi-architect
+version: 1.0.0
+category: coding
+description: Expert scaffolding for FastAPI projects. Enforces Pydantic V2, Async Database patterns, and Dependency Injection.
+tags:
+  - python
+  - fastapi
+  - pydantic
+  - sqlalchemy
+agents:
+  - antigravity
+  - gemini
+  - claude
+  - cursor

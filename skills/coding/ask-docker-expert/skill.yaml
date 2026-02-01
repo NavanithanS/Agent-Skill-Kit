@@ -1,0 +1,14 @@
+name: ask-docker-expert
+version: 1.0.0
+category: coding
+description: Expert guidance on Docker, Docker Compose, and container optimization. Focuses on multi-stage builds and security.
+tags:
+  - docker
+  - devops
+  - containers
+  - infrastructure
+agents:
+  - antigravity
+  - gemini
+  - claude
+  - cursor

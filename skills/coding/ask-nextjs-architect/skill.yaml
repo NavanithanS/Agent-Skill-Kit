@@ -1,0 +1,14 @@
+name: ask-nextjs-architect
+version: 1.0.0
+category: coding
+description: Expert scaffolding for Next.js 14+ (App Router). Enforces Server Components, Server Actions, and SEO best practices.
+tags:
+  - nextjs
+  - react
+  - typescript
+  - tailwind
+agents:
+  - antigravity
+  - gemini
+  - claude
+  - cursor
