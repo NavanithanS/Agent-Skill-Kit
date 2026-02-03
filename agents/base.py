@@ -41,7 +41,7 @@ class BaseAdapter:
     def _parse_skill_version(self, skill_file: Path) -> str:
         """Parse version from SKILL.md frontmatter."""
         try:
-            content = skill_file.read_text()
+            content = skill_file.read_text(encoding="utf-8")
             lines = content.splitlines()
             # Frontmatter must start on the first line
             if not lines or lines[0].strip() != "---":
@@ -147,7 +147,7 @@ class BaseAdapter:
         
         # Transform and write (Core Instruction)
         content = self.transform(skill)
-        target.write_text(content)
+        target.write_text(content, encoding="utf-8")
         
         # Install resources (if any)
         self.install_resources(skill, target.parent, dry_run=False, force=force)

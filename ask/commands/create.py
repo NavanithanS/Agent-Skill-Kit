@@ -140,7 +140,7 @@ def skill(name: str, category: str, description: str):
         agents=agents_yaml
     )
     
-    (skill_path / "skill.yaml").write_text(skill_yaml_content)
+    (skill_path / "skill.yaml").write_text(skill_yaml_content, encoding="utf-8")
     
     # Create README.md
     title = name.replace("-", " ").title()
@@ -149,7 +149,7 @@ def skill(name: str, category: str, description: str):
         description=description
     )
     
-    (skill_path / "README.md").write_text(readme_content)
+    (skill_path / "README.md").write_text(readme_content, encoding="utf-8")
     
     console.print(f"\n[green]✅ Skill created successfully![/green]")
     console.print(f"   Location: [cyan]{skill_path}[/cyan]")

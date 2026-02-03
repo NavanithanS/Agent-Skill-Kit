@@ -94,7 +94,7 @@ def parse_skill(skill_yaml_path: Path) -> Optional[Dict]:
     Parse a skill.yaml file and return its contents.
     """
     try:
-        with open(skill_yaml_path, "r") as f:
+        with open(skill_yaml_path, "r", encoding="utf-8") as f:
             return yaml.safe_load(f)
     except Exception:
         return None
@@ -108,5 +108,5 @@ def get_skill_readme(skill: Dict) -> Optional[str]:
     if readme_path:
         path = Path(readme_path)
         if path.exists():
-            return path.read_text()
+            return path.read_text(encoding="utf-8")
     return None
