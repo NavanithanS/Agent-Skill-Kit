@@ -27,6 +27,12 @@ Managing instructions for multiple AI agents is tedious. You often have to:
 
 ## 📦 Installation
 
+### From PyPI (Recommended)
+```bash
+pip install agent-skill-kit
+```
+
+### From Source (Development)
 ```bash
 # Clone the repository
 git clone https://github.com/NavanithanS/Agent-Skill-Kit.git
