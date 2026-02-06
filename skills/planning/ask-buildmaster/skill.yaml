@@ -1,8 +1,10 @@
 name: ask-buildmaster
 version: 1.0.0
+description: Smart Epic Orchestration Agent - Acts as PM + Tech Lead + Delivery Manager for epic planning, execution, and delivery.
 category: planning
 agents:
   - gemini
   - claude
   - cursor
   - antigravity
+  - codex

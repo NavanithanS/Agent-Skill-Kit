@@ -1,8 +1,10 @@
 name: ask-adr-logger
 version: 1.0.0
+description: Automatically records Architectural Decision Records (ADRs) when a significant technical decision is made.
 category: planning
 agents:
   - gemini
   - claude
   - cursor
   - antigravity
+  - codex

@@ -1,8 +1,10 @@
 name: ask-security-sentinel
 version: 1.0.0
+description: Pre-flight security checker. Scans for exposed secrets and vulnerable patterns properly.
 category: coding
 agents:
   - gemini
   - claude
   - cursor
   - antigravity
+  - codex

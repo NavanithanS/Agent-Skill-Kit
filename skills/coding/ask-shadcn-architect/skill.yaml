@@ -1,8 +1,10 @@
 name: ask-shadcn-architect
 version: 1.0.0
+description: Strictly enforces shadcn/ui patterns, imports, and CLI usage when creating or modifying React UI components.
 category: coding
 agents:
   - gemini
   - claude
   - cursor
   - antigravity
+  - codex

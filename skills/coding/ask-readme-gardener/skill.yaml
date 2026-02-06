@@ -1,8 +1,10 @@
 name: ask-readme-gardener
 version: 1.0.0
+description: Keeps documentation in sync with code by updating the README.md when features or APIs are added.
 category: coding
 agents:
   - gemini
   - claude
   - cursor
   - antigravity
+  - codex

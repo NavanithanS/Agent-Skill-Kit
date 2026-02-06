@@ -1,8 +1,10 @@
 name: ask-brainstorm
 version: 1.0.0
+description: Explores user intent, requirements, and design before implementation. Required before any creative work.
 category: planning
 agents:
   - gemini
   - claude
   - cursor
   - antigravity
+  - codex

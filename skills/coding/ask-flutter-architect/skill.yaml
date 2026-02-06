@@ -1,7 +1,7 @@
 name: ask-flutter-architect
 version: 1.0.0
 category: coding
-description: Senior Flutter skill using FVM. Enforces project-specific standards: Provider, Layer-First Architecture, Stream-based Services, and strict coding conventions.
+description: "Senior Flutter skill using FVM. Enforces project-specific standards: Provider, Layer-First Architecture, Stream-based Services, and strict coding conventions."
 tags:
   - flutter
   - dart
@@ -12,3 +12,4 @@ agents:
   - gemini
   - claude
   - cursor
+  - codex

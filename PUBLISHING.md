@@ -1,6 +1,6 @@
 # Publishing to PyPI
 
-This guide details how to build and publish `agent-skill-kit` (v0.1.1) to PyPI.
+This guide details how to build and publish `agent-skill-kit` (v0.1.3) to PyPI.
 
 ## Prerequisites
 

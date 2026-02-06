@@ -1,8 +1,10 @@
 name: ask-db-migration-assistant
 version: 1.0.0
+description: Ensures safe database schema updates by requiring migration and rollback scripts before execution.
 category: coding
 agents:
   - gemini
   - claude
   - cursor
   - antigravity
+  - codex

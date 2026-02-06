@@ -1,8 +1,10 @@
 name: ask-effective-llm-coder
 version: 1.0.0
+description: Guides the agent in effective LLM-assisted coding using best practices for declarative workflows, simplicity, tenacity, and iterative refinement.
 category: coding
 agents:
   - gemini
   - claude
   - cursor
   - antigravity
+  - codex

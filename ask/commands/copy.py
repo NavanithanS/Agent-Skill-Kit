@@ -333,3 +333,6 @@ def copy(agent: str, skill_name: str, copy_all: bool):
     # Summary
     console.print()
     console.print(f"[green]Done![/green] {success_count} copied, {skip_count} skipped.")
+    
+    if success_count > 0:
+        console.print(f"\n[bold yellow]💡 Tip:[/bold yellow] Keep these skills up to date by running [cyan]ask update[/cyan] periodically.")

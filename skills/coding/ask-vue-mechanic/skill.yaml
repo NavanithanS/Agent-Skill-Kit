@@ -13,3 +13,4 @@ agents:
   - gemini
   - claude
   - cursor
+  - codex

@@ -1,8 +1,10 @@
 name: ask-project-memory
 version: 1.0.0
+description: Maintains a 'Project Brain' by recording architectural decisions and tech stack choices in a memory file.
 category: planning
 agents:
   - gemini
   - claude
   - cursor
   - antigravity
+  - codex

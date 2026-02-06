@@ -1,8 +1,10 @@
 name: ask-component-scaffolder
 version: 1.0.0
+description: Standardizes UI component creation by generating a consistent folder structure and files.
 category: coding
 agents:
   - gemini
   - claude
   - cursor
   - antigravity
+  - codex
