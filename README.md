@@ -19,8 +19,11 @@ Managing instructions for multiple AI agents is tedious. You often have to:
 ## 🚀 Features
 
 - **Multi-Agent Support**: Native support for Gemini, Claude Code, OpenAI Codex, Antigravity, and Cursor.
+- **Skill Dependencies**: Automatically resolves and installs dependent skills (e.g., a "Vue Architect" skill depends on "TypeScript Basics").
 - **Dynamic Discovery**: Automatically discovers available agents in the `agents/` directory.
 - **Safe Copy**: Strictly adheres to "Do Not Overwrite". Prompts for a new name if a skill conflicts.
+- **Configuration**: Customizable defaults via `~/.askconfig.yaml` (e.g., set your default agent).
+- **Search & Validate**: Powerful search tools and integrity checks (`ask validate`) to keep your library healthy.
 - **Local & Global**: Choose between **Project-Local** (specific to one repo) or **Global** (user-wide) deployment.
 - **AI-Assisted Creation**: Includes meta-skills that teach your AI how to create new skills (`skill-creator`) or add new agents (`add-agent`).
 - **Extensible**: Add support for any new AI agent in seconds via the `ask add-agent` wizard.
@@ -74,7 +77,20 @@ ask copy claude --all
 ### 2. List Available Skills
 View your library of skills, including descriptions and supported agents.
 ```bash
+# List all skills
 ask list
+
+# Search for skills
+ask list --search "docker"
+
+# Filter by category or agent
+ask list --category coding --agent claude
+```
+
+### 3. Validate Library
+Check your skill library for errors, missing metadata, or circular dependencies.
+```bash
+ask validate
 ```
 
 ### 3. Create a New Skill
@@ -303,6 +319,8 @@ agents:
   - gemini
   - claude
   - cursor
+depends_on:
+  - ask-code-reviewer  # Automatically installed when bug-finder is installed
 ```
 
 ## 🧩 Design Principles
