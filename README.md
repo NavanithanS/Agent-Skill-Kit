@@ -279,6 +279,27 @@ ask copy antigravity --skill ask-skill-capture
 
 ---
 
+#### 🏗️ ask-system-architect-prime
+**Description**: Principal Software Architect for repository audits, complexity analysis, and actionable refactoring recommendations
+
+**How to Use**:
+```bash
+ask copy antigravity --skill ask-system-architect-prime
+```
+
+**Use Cases**:
+- **Full Repository Audit**: Analyze architecture, complexity, security, and test coverage
+- **Performance Investigation**: Identify N+1 queries, blocking I/O, and bottlenecks
+- **Security Review**: Scan for hardcoded secrets and vulnerabilities
+- **Test Coverage Analysis**: Map source files to test suites and identify gaps
+
+**Example Workflow**:
+1. Deploy this skill to your agent
+2. Ask: "Audit this repository for architectural flaws"
+3. The agent generates an `ARCHITECTURAL_AUDIT.md` with health score, burn list, and recommendations
+
+---
+
 ### 🚀 Quick Start with Skills
 
 ```bash
