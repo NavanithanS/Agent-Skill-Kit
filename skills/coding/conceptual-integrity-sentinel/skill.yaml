@@ -1,0 +1,15 @@
+name: conceptual-integrity-sentinel
+version: 1.0.0
+category: coding
+description: Principal-level engineering agent that audits repositories for architectural drift, bloated abstractions, and "dead code."
+tags:
+  - architecture
+  - audit
+  - refactoring
+  - complexity
+  - code-quality
+agents:
+  - antigravity
+  - gemini
+  - claude
+  - codex

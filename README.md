@@ -186,6 +186,7 @@ ASK comes with a curated collection of skills to boost your AI agent's capabilit
 | **[nextjs-architect](skills/coding/ask-nextjs-architect/README.md)** | Expert scaffolding for Next.js 14+ (App Router) | • Server Components<br>• Server Actions<br>• Metadata API |
 | **[fastapi-architect](skills/coding/ask-fastapi-architect/README.md)** | Expert scaffolding for FastAPI projects | • Pydantic V2<br>• Async SQLAlchemy<br>• Dep Injection |
 | **[docker-expert](skills/coding/ask-docker-expert/README.md)** | Expert guidance on Docker & Containers | • Multi-stage builds<br>• Security best practices<br>• Image optimization |
+| **[conceptual-integrity-sentinel](skills/coding/conceptual-integrity-sentinel/README.md)** | Audits repositories for architectural drift and bloat | • Detecting complexity bloat<br>• Identifying dead code<br>• Enforcing simplicity |
 
 ---
 
