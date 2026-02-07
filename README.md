@@ -27,7 +27,13 @@ Managing instructions for multiple AI agents is tedious. You often have to:
 
 ## 📦 Installation
 
-### From PyPI (Recommended)
+### Homebrew (Recommended for Mac/Linux)
+```bash
+brew tap NavanithanS/Agent-Skill-Kit
+brew install agent-skill-kit
+```
+
+### From PyPI
 ```bash
 pip install agent-skill-kit
 ```
