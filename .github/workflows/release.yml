@@ -1,0 +1,78 @@
+name: Publish to PyPI and Update Homebrew
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  pypi-publish:
+    name: Build and publish to PyPI
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install build tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine
+
+      - name: Build package
+        run: python -m build
+
+      - name: Publish to PyPI
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+        run: twine upload dist/*
+
+  homebrew-update:
+    name: Update Homebrew Formula
+    needs: pypi-publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          
+      - name: Install build tools
+        run: pip install build
+
+      - name: Build package (for checksum)
+        run: python -m build
+
+      - name: Checkout Tap Repository
+        uses: actions/checkout@v4
+        with:
+          repository: NavanithanS/homebrew-Agent-Skill-Kit
+          token: ${{ secrets.TAP_GITHUB_TOKEN }}
+          path: homebrew-Agent-Skill-Kit
+
+      - name: Update Formula
+        env:
+          # We need to configure git user for the commit
+          GIT_AUTHOR_NAME: "github-actions[bot]"
+          GIT_AUTHOR_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
+          GIT_COMMITTER_NAME: "github-actions[bot]"
+          GIT_COMMITTER_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
+        run: |
+          # Configure git for the tap repo
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          # Run the update script
+          # The script expects the tap at a specific path or passed via arg.
+          # Here we checked it out to 'homebrew-Agent-Skill-Kit' in the current workspace.
+          python3 scripts/update_homebrew.py --tap "homebrew-Agent-Skill-Kit" --push
