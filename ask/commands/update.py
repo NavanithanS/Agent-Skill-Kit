@@ -178,7 +178,11 @@ def update(yes: bool):
             else:
                 console.print(f"  [red]✗[/red] Failed to update {skill_name}: {result.get('reason')}")
                 
+        except PermissionError:
+             console.print(f"  [red]✗[/red] Permission denied updating {skill_name}")
+        except OSError as e:
+             console.print(f"  [red]✗[/red] OS Error updating {skill_name}: {e}")
         except Exception as e:
-            console.print(f"  [red]✗[/red] Error updating {skill_name}: {e}")
+            console.print(f"  [red]✗[/red] Unexpected error updating {skill_name}: {e}")
             
     console.print(f"\n[green]Done! Updated {success_count} skill(s).[/green]")

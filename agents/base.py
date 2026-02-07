@@ -2,12 +2,23 @@
 
 from pathlib import Path
 from typing import Dict
+from abc import ABC, abstractmethod
 
 
-class BaseAdapter:
+class BaseAdapter(ABC):
     """Base class for all agent adapters with safe copy behavior."""
     
     target_dir: Path = None
+    
+    @abstractmethod
+    def get_target_path(self, skill: Dict, name: str = None) -> Path:
+        """Get the target path for a skill."""
+        pass
+
+    @abstractmethod
+    def transform(self, skill: Dict) -> str:
+        """Transform skill into agent-specific format."""
+        pass
     
     def list_installed_skills(self) -> Dict[str, str]:
         """

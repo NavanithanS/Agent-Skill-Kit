@@ -110,3 +110,59 @@ def get_skill_readme(skill: Dict) -> Optional[str]:
         if path.exists():
             return path.read_text(encoding="utf-8")
     return None
+
+
+def resolve_dependencies(skill_name: str, resolved: List[str] = None, seen: List[str] = None, skill_map: Dict[str, Dict] = None) -> List[Dict]:
+    """
+    Recursively resolve dependencies for a skill.
+    
+    Args:
+        skill_name: Name of the skill to resolve
+        resolved: List of already resolved skill names (to prevent duplicates)
+        seen: List of skills in current recursion stack (to detect cycles)
+        skill_map: Optional pre-loaded map of {name: skill_dict} for O(1) lookup
+        
+    Returns:
+        List of skill dictionaries including dependencies, in installation order.
+        Returns empty list if skill not found.
+        Raises ValueError if circular dependency detected.
+    """
+    if resolved is None:
+        resolved = []
+    if seen is None:
+        seen = []
+    
+    # Use provided map or fallback to slow lookup
+    if skill_map:
+        skill = skill_map.get(skill_name)
+    else:
+        skill = get_skill(skill_name)
+        
+    if not skill:
+        return []
+        
+    # Detect circular dependency
+    if skill_name in seen:
+        raise ValueError(f"Circular dependency detected: {' -> '.join(seen)} -> {skill_name}")
+        
+    # If already resolved, skip
+    if skill_name in resolved:
+        return []
+        
+    # Add to current stack
+    seen.append(skill_name)
+    
+    # Process dependencies first
+    dependencies = skill.get("depends_on", [])
+    result = []
+    
+    for dep_name in dependencies:
+        deps = resolve_dependencies(dep_name, resolved, seen.copy(), skill_map)
+        result.extend(deps)
+        
+    # Add current skill
+    if skill_name not in resolved:
+        resolved.append(skill_name)
+        result.append(skill)
+        
+    return result

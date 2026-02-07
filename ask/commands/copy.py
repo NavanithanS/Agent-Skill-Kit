@@ -5,7 +5,7 @@ from rich.console import Console
 from rich.prompt import Prompt
 from rich.table import Table
 
-from ask.utils.skill_registry import get_skill, get_all_skills
+from ask.utils.skill_registry import get_skill, get_all_skills, resolve_dependencies
 from ask.utils.filesystem import get_adapter
 from ask.utils.agent_registry import get_available_agents, get_agent_scopes
 
@@ -159,7 +159,8 @@ def prompt_agent_selection(skills):
 @click.argument("agent", required=False, type=click.Choice(get_available_agents(), case_sensitive=False))
 @click.option("--skill", "-s", "skill_name", help="Specific skill to copy")
 @click.option("--all", "-a", "copy_all", is_flag=True, help="Copy all compatible skills")
-def copy(agent: str, skill_name: str, copy_all: bool):
+@click.pass_context
+def copy(ctx, agent: str, skill_name: str, copy_all: bool):
     """Copy skills to an agent's directory.
     
     Run without arguments for interactive mode, or specify agent + skill/--all.
@@ -191,6 +192,11 @@ def copy(agent: str, skill_name: str, copy_all: bool):
     
     # Non-interactive mode: validate arguments
     else:
+        # Try to get default agent from config
+        if not agent:
+            config = ctx.obj.get('config', {})
+            agent = config.get('defaults', {}).get('agent')
+            
         if not agent:
             console.print("[red]❌ AGENT argument required when using --skill or --all flags[/red]")
             console.print("[dim]Tip: Run 'ask copy' with no arguments for interactive mode[/dim]")
@@ -217,7 +223,20 @@ def copy(agent: str, skill_name: str, copy_all: bool):
                 if not click.confirm("Copy anyway?"):
                     raise click.Abort()
             
-            skills = [skill]
+            # Resolve dependencies
+            try:
+                # Pre-load skills map for O(1) lookup
+                all_skills_list = get_all_skills()
+                skill_map = {s["name"]: s for s in all_skills_list}
+                
+                skills = resolve_dependencies(skill_name, skill_map=skill_map)
+                
+                if len(skills) > 1:
+                    deps = [s["name"] for s in skills if s["name"] != skill_name]
+                    console.print(f"[cyan]📦 Detailed dependencies: {', '.join(deps)}[/cyan]")
+            except ValueError as e:
+                console.print(f"[red]❌ {e}[/red]")
+                raise click.Abort()
     
     # Get supported scopes for this agent
     scopes = get_agent_scopes().get(agent, {"local": True, "global": True})
@@ -229,6 +248,8 @@ def copy(agent: str, skill_name: str, copy_all: bool):
     table = Table(show_header=True, header_style="bold", show_lines=True)
     table.add_column("Skill")
     
+    table.add_column("Type", style="dim")
+    
     if scopes["local"]:
         table.add_column("Local (project)", style="cyan")
     if scopes["global"]:
@@ -236,6 +257,16 @@ def copy(agent: str, skill_name: str, copy_all: bool):
     
     for skill in skills:
         row = [skill["name"]]
+        
+        # Determine type
+        if copy_all:
+             type_str = "Direct"
+        elif skill_name and skill["name"] == skill_name:
+             type_str = "Direct"
+        else:
+             type_str = "Dependency"
+             
+        row.append(type_str)
         
         if scopes["local"]:
             adapter = get_adapter(agent, use_global=False)

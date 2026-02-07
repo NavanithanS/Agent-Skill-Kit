@@ -11,18 +11,33 @@ console = Console()
 
 @click.command(name="list")
 @click.option("--category", "-c", help="Filter by category")
+@click.option("--agent", "-a", help="Filter by compatible agent")
+@click.option("--search", "-s", help="Search by name or description")
 @click.option("--verbose", "-v", is_flag=True, help="Show detailed info")
-def list_cmd(category: str, verbose: bool):
+@click.pass_context
+def list_cmd(ctx, category: str, agent: str, search: str, verbose: bool):
     """List all available skills."""
+    is_verbose = verbose or ctx.obj.get('verbose', False)
     skills = get_all_skills()
     
     if category:
         skills = [s for s in skills if s.get("category") == category]
+        
+    if agent:
+        skills = [s for s in skills if agent.lower() in [a.lower() for a in s.get("agents", [])]]
+        
+    if search:
+        query = search.lower()
+        skills = [
+            s for s in skills 
+            if query in s.get("name", "").lower() 
+            or query in s.get("description", "").lower()
+        ]
     
     if not skills:
-        console.print("[yellow]No skills found.[/yellow]")
-        if category:
-            console.print(f"[dim]Try removing the --category filter.[/dim]")
+        console.print("[yellow]No skills found matching your criteria.[/yellow]")
+        if category or agent or search:
+            console.print(f"[dim]Try adjusting your filters.[/dim]")
         return
     
     table = Table(title="📦 Available Skills", show_header=True, header_style="bold cyan")
@@ -31,7 +46,7 @@ def list_cmd(category: str, verbose: bool):
     table.add_column("Version", style="green")
     table.add_column("Description", style="dim", max_width=50)
     
-    if verbose:
+    if is_verbose:
         table.add_column("Tags", style="magenta")
         table.add_column("Agents", style="blue")
     
@@ -43,7 +58,7 @@ def list_cmd(category: str, verbose: bool):
             skill.get("description", "—")[:50],
         ]
         
-        if verbose:
+        if is_verbose:
             row.append(", ".join(skill.get("tags", [])) or "—")
             row.append(", ".join(skill.get("agents", [])) or "—")
         

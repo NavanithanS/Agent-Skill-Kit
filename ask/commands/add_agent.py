@@ -86,8 +86,14 @@ def add_agent(agent_name: str, local_path: str, global_path: str):
         raise click.Abort()
 
     agent_name = agent_name.lower()
-    agent_title = agent_name.title()
-    class_name = agent_title.replace("-", "").replace("_", "")
+    
+    # Security: Validate agent name to prevent path traversal
+    if not agent_name.replace("-", "").replace("_", "").isalnum():
+        console.print("[red]❌ Invalid agent name. Use only letters, numbers, hyphens, and underscores.[/red]")
+        raise click.Abort()
+
+    agent_title = agent_name.replace("-", " ").replace("_", " ").title()
+    class_name = agent_title.replace(" ", "")
     
     console.print(f"\n[bold]🔌 Adding new agent: {agent_title}[/bold]\n")
     
