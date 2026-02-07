@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agent-skill-kit"
-version = "0.1.3"
+version = "0.1.5"
 description = "Centralized skills repository and CLI toolkit for AI agents"
 readme = "README.md"
 license = "MIT"
