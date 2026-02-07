@@ -1,83 +1,60 @@
 ---
 name: ask-nextjs-architect
-description: Expert scaffolding for Next.js 14+ (App Router). Enforces Server Components, Server Actions, and SEO best practices.
+description: Next.js 14+ scaffolding. App Router, Server Components, Server Actions, SEO.
+triggers: ["nextjs page", "server action", "app router", "nextjs component"]
 ---
 
-## 1. Environment & Stack Detection
-**CRITICAL:** Before writing code, identify the project structure.
+<critical_constraints>
+❌ NO `useEffect` for initial data fetch → use async Server Components
+❌ NO API routes for simple forms → use Server Actions
+❌ NO manual `<title>` tags → use Metadata API
+❌ NO `next/router` → use `next/navigation`
+✅ MUST detect App vs Pages Router first
+✅ MUST default to Server Components
+</critical_constraints>
 
-*   **Flavor A: App Router (Standard)**
-    *   **Check:** `app/` directory exists.
-    *   **Rule:** Default to **Server Components**. Use "use client" only when interactivity is required.
-*   **Flavor B: Pages Router (Legacy)**
-    *   **Check:** `pages/` directory exists AND NO `app/` directory.
-    *   **Rule:** Use `getServerSideProps` / `getStaticProps`. **Warn the user** that this is legacy and suggest App Router if appropriate.
+<detection>
+- `app/` directory → App Router (default Server Components)
+- `pages/` only → Pages Router (legacy, suggest migration)
+</detection>
 
-## 2. "The Golden Standard" Component Blueprint
-When asked to create a page or component:
+<component_rules>
+Default: Server Component (no directive)
+Add `"use client"` ONLY for: useState, useEffect, onClick, browser APIs
+</component_rules>
 
-### Step A: The Component Type
-*   **Default:** All components are **Server Components** by default.
-*   **Interactive:** Add `"use client"` at the very top if and ONLY if you use:
-    *   `useState`, `useEffect`
-    *   Event events (`onClick`)
-    *   Browser APIs (`window`, `localStorage`)
+<data_fetching>
+```tsx
+// app/dashboard/page.tsx (Server Component)
+export default async function DashboardPage() {
+  const data = await db.query('...');  // Direct DB access OK
+  return <ClientComponent data={data} />;
+}
+```
+</data_fetching>
 
-### Step B: Data Fetching (App Router)
-*   ❌ **FORBIDDEN:** `useEffect` for initial data fetching.
-*   ✅ **REQUIRED:** Async Server Components.
-    ```tsx
-    // app/dashboard/page.tsx
-    export default async function DashboardPage() {
-      const data = await db.query('...'); // Direct DB access is allowed in Server Components!
-      
-      return <ClientComponent data={data} />;
-    }
-    ```
+<server_actions>
+```tsx
+// actions.ts
+'use server'
+export async function updateUser(formData: FormData) {
+  await db.user.update({ where: { name: formData.get('name') } });
+  revalidatePath('/profile');
+}
+```
+</server_actions>
 
-### Step C: Server Actions (Mutations)
-*   ❌ **Avoid:** API Routes (`app/api/...`) for simple form submissions.
-*   ✅ **REQUIRED:** Use Server Actions for mutations.
-    ```tsx
-    // actions.ts
-    'use server'
-    
-    export async function updateUser(formData: FormData) {
-      const name = formData.get('name');
-      await db.user.update({ where: { name } });
-      revalidatePath('/profile');
-    }
-    ```
+<navigation>
+- Links: `import Link from 'next/link'`
+- Server redirect: `import { redirect } from 'next/navigation'`
+- Client navigation: `import { useRouter } from 'next/navigation'`
+</navigation>
 
-## 3. Routing & Navigation
-*   **Links:**
-    *   ALWAYS use `import Link from 'next/link'`.
-    *   Usage: `<Link href="/about">About</Link>`
-*   **Navigation:**
-    *   **Server Component:** `import { redirect } from 'next/navigation'`
-    *   **Client Component:** `import { useRouter } from 'next/navigation'` (NOT `next/router`)
-
-## 4. Metadata & SEO
-*   Never manually add `<title>` tags to the `head`.
-*   Use the Metadata API in `page.tsx` or `layout.tsx`.
-    ```tsx
-    import { Metadata } from 'next';
-    
-    export const metadata: Metadata = {
-      title: 'Dashboard',
-      description: 'User statistics',
-    };
-    ```
-
-## 5. UI & Styling
-*   If `tailwind.config.ts` is present, use utility classes. 
-*   Ideally, suggest **clsx** or **tailwind-merge** for conditional classes.
-
-## Trigger Phrases
-
-Activate this skill when the user says things like:
-- "Create a Next.js page"
-- "Set up a server action"
-- "Structure my App Router project"
-- "Optimize this Next.js component"
-
+<seo>
+```tsx
+export const metadata: Metadata = {
+  title: 'Dashboard',
+  description: 'User statistics',
+};
+```
+</seo>

@@ -1,75 +1,50 @@
 ---
 name: ask-shadcn-architect
-description: Strictly enforces shadcn/ui patterns, imports, and CLI usage when creating or modifying React UI components.
-globs: 
-  - "components/ui/**/*.tsx"
-  - "components/ui/**/*.ts"
-  - "tailwind.config.js"
-  - "lib/utils.ts"
+description: Enforce shadcn/ui patterns, imports, and CLI-first component usage.
+triggers: ["shadcn button", "style component", "new ui element", "shadcn component"]
 ---
 
-# Shadcn/UI Architect
+<critical_constraints>
+❌ NO custom `<button>` if shadcn Button exists → import from @/components/ui
+❌ NO manual implementation of standard components → use CLI
+❌ NO hardcoded colors → use semantic (bg-primary, text-muted-foreground)
+✅ MUST check @/components/ui first before creating
+✅ MUST use cn() utility for className merging
+✅ MUST use lucide-react for icons
+</critical_constraints>
 
-## Goal
-Ensure all UI components strictly adhere to the project's shadcn/ui configuration, preventing custom style bloat and ensuring consistency.
+<detection>
+Active when: `components/ui/` exists OR `components.json` exists
+</detection>
 
-## Detection
-Active when:
-1. The user asks to create a new UI component.
-2. The user asks to style a button, card, dialog, or input.
-3. The project contains a `components/ui` directory or a `components.json` file.
+<cli_first>
+Missing component? Don't write from scratch:
+`npx shadcn@latest add [component-name]`
+</cli_first>
 
-## Critical Rules (Must Follow)
+<style_merging>
+❌ Bad: `className={\`bg-red-500 ${className}\`}`
+✅ Good: `className={cn("bg-red-500", className)}`
+</style_merging>
 
-1.  **Reuse Before creating**
-    * ALWAYS check `@/components/ui` (or the configured alias) first.
-    * If a component (e.g., `Button`, `Card`) already exists, import it: `import { Button } from "@/components/ui/button"`.
-    * **Do not** create a generic HTML `<button className="...">` if the shadcn `Button` component exists.
+<example>
+User: "Make a red delete button"
 
-2.  **The "CLI-First" Mental Model**
-    * If a standard component (like `Accordion`, `Dialog`, `Sheet`) is missing, DO NOT write it from scratch.
-    * **Action:** Instruct the user to run: `npx shadcn@latest add [component-name]` OR run it yourself if you have shell access.
-    * *Reasoning:* Manual implementation often misses accessibility primitives (Radix UI) and animation constants.
-
-3.  **Style Merging**
-    * ALWAYS use the `cn()` utility (usually in `@/lib/utils`) when accepting a `className` prop.
-    * ❌ Bad: `className={`bg-red-500 ${className}`}`
-    * ✅ Good: `className={cn("bg-red-500", className)}`
-
-4.  **Iconography**
-    * Unless specified otherwise, use `lucide-react` for icons, as it is the default standard for shadcn/ui.
-
-5.  **Theming & Variables**
-    * Use semantic colors defined in `tailwind.config.js` (e.g., `bg-primary`, `text-muted-foreground`) rather than hardcoded hex or arbitrary Tailwind colors (e.g., `bg-blue-600`).
-    * This ensures the component works automatically in Dark Mode.
-
-## Example Interaction
-
-**User:** "Make me a red delete button."
-
-**❌ Weak Response:**
-Creates a `<button className="bg-red-500 text-white p-2 rounded">Delete</button>`
-
-**✅ Shadcn Architect Response:**
+❌ Weak:
 ```tsx
-import { Button } from "@/components/ui/button"
-
-export function DeleteButton() {
-  return (
-    <Button variant="destructive">
-      Delete
-    </Button>
-  )
-}
+<button className="bg-red-500 text-white p-2 rounded">Delete</button>
 ```
 
-*(Note: Uses the existing 'destructive' variant instead of hardcoded red classes)*
+✅ Correct:
+```tsx
+import { Button } from "@/components/ui/button"
+<Button variant="destructive">Delete</Button>
+```
+</example>
 
-## Trigger Phrases
-
-Activate this skill when the user says things like:
-- "Add a button using shadcn"
-- "Style this component"
-- "Create a new UI element"
-- "How do I use this shadcn component?"
-
+<theming>
+Use semantic colors from tailwind.config.js:
+- bg-primary, text-muted-foreground
+- NOT bg-blue-600, text-gray-500
+→ Ensures dark mode compatibility
+</theming>

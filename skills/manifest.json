@@ -1,0 +1,401 @@
+{
+  "version": "2.0.0",
+  "generated": "2026-02-07T18:11:16.273564",
+  "skills": [
+    {
+      "name": "ask-add-agent",
+      "description": "How to add support for new AI code editors to Agent Skill Kit",
+      "category": "tooling",
+      "triggers": [
+        "add agent support",
+        "create adapter",
+        "register new tool",
+        "extend skill kit"
+      ],
+      "path": "tooling/ask-add-agent"
+    },
+    {
+      "name": "ask-adr-logger",
+      "description": "Automatically records Architectural Decision Records (ADRs) when a significant technical decision is made.",
+      "category": "planning",
+      "triggers": [
+        "log adr",
+        "record decision",
+        "create decision record",
+        "choosing technology"
+      ],
+      "path": "planning/ask-adr-logger"
+    },
+    {
+      "name": "ask-brainstorm",
+      "description": "Explores user intent, requirements, and design before implementation. Required before any creative work.",
+      "category": "planning",
+      "triggers": [
+        "brainstorm this",
+        "have an idea",
+        "figure out requirements",
+        "explore options"
+      ],
+      "path": "planning/ask-brainstorm"
+    },
+    {
+      "name": "ask-bug-finder",
+      "description": "Best practices for systematic bug hunting and debugging",
+      "category": "coding",
+      "triggers": [
+        "help find this bug",
+        "debug this error",
+        "why is this failing",
+        "systematic debugging"
+      ],
+      "path": "coding/ask-bug-finder"
+    },
+    {
+      "name": "ask-buildmaster",
+      "description": "Smart Epic Orchestration Agent - Acts as PM + Tech Lead + Delivery Manager for epic planning, execution, and delivery.",
+      "category": "planning",
+      "triggers": [
+        "plan this epic",
+        "break into tickets",
+        "project management",
+        "delivery manager"
+      ],
+      "path": "planning/ask-buildmaster"
+    },
+    {
+      "name": "ask-code-reviewer",
+      "description": "An AI code reviewer that provides constructive feedback on code changes.",
+      "category": "coding",
+      "triggers": [
+        "review my code",
+        "check this PR",
+        "analyze for bugs",
+        "feedback on implementation"
+      ],
+      "path": "coding/ask-code-reviewer"
+    },
+    {
+      "name": "ask-commit-assistance",
+      "description": "Assist with code review, staging, and committing changes.",
+      "category": "coding",
+      "triggers": [
+        "review my changes",
+        "help commit",
+        "draft commit message",
+        "check for secrets"
+      ],
+      "path": "coding/ask-commit-assistance"
+    },
+    {
+      "name": "ask-component-scaffolder",
+      "description": "Standardizes UI component creation by generating a consistent folder structure and files.",
+      "category": "coding",
+      "triggers": [
+        "create component",
+        "scaffold ui",
+        "generate component",
+        "add react component"
+      ],
+      "path": "coding/ask-component-scaffolder"
+    },
+    {
+      "name": "ask-conceptual-integrity-sentinel",
+      "description": "Principal-level engineering agent that audits repositories for architectural drift, bloated abstractions, and \"dead code.\"",
+      "category": "coding",
+      "triggers": [
+        "study this repo",
+        "audit for complexity",
+        "why is codebase fragile",
+        "find dead code"
+      ],
+      "path": "coding/ask-conceptual-integrity-sentinel"
+    },
+    {
+      "name": "ask-db-migration-assistant",
+      "description": "Ensures safe database schema updates by requiring migration and rollback scripts before execution.",
+      "category": "coding",
+      "triggers": [
+        "add column",
+        "database migration",
+        "create table",
+        "safe rollback"
+      ],
+      "path": "coding/ask-db-migration-assistant"
+    },
+    {
+      "name": "ask-docker-expert",
+      "description": "Expert guidance on Docker, Docker Compose, and container optimization. Focuses on multi-stage builds and security.",
+      "category": "coding",
+      "triggers": [
+        "optimize dockerfile",
+        "debug container",
+        "multi-stage build",
+        "secure docker"
+      ],
+      "path": "coding/ask-docker-expert"
+    },
+    {
+      "name": "ask-effective-llm-coder",
+      "description": "Guides the agent in effective LLM-assisted coding using best practices for declarative workflows, simplicity, tenacity, and iterative refinement.",
+      "category": "coding",
+      "triggers": [
+        "effective code",
+        "llm coding",
+        "implement cleanly",
+        "coder guidelines"
+      ],
+      "path": "coding/ask-effective-llm-coder"
+    },
+    {
+      "name": "ask-explaining-code",
+      "description": "Explains code using analogies, ASCII diagrams, and step-by-step walkthroughs",
+      "category": "coding",
+      "triggers": [
+        "explain this code",
+        "how does this work",
+        "walk me through",
+        "break down this logic"
+      ],
+      "path": "coding/ask-explaining-code"
+    },
+    {
+      "name": "ask-fastapi-architect",
+      "description": "Expert scaffolding for FastAPI projects. Enforces Pydantic V2, Async Database patterns, and Dependency Injection.",
+      "category": "coding",
+      "triggers": [
+        "scaffold fastapi",
+        "pydantic model",
+        "structure python api",
+        "dependency injection"
+      ],
+      "path": "coding/ask-fastapi-architect"
+    },
+    {
+      "name": "ask-flutter-architect",
+      "description": "Senior Flutter skill using FVM. Enforces project-specific standards: Provider, Layer-First Architecture, Stream-based Services, and strict coding conventions.",
+      "category": "coding",
+      "triggers": [
+        "flutter screen",
+        "create flutter service",
+        "architect flutter app",
+        "manage state flutter"
+      ],
+      "path": "coding/ask-flutter-architect"
+    },
+    {
+      "name": "ask-flutter-mechanic",
+      "description": "Maintenance skill for Flutter projects using FVM. Handles clean builds, iOS/Android specific fixes, asset generation, and release protocols.",
+      "category": "coding",
+      "triggers": [
+        "clean flutter build",
+        "fix ios build",
+        "resolve dependencies",
+        "prepare flutter release"
+      ],
+      "path": "coding/ask-flutter-mechanic"
+    },
+    {
+      "name": "ask-laravel-architect",
+      "description": "Senior scaffolding skill. Handles SQL vs Mongo (Jenssegers/Official), SoftDeletes, and strict API standards.",
+      "category": "coding",
+      "triggers": [
+        "scaffold laravel controller",
+        "create model migration",
+        "structure laravel",
+        "eloquent practices"
+      ],
+      "path": "coding/ask-laravel-architect"
+    },
+    {
+      "name": "ask-laravel-mechanic",
+      "description": "Senior maintenance skill. Enforces \"Zero Data Loss\" policies and handles Mongo/SQL debugging.",
+      "category": "coding",
+      "triggers": [
+        "fix n+1 query",
+        "debug laravel queue",
+        "check log files",
+        "restore soft deleted"
+      ],
+      "path": "coding/ask-laravel-mechanic"
+    },
+    {
+      "name": "ask-nextjs-architect",
+      "description": "Expert scaffolding for Next.js 14+ (App Router). Enforces Server Components, Server Actions, and SEO best practices.",
+      "category": "coding",
+      "triggers": [
+        "nextjs page",
+        "server action",
+        "app router",
+        "nextjs component"
+      ],
+      "path": "coding/ask-nextjs-architect"
+    },
+    {
+      "name": "ask-owasp-security-review",
+      "description": "Conduct a thorough static security review of code, identifying vulnerabilities aligned with OWASP Top 10 risks, with severity ratings and remediation suggestions.",
+      "category": "coding",
+      "triggers": [
+        "security audit",
+        "owasp vulnerabilities",
+        "security review",
+        "is this secure"
+      ],
+      "path": "coding/ask-owasp-security-review"
+    },
+    {
+      "name": "ask-pdf-processing",
+      "description": "PDF text extraction, form filling, and merging using pypdf and pdfplumber",
+      "category": "tooling",
+      "triggers": [
+        "extract text from pdf",
+        "fill pdf form",
+        "merge pdfs",
+        "read pdf"
+      ],
+      "path": "tooling/ask-pdf-processing"
+    },
+    {
+      "name": "ask-project-memory",
+      "description": "Maintains a 'Project Brain' by recording architectural decisions and tech stack choices in a memory file.",
+      "category": "planning",
+      "triggers": [
+        "record decision",
+        "we decided to",
+        "update project memory",
+        "check past decisions"
+      ],
+      "path": "planning/ask-project-memory"
+    },
+    {
+      "name": "ask-python-refactor",
+      "description": "Best practices and guidelines for Python code refactoring",
+      "category": "coding",
+      "triggers": [
+        "refactor python",
+        "improve python code",
+        "make pythonic",
+        "remove code smells"
+      ],
+      "path": "coding/ask-python-refactor"
+    },
+    {
+      "name": "ask-readme-gardener",
+      "description": "Keeps documentation in sync with code by updating the README.md when features or APIs are added.",
+      "category": "coding",
+      "triggers": [
+        "update readme",
+        "document api",
+        "sync docs",
+        "add to docs"
+      ],
+      "path": "coding/ask-readme-gardener"
+    },
+    {
+      "name": "ask-refactoring-readability",
+      "description": "Refactor code to enhance readability, following principles like DRY, meaningful names, and modularization.",
+      "category": "coding",
+      "triggers": [
+        "make this readable",
+        "simplify this logic",
+        "refactor for clarity",
+        "clean up this code"
+      ],
+      "path": "coding/ask-refactoring-readability"
+    },
+    {
+      "name": "ask-security-sentinel",
+      "description": "Pre-flight security checker. Scans for exposed secrets and vulnerable patterns properly.",
+      "category": "coding",
+      "triggers": [
+        "scan for secrets",
+        "sql injection check",
+        "security check",
+        "verify code safety"
+      ],
+      "path": "coding/ask-security-sentinel"
+    },
+    {
+      "name": "ask-shadcn-architect",
+      "description": "Strictly enforces shadcn/ui patterns, imports, and CLI usage when creating or modifying React UI components.",
+      "category": "coding",
+      "triggers": [
+        "shadcn button",
+        "style component",
+        "new ui element",
+        "shadcn component"
+      ],
+      "path": "coding/ask-shadcn-architect"
+    },
+    {
+      "name": "ask-skill-capture",
+      "description": "Meta-skill. Analyzes the current session's lessons and saves them as a permanent reusable skill.",
+      "category": "tooling",
+      "triggers": [
+        "capture as skill",
+        "save this workflow",
+        "create skill from this",
+        "remember how we did this"
+      ],
+      "path": "tooling/ask-skill-capture"
+    },
+    {
+      "name": "ask-skill-creator",
+      "description": "Teaches AI agents how to create skills for Agent Skill Kit",
+      "category": "tooling",
+      "triggers": [
+        "create a skill",
+        "new skill",
+        "add skill for"
+      ],
+      "path": "tooling/ask-skill-creator"
+    },
+    {
+      "name": "ask-system-architect-prime",
+      "description": "Principal Software Architect for repository audits, complexity analysis, and actionable refactoring recommendations",
+      "category": "tooling",
+      "triggers": [
+        "audit this repo",
+        "analyze code quality",
+        "architectural review",
+        "what should we refactor"
+      ],
+      "path": "tooling/ask-system-architect-prime"
+    },
+    {
+      "name": "ask-unit-test-generation",
+      "description": "Automates creation of comprehensive unit tests for functions or classes, emphasizing coverage of edge cases and assertions.",
+      "category": "coding",
+      "triggers": [
+        "generate unit tests",
+        "write tests for",
+        "create test suite",
+        "improve coverage"
+      ],
+      "path": "coding/ask-unit-test-generation"
+    },
+    {
+      "name": "ask-vue-architect",
+      "description": "Expert scaffolding for Vue 3. Specialized for Laravel Inertia stacks, but supports Nuxt/Vite. Enforces Composition API & TypeScript.",
+      "category": "coding",
+      "triggers": [
+        "create vue component",
+        "scaffold vue page",
+        "vue best practices",
+        "composition api"
+      ],
+      "path": "coding/ask-vue-architect"
+    },
+    {
+      "name": "ask-vue-mechanic",
+      "description": "Expert maintenance skill for Vue 3 within Laravel Inertia. Fixes navigation reloads, prop mismatches, and reactivity issues.",
+      "category": "coding",
+      "triggers": [
+        "fix vue reactivity",
+        "debug inertia reload",
+        "form not submitting",
+        "trace vue data flow"
+      ],
+      "path": "coding/ask-vue-mechanic"
+    }
+  ]
+}

@@ -1,52 +1,30 @@
 ---
 name: ask-component-scaffolder
-description: Standardizes UI component creation by generating a consistent folder structure and files.
+description: Generate consistent UI component folder structure and files.
+triggers: ["create component", "scaffold ui", "generate component", "add react component"]
 ---
 
-# Component Scaffolder
+<critical_constraints>
+✅ MUST define Props interface
+✅ MUST use CSS Modules (prevent global pollution)
+✅ MUST include at least one test (renders correctly)
+</critical_constraints>
 
-Standardizes UI component creation.
-
-## Purpose
-
-To maintain consistency in the frontend codebase by ensuring all new components follow the same structure and typing patterns.
-
-## When to Use
-
-- **Trigger**: "Create a new `Button` component."
-- **Trigger**: "Scaffold a `Header`."
-- **Trigger**: Any request to create a new UI component (React/Vue/Angular).
-
-## Usage
-
-Use the provided script to generate the component structure.
-
+<usage>
 ```bash
 python skills/coding/ask-component-scaffolder/scripts/scaffold_component.py --name "ComponentName"
 ```
+</usage>
 
-## Generated Structure
+<structure>
+ComponentName/
+├── index.tsx          # Component + Props interface
+├── styles.module.css  # CSS Modules
+└── Component.test.tsx # Basic render test
+</structure>
 
-For a component named `MyComponent`, the following will be created:
-
-```
-MyComponent/
-├── index.tsx          # Component logic + Prop types
-├── styles.module.css  # CSS Modules styles
-└── Component.test.tsx # Basic unit test
-```
-
-## Guidelines
-
--   **Props**: Always define a `Props` interface.
--   **Styles**: Use CSS Modules to prevent global namespace pollution.
--   **Tests**: Every component must have at least one test ensuring it renders.
-
-## Trigger Phrases
-
-Activate this skill when the user says things like:
-- "Create a new component"
-- "Scaffold a UI element"
-- "Generate component structure"
-- "Add a React/Vue/Angular component"
-
+<guidelines>
+- Props: Always define interface
+- Styles: CSS Modules only
+- Tests: Every component must have ≥1 render test
+</guidelines>

@@ -1,90 +1,52 @@
 ---
-name: vue-architect
-description: Expert scaffolding for Vue 3. Specialized for Laravel Inertia stacks, but supports Nuxt/Vite. Enforces Composition API & TypeScript.
+name: ask-vue-architect
+description: Vue 3 scaffolding for Laravel Inertia, Nuxt, or Vite. Composition API + TypeScript.
+triggers: ["create vue component", "scaffold vue page", "vue best practices", "composition api"]
 ---
 
-## 1. Environment & Stack Detection
-**CRITICAL:** Before creating files, identify the "Flavor" of Vue being used.
+<critical_constraints>
+❌ NO `<a href="">` → causes full reload, use `<Link>`
+❌ NO axios.post for forms → use `useForm` from Inertia
+❌ NO hardcoded URLs → use `route()` helper (Ziggy)
+✅ MUST use `<script setup lang="ts">`
+✅ MUST detect stack flavor before scaffolding
+</critical_constraints>
 
-* **Flavor A: Laravel Inertia (Priority)**
-    * **Check:** `composer.json` has `inertiajs/inertia-laravel` OR `resources/js/Pages` directory exists.
-    * **Rule:** You are in a Monolith. Routing is handled by Laravel, but navigation is handled by Inertia.
-* **Flavor B: Nuxt**
-    * **Check:** `nuxt.config.ts` exists.
-    * **Rule:** Use Auto-imports and `pages/` directory.
-* **Flavor C: Vite SPA**
-    * **Check:** `vite.config.ts` exists but no Inertia/Nuxt.
-    * **Rule:** Manual imports required. Use `vue-router`.
+<detection>
+Check project for:
+- `inertiajs/inertia-laravel` or `resources/js/Pages` → Inertia (priority)
+- `nuxt.config.ts` → Nuxt (auto-imports)
+- `vite.config.ts` only → Vite SPA (manual imports, vue-router)
+</detection>
 
-## 2. "The Golden Standard" Component Blueprint
-When asked to create a component or page:
+<inertia_rules>
+Props: from Laravel Controller, not fetched in onMounted
+```ts
+defineProps<{ user: App.Models.User; errors: Record<string, string> }>();
+```
 
-### Step A: The Script (Logic & Props)
-* **Syntax:** ALWAYS use `<script setup lang="ts">`.
-* **Props (Inertia Mode):**
-    * Do not fetch data in `onMounted`. Expect data to be passed as props from the Laravel Controller.
-    * Define props using strict types:
-      ```ts
-      defineProps<{
-          user: App.Models.User; // Use namespace if types are generated
-          errors: Record<string, string>;
-      }>();
-      ```
+Links: `<Link href="/dashboard">` (not `<a>`)
 
-### Step B: The Template (View & View Navigation)
-* **Links:**
-    * ❌ **FORBIDDEN:** `<a href="/dashboard">` (Causes full page reload).
-    * ✅ **REQUIRED:** `import { Link } from '@inertiajs/vue3';` -> `<Link href="/dashboard">`.
-* **Forms (Inertia Mode):**
-    * ❌ **Avoid:** Manually creating `ref` for each field and calling `axios.post`.
-    * ✅ **REQUIRED:** Use the Inertia form helper:
-      ```ts
-      import { useForm } from '@inertiajs/vue3';
+Forms:
+```ts
+const form = useForm({ email: '', password: '' });
+form.post(route('login'), { onFinish: () => form.reset('password') });
+```
 
-      const form = useForm({
-          email: '',
-          password: '',
-          remember: false,
-      });
+Errors: `:error="form.errors.email"`
 
-      const submit = () => {
-          form.post(route('login'), {
-              onFinish: () => form.reset('password'),
-          });
-      };
-      ```
-    * **Validation:** Bind errors directly: `:error="form.errors.email"`.
+Global state: `usePage().props.auth.user`
+</inertia_rules>
 
-### Step C: State Management & Composables
-* **Shared State:** Use `usePage()` to access global data (User, Flash Messages, CSRF).
-    ```ts
-    import { usePage } from '@inertiajs/vue3';
-    const user = computed(() => usePage().props.auth.user);
-    ```
-* **Local State:** Use `ref()` for UI state (modals, dropdowns).
-* **Global Store:** Use **Pinia** (Setup Store syntax) only for complex client-side interactions (e.g., shopping cart, media player) that persist across navigation.
+<persistent_layouts>
+```ts
+import AppLayout from '@/Layouts/AppLayout.vue';
+defineOptions({ layout: AppLayout });
+```
+</persistent_layouts>
 
-## 3. Layouts & Persistence (Inertia Special)
-* **Trigger:** User asks for a "Sidebar" or "Audio Player" that doesn't reload.
-* **Action:** Use Persistent Layouts.
-    ```ts
-    // In your Page component
-    import AppLayout from '@/Layouts/AppLayout.vue';
-    
-    defineOptions({
-        layout: AppLayout,
-    });
-    ```
-
-## 4. Ziggy Routing
-* **Rule:** If the `ziggy-js` library is detected (standard in Laravel), NEVER hardcode URLs like `axios.post('/api/user')`.
-* **Correct:** Use the `route()` helper: `form.post(route('users.store'))`.
-
-## Trigger Phrases
-
-Activate this skill when the user says things like:
-- "Create a Vue component"
-- "Scaffold a new page in Vue"
-- "Structure this Vue application"
-- "Best practices for Composition API"
-
+<state_management>
+- Local: `ref()` for UI state
+- Global (Inertia): `usePage()` for auth, flash messages
+- Complex client-side: Pinia (Setup Store syntax)
+</state_management>

@@ -1,54 +1,30 @@
 ---
 name: ask-brainstorm
-description: Required before any creative work—including creating features, building components, adding functionality, or modifying behavior. This step explores user intent, requirements, and design before implementation.
+description: Required before creative work. Explores intent, requirements, design before implementation.
+triggers: ["brainstorm this", "have an idea", "figure out requirements", "explore options"]
 ---
 
-# Brainstorm
+<critical_constraints>
+❌ NO implementation before brainstorming
+✅ MUST clarify user intent and success criteria
+✅ MUST get explicit confirmation before proceeding
+✅ MUST explore multiple approaches with pros/cons
+</critical_constraints>
 
-Required before any creative work—including creating features, building components, adding functionality, or modifying behavior. This step explores user intent, requirements, and design before implementation.
+<process>
+1. **Understand Intent**: What are they trying to achieve? Why now? What's success?
+2. **Gather Requirements**: Functional (what it does) + Non-functional (performance, constraints)
+3. **Explore Options**: Multiple approaches, pros/cons, edge cases
+4. **Confirm Alignment**: Summarize direction, get explicit approval
+</process>
 
-## Purpose
+<output>
+Clear, agreed-upon plan or design decisions that guide implementation.
+</output>
 
-To ensure clarity, alignment, and a solid foundation before writing code. This skill prevents wasted effort by validating assumptions and designing a solution that truly meets the user's needs.
-
-## When to Use
-
-- **Before** starting a new feature or component.
-- **Before** modifying existing behavior in a significant way.
-- **When** requirements are vague or ambiguous.
-- **When** there are multiple possible valid approaches.
-
-## Process
-
-1.  **Understand User Intent**
-    *   What is the user trying to achieve?
-    *   Why is this important now?
-    *   What is the definition of success?
-
-2.  **Gather Requirements**
-    *   Identify functional requirements (what it does).
-    *   Identify non-functional requirements (performance, constraints, tech stack).
-    *   Ask clarifying questions to resolve ambiguities.
-
-3.  **Explore Design Options**
-    *   Propose high-level approaches.
-    *   Discuss pros and cons of different strategies.
-    *   Consider edge cases and potential pitfalls.
-    *   Visualise complex flows or structures (if helpful).
-
-4.  **Confirm Alignment**
-    *   Summarize the agreed-upon direction.
-    *   Get explicit confirmation from the user to proceed.
-
-## Output
-
-A clear, mutually agreed-upon plan or a set of design decisions that guide the next steps (e.g., creating an implementation plan).
-
-## Trigger Phrases
-
-Activate this skill when the user says things like:
-- "Let's brainstorm this feature"
-- "I have an idea for..."
-- "Help me figure out requirements"
-- "Explore options for implementation"
-
+<when_to_use>
+- Before new feature or component
+- Before significant behavior modification
+- When requirements are vague
+- When multiple valid approaches exist
+</when_to_use>

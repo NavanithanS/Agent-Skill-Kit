@@ -1,70 +1,55 @@
 ---
 name: ask-fastapi-architect
-description: Expert scaffolding for FastAPI projects. Enforces Pydantic V2, Async Database patterns, and Dependency Injection.
+description: FastAPI scaffolding. Pydantic V2, async database, dependency injection.
+triggers: ["scaffold fastapi", "pydantic model", "structure python api", "dependency injection"]
 ---
 
-## 1. Project Structure
-When scaffolding a new API:
+<critical_constraints>
+❌ NO global DB sessions → use Depends(get_db)
+❌ NO manually instantiating services in routes → use Depends
+❌ NO routes without response_model → prevents data leaks
+✅ MUST use Pydantic V2 (model_config, ConfigDict)
+✅ MUST use AsyncSession with select()
+✅ MUST use alembic for migrations
+</critical_constraints>
 
-*   **Modular Layout:**
-    ```
-    app/
-      ├── api/
-      │   ├── v1/
-      │   │   ├── endpoints/
-      │   │   └── api.py
-      │   └── deps.py
-      ├── core/ (config, security)
-      ├── db/ (session, base_class)
-      ├── models/ (SQLAlchemy models)
-      ├── schemas/ (Pydantic models)
-      ├── services/ (Business logic)
-      └── main.py
-    ```
+<structure>
+app/
+├── api/v1/endpoints/, api.py, deps.py
+├── core/ (config, security)
+├── db/ (session, base_class)
+├── models/ (SQLAlchemy)
+├── schemas/ (Pydantic)
+├── services/ (business logic)
+└── main.py
+</structure>
 
-## 2. API Design & Pydantic
-*   **Pydantic V2:** Use `model_config` and `Field`.
-    ```python
-    from pydantic import BaseModel, ConfigDict, Field
+<pydantic_v2>
+```python
+from pydantic import BaseModel, ConfigDict, Field
 
-    class UserCreate(BaseModel):
-        model_config = ConfigDict(from_attributes=True)
-        
-        username: str = Field(..., min_length=3)
-        email: str
-    ```
-*   **Response Model:** ALWAYS define `response_model` in route decorators to prevent data leaks.
+class UserCreate(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    username: str = Field(..., min_length=3)
+    email: str
+```
+</pydantic_v2>
 
-## 3. Dependency Injection
-*   ❌ **FORBIDDEN:** Creating global DB sessions or manually instantiating services in routes.
-*   ✅ **REQUIRED:** Use `Depends`.
-    ```python
-    @router.post("/", response_model=ShowUser)
-    async def create_user(
-        user_in: UserCreate,
-        db: AsyncSession = Depends(get_db),
-        current_user: User = Depends(get_current_active_user)
-    ):
-        return await UserService.create(db, user_in)
-    ```
+<dependency_injection>
+```python
+@router.post("/", response_model=ShowUser)
+async def create_user(
+    user_in: UserCreate,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_active_user)
+):
+    return await UserService.create(db, user_in)
+```
+</dependency_injection>
 
-## 4. Database (Async SQLAlchemy)
-*   ALWAYS use `AsyncSession` and `select`.
-    ```python
-    result = await db.execute(select(User).where(User.id == user_id))
-    user = result.scalars().first()
-    ```
-*   Use `alembic` for migrations.
-
-## 5. Error Handling
-*   Use `HTTPException` with clear detail messages.
-*   Create custom exception handlers in `main.py` for global errors.
-
-## Trigger Phrases
-
-Activate this skill when the user says things like:
-- "Scaffold a FastAPI endpoint"
-- "Create a unified Pydantic model"
-- "Structure this Python API"
-- "Implement dependency injection here"
-
+<async_db>
+```python
+result = await db.execute(select(User).where(User.id == user_id))
+user = result.scalars().first()
+```
+</async_db>

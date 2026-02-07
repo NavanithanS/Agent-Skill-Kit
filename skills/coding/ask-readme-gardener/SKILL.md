@@ -1,65 +1,36 @@
 ---
 name: ask-readme-gardener
-description: Keeps documentation in sync with code by updating the README.md when features or APIs are added.
+description: Keep README.md in sync with code changes (APIs, features).
+triggers: ["update readme", "document api", "sync docs", "add to docs"]
 ---
 
-# Readme Gardener
+<critical_constraints>
+✅ MUST maintain existing README style and headers
+✅ MUST identify correct section (API Reference, Usage, Features)
+✅ MUST document: method, URL, parameters, response for endpoints
+</critical_constraints>
 
-Keeps documentation in sync with code.
+<workflow>
+1. **Analyze**: Understand new feature, API, or change
+2. **Locate**: Find relevant section in README.md
+3. **Draft**: Write update matching existing style
+4. **Update**: Edit README.md directly
+</workflow>
 
-## Purpose
-
-To ensure the project documentation (specifically `README.md`) accurately reflects the current state of the codebase, preventing outdated or misleading information.
-
-## When to Use
-
-- **Trigger**: "I just added a new API endpoint."
-- **Trigger**: "I changed the behavior of the `xyz` function."
-- **When** the user explicitly asks to update the README.
-- **When** you notice a discrepancy between code and documentation during a task.
-
-## Instructions
-
-1.  **Analyze the Change**
-    *   Understand the new feature, API endpoint, or logic change.
-    *   Identify the exact parameters, return values, and side effects.
-    *   Look for a relevant "API Reference", "Usage", or "Features" section in `README.md`.
-
-2.  **Draft the Update**
-    *   **New Endpoint**: Add an entry with Method (GET/POST), URL, Parameters, and Example Response.
-    *   **Modified Feature**: Update existing descriptions to match the new behavior.
-    *   **New Feature**: Add a bullet point or section describing what it does and how to use it.
-
-3.  **Update README.md**
-    *   Edit the `README.md` file directly.
-    *   Maintain the existing style and headers (e.g., table formats, code block styles).
-
-## Example
-
-**Trigger**: "I added a `/status` endpoint."
-
-**Action**:
-find `## API Reference` in `README.md` and append:
-
+<api_template>
 ```markdown
 ### GET /status
-
 Returns the current system status.
 
 **Response**
 ```json
-{
-  "status": "ok",
-  "uptime": 1234
-}
+{ "status": "ok", "uptime": 1234 }
 ```
 ```
+</api_template>
 
-## Trigger Phrases
-
-Activate this skill when the user says things like:
-- "Update the README"
-- "Document this new API"
-- "Sync documentation with code"
-- "Add this feature to the docs"
-
+<patterns>
+- New endpoint → add to API Reference with method, URL, params, response
+- Modified feature → update existing description
+- New feature → add bullet or section describing usage
+</patterns>

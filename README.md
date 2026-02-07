@@ -25,7 +25,8 @@ Managing instructions for multiple AI agents is tedious. You often have to:
 - **Configuration**: Customizable defaults via `~/.askconfig.yaml` (e.g., set your default agent).
 - **Search & Validate**: Powerful search tools and integrity checks (`ask validate`) to keep your library healthy.
 - **Local & Global**: Choose between **Project-Local** (specific to one repo) or **Global** (user-wide) deployment.
-- **AI-Assisted Creation**: Includes meta-skills that teach your AI how to create new skills (`skill-creator`) or add new agents (`add-agent`).
+- **Skill Linting**: Token analysis and schema validation with `ask skill lint`.
+- **Manifest Generation**: Auto-generate `manifest.json` for skill routing.
 - **Extensible**: Add support for any new AI agent in seconds via the `ask add-agent` wizard.
 
 ## 📦 Installation
@@ -135,6 +136,19 @@ Want to use **Windsurf** or **Aider**? Use the scaffold wizard:
 ask add-agent
 ```
 This creates the necessary adapter code, making the new agent available instantly.
+
+### 7. Skill Development Tools (New in v0.2.0)
+
+```bash
+# Lint skills for token limits and schema compliance
+ask skill lint
+
+# View token usage report
+ask skill profile
+
+# Generate manifest.json for routing
+ask skill compile
+```
 
 ## 🎯 Supported Agents
 
@@ -343,6 +357,27 @@ agents:
   - cursor
 depends_on:
   - ask-code-reviewer  # Automatically installed when bug-finder is installed
+```
+
+### SKILL.md Format (v2.0)
+
+As of v0.2.0, SKILL.md files use a token-optimized format:
+
+```markdown
+---
+name: ask-example
+description: Brief description
+triggers: ["trigger phrase 1", "trigger phrase 2"]
+---
+
+<critical_constraints>
+❌ NO forbidden actions
+✅ MUST required actions
+</critical_constraints>
+
+<heuristics>
+- condition → action
+</heuristics>
 ```
 
 ## 🧩 Design Principles
