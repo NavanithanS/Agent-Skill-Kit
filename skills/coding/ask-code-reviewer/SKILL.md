@@ -70,3 +70,12 @@ def process_data(data):
 
 *   This skill complements linters and static analysis tools; it does not replace them.
 *   Focus on "human-level" insight—design patterns, intent, and edge cases that tools might miss.
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Review my code"
+- "Check this PR for issues"
+- "Analyze this file for bugs"
+- "Give me feedback on this implementation"
+

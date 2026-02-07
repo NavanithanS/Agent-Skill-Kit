@@ -15,3 +15,12 @@ description: Pre-flight security checker. Scans for exposed secrets and vulnerab
 * **SQL Injection:** Check for raw DB queries using variables directly (e.g., `DB::select("SELECT * FROM users WHERE id = $id")`).
     * *Correction:* Enforce bindings: `DB::select("...", [$id])`.
 * **XSS:** Check for `{!! $variable !!}` in Blade. Ensure the user *explicitly* confirmed it is safe HTML.
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Scan for secrets"
+- "Check for SQL injection risks"
+- "Pre-flight security check"
+- "Verify code safety before commit"
+

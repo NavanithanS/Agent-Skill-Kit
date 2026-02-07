@@ -93,3 +93,12 @@ When reading the output, focus on these keywords:
 If looking for a specific bug, use `grep` with context:
 * `grep -C 5 "User ID 505" storage/logs/laravel.log`
     * *(This shows 5 lines before and after the match)*
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Fix this N+1 query"
+- "Debug this Laravel queue"
+- "Check log files for errors"
+- "Safely restore soft deleted data"
+

@@ -72,3 +72,12 @@ When asked to create a page or component:
 ## 5. UI & Styling
 *   If `tailwind.config.ts` is present, use utility classes. 
 *   Ideally, suggest **clsx** or **tailwind-merge** for conditional classes.
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Create a Next.js page"
+- "Set up a server action"
+- "Structure my App Router project"
+- "Optimize this Next.js component"
+

@@ -64,3 +64,12 @@ export function DeleteButton() {
 ```
 
 *(Note: Uses the existing 'destructive' variant instead of hardcoded red classes)*
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Add a button using shadcn"
+- "Style this component"
+- "Create a new UI element"
+- "How do I use this shadcn component?"
+

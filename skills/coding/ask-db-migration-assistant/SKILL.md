@@ -46,3 +46,12 @@ To prevent data loss and ensure recoverability during database schema changes by
     ALTER TABLE users DROP COLUMN email;
     ```
 3.  Ask: "I've prepared the migration and rollback scripts. Ready to apply?"
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Add a column to this table"
+- "Draft a database migration"
+- "Create a new table schema"
+- "Prepare a safe rollback script"
+

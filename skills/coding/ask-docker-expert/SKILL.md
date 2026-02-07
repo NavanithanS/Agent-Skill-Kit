@@ -43,3 +43,12 @@ When writing a `Dockerfile`:
 ## 4. Optimization
 *   **This skill is aggressive about image size.**
 *   Suggest `.dockerignore` to exclude `node_modules`, `.git`, `Dockerfile`, etc.
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Optimize this Dockerfile"
+- "Debug container connectivity"
+- "Create a multi-stage build"
+- "Secure my Docker image"
+

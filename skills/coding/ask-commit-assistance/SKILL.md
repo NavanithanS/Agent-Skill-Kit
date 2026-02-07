@@ -63,3 +63,12 @@ This skill helps you review your code, stage changes, and prepare commit message
 3.  Example output:
     > Here is the command to commit:
     > `git commit -m "feat(auth): implement login flow"`
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Review my changes"
+- "Help me commit code"
+- "Draft a conventional commit message"
+- "Check for secrets before committing"
+

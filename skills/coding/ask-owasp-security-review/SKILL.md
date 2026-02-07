@@ -214,3 +214,12 @@ def delete_user(user_id):
 - For comprehensive security, combine with dynamic testing (DAST) and penetration testing
 - Consider the sensitivity of the codebase; some findings may require confidential handling
 - Framework-specific security patterns may apply (e.g., Django ORM, Spring Security)
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Perform a security audit"
+- "Check for OWASP vulnerabilities"
+- "Scan this code for security flaws"
+- "Is this code secure?"
+

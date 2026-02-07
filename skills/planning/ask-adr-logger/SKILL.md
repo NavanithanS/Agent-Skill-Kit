@@ -39,3 +39,12 @@ The generated file will include:
 -   **Context**: What was the problem? What were the options?
 -   **Decision**: What did we choose?
 -   **Consequences**: What are the trade-offs (good and bad)?
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Log an ADR"
+- "Record this architectural decision"
+- "Create a decision record"
+- "We are choosing technology X"
+

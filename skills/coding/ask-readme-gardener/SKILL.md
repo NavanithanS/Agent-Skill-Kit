@@ -54,3 +54,12 @@ Returns the current system status.
 }
 ```
 ```
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Update the README"
+- "Document this new API"
+- "Sync documentation with code"
+- "Add this feature to the docs"
+

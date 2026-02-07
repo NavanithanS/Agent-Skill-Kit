@@ -41,3 +41,12 @@ MyComponent/
 -   **Props**: Always define a `Props` interface.
 -   **Styles**: Use CSS Modules to prevent global namespace pollution.
 -   **Tests**: Every component must have at least one test ensuring it renders.
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Create a new component"
+- "Scaffold a UI element"
+- "Generate component structure"
+- "Add a React/Vue/Angular component"
+

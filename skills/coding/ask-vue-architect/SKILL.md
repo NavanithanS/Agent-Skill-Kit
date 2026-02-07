@@ -79,3 +79,12 @@ When asked to create a component or page:
 ## 4. Ziggy Routing
 * **Rule:** If the `ziggy-js` library is detected (standard in Laravel), NEVER hardcode URLs like `axios.post('/api/user')`.
 * **Correct:** Use the `route()` helper: `form.post(route('users.store'))`.
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Create a Vue component"
+- "Scaffold a new page in Vue"
+- "Structure this Vue application"
+- "Best practices for Composition API"
+

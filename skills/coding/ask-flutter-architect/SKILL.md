@@ -84,3 +84,12 @@ Adhere strictly to `flutter_lints` rules defined in `analysis_options.yaml`. Run
 3.  **Builds:** Use the provided scripts:
     *   Android: `./ship-android.sh`
     *   iOS: `./ship-ios.sh`
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Set up a Flutter screen"
+- "Create a new service in Flutter"
+- "Architect this Flutter app"
+- "How should I manage state here?"
+

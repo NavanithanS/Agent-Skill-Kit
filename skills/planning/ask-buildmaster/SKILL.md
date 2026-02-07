@@ -563,3 +563,11 @@ When taking shortcuts:
 - Bart Simpson mode (Module 4) is always passively monitoring during execution
 - Context preservation should be updated at natural breakpoints
 - Re-planning is not failure—it's professional adaptation
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Plan this epic"
+- "Break this project down into tickets"
+- "Manage the delivery of this feature"
+- "Act as my Project Manager"

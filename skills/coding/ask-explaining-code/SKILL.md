@@ -297,3 +297,12 @@ main()
 - If they seem lost, back up and use simpler analogies
 - Always validate understanding: "Does that make sense?"
 - Encourage questions: "What part would you like me to clarify?"
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Explain this code to me"
+- "How does this function work?"
+- "Break down this logic"
+- "Walk me through this file"
+

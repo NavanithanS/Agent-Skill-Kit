@@ -59,3 +59,12 @@ When scaffolding a new API:
 ## 5. Error Handling
 *   Use `HTTPException` with clear detail messages.
 *   Create custom exception handlers in `main.py` for global errors.
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Scaffold a FastAPI endpoint"
+- "Create a unified Pydantic model"
+- "Structure this Python API"
+- "Implement dependency injection here"
+

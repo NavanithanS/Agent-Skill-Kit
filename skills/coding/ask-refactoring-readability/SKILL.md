@@ -170,3 +170,12 @@ function handleOrder(order) {
 - This skill focuses on *readability*, not performance optimization (though they often overlap).
 - For performance-focused refactoring, consider profiling tools and algorithmic analysis.
 - Refactoring is iterative—not every codebase needs to be perfect in one pass.
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Make this code more readable"
+- "Simplify this complex logic"
+- "Refactor for clarity"
+- "Clean up this messy function"
+

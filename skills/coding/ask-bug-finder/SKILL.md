@@ -174,3 +174,12 @@ def process(items):
 - Share findings with the team
 - Update runbooks if this is a recurring issue
 - Consider adding monitoring to catch similar bugs early
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Help me find this bug"
+- "Debug this error"
+- "Why is this failing?"
+- "Systematic debugging assistance"
+

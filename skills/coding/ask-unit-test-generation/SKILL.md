@@ -185,3 +185,12 @@ describe('validateEmail', () => {
 *   This skill generates unit tests, not integration or end-to-end tests.
 *   Always verify generated tests compile/run and adjust imports as needed.
 *   Consider adding generated tests to CI/CD pipelines for continuous validation.
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Generate unit tests"
+- "Write tests for this function"
+- "Create a test suite"
+- "Improve test coverage"
+

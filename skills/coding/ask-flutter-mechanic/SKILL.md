@@ -54,3 +54,12 @@ description: Maintenance skill for Flutter projects using FVM. Handles clean bui
 1.  **Analyze:** Read the conflict tree in the terminal.
 2.  **Unlock:** `fvm flutter pub upgrade <package_name>` to update transitive dependencies.
 3.  **Verify:** Check `pubspec.lock` for changes.
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Clean build my Flutter app"
+- "Fix iOS build errors"
+- "Resolve dependency conflicts"
+- "Prepare this app for release"
+

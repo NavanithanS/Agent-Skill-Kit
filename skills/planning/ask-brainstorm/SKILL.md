@@ -43,3 +43,12 @@ To ensure clarity, alignment, and a solid foundation before writing code. This s
 ## Output
 
 A clear, mutually agreed-upon plan or a set of design decisions that guide the next steps (e.g., creating an implementation plan).
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Let's brainstorm this feature"
+- "I have an idea for..."
+- "Help me figure out requirements"
+- "Explore options for implementation"
+

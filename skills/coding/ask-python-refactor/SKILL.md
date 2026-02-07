@@ -88,3 +88,12 @@ Use early returns and positive conditions.
 - Refactor in small, testable increments
 - Consider performance implications for hot paths
 - Document any non-obvious design decisions
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Refactor this Python code"
+- "Improve Python code quality"
+- "Make this function more Pythonic"
+- "Remove code smells in this script"
+

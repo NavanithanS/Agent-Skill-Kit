@@ -60,3 +60,12 @@ description: Senior scaffolding skill. Handles SQL vs Mongo (Jenssegers/Official
 
 ### Step D: The "Senior" Touch
 * **Observers:** If the logic involves "sending emails" or "logging activity" after saving, DO NOT put it in the Controller. Create an Observer (`php artisan make:observer <Name>Observer`).
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Scaffold a Laravel controller"
+- "Create a new model and migration"
+- "Help me structure this Laravel app"
+- "Best practices for Eloquent"
+

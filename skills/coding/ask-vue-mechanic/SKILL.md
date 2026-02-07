@@ -58,3 +58,12 @@ When debugging, ignore these benign warnings, but **ATTACK** these errors:
 * **ATTACK:** `Prop "user" expects a Object, got Array`.
     * *Cause:* Laravel returned `[]` (empty array) for a user, but Vue expected `{}`.
     * *Fix:* Adjust Laravel resource to return `null` or empty object, or adjust Vue prop type.
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Fix Vue reactivity issues"
+- "Debug Inertia page reload"
+- "Why is my form not submitting?"
+- "Trace data flow in Vue"
+

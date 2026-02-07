@@ -19,3 +19,12 @@ Stop the "Groundhog Day" effect where we re-discuss the same decisions.
     * **Status:** Accepted.
     ```
 3.  **Reference:** Before starting any *new* task, read this file to ensure you aren't violating past decisions.
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Record this decision"
+- "We decided to use..."
+- "Update project memory"
+- "Check past decisions about..."
+
