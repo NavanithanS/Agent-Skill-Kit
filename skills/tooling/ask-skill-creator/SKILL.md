@@ -146,6 +146,13 @@ description: Brief description
 # Skill Title
 
 (Full content from README.md goes here)
+
+## Trigger Phrases
+
+Activate this skill when the user says things like:
+- "Trigger phrase 1"
+- "Trigger phrase 2"
+
 ```
 
 > [!IMPORTANT]
