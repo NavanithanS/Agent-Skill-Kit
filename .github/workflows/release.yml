@@ -41,6 +41,8 @@ jobs:
     name: Update Homebrew Formula
     needs: pypi-publish
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
