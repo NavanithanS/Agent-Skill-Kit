@@ -1,69 +1,48 @@
 ---
-name: vue-mechanic
-description: Expert maintenance skill for Vue 3 within Laravel Inertia. Fixes navigation reloads, prop mismatches, and reactivity issues.
+name: ask-vue-mechanic
+description: Vue 3 + Inertia maintenance. Fixes navigation reloads, prop mismatches, reactivity loss.
+triggers: ["fix vue reactivity", "debug inertia reload", "form not submitting", "trace vue data flow"]
 ---
 
-## 1. The "Inertia Flow" Protocol
-**Trigger:** "Page is reloading full screen", "Props are missing", or "Back button is broken".
+<critical_constraints>
+❌ NO `<a href="">` → use `<Link>` to prevent full page reload
+❌ NO destructuring props → loses reactivity, use `toRefs(props)` or `props.name`
+❌ NO forgetting `.value` → `count.value++` not `count++`
+✅ MUST trace upstream to Laravel Controller for missing props
+✅ MUST run `php artisan optimize:clear` after route changes
+</critical_constraints>
 
-### A. The "Silent Reload" Check
-* **Symptom:** Clicking a link causes a full browser refresh (white flash) instead of a smooth SPA transition.
-* **Diagnosis:** You likely used a standard HTML `<a>` tag.
-* **Fix:** Replace with `<Link>`:
-    * ❌ `<a href="/users">Users</a>`
-    * ✅ `<Link href="/users">Users</Link>`
+<silent_reload_fix>
+Symptom: Full page refresh (white flash) on link click
+Cause: Used `<a>` tag instead of Inertia Link
+Fix: `<Link href="/users">` instead of `<a href="/users">`
+</silent_reload_fix>
 
-### B. The "Prop Tunnel" Check
-* **Symptom:** "My component didn't get the user data."
-* **Action:** Trace the data upstream to the Laravel Controller.
-    1.  **Check Vue DevTools:** Inspect the `Inertia` root component properties.
-    2.  **Check Controller:** Open the Laravel Controller for this route.
-        ```php
-        // Is the data actually passed?
-        return Inertia::render('Dashboard', [
-            'user' => User::all() // <--- Check this line
-        ]);
-        ```
-    3.  **Check Middleware:** If the data is global (like `auth.user`), check `app/Http/Middleware/HandleInertiaRequests.php`.
+<prop_tunnel_debug>
+1. Vue DevTools → inspect Inertia root component props
+2. Check Laravel Controller → is data passed in `Inertia::render()`?
+3. Check `HandleInertiaRequests` middleware for global data
+</prop_tunnel_debug>
 
-## 2. The "Ziggy & Forms" Protocol
-**Trigger:** "Route not found" or "Form isn't showing errors".
+<ziggy_routing>
+Error: `'users.show' is not in the route list`
+Fix 1: `php artisan optimize:clear`
+Fix 2: Check route in `routes/web.php` has `->name('users.show')`
+Fix 3: Pass params: `route('users.show', user.id)`
+</ziggy_routing>
 
-### A. Routing (Ziggy)
-* **Symptom:** Console error: `Uncaught Error: 'users.show' is not in the route list.`
-* **Fix 1:** Run `php artisan optimize:clear` to refresh the route cache.
-* **Fix 2:** Check if the route exists in `routes/web.php` and has a `->name('users.show')`.
-* **Fix 3:** If the route requires a parameter, ensure you passed it: `route('users.show', user.id)`.
+<form_debugging>
+Symptom: Submit → spinner → nothing happens (no error shown)
+Cause: 422 validation error, but UI not displaying it
+Fix: Add error binding `<div v-if="form.errors.email">{{ form.errors.email }}</div>`
+</form_debugging>
 
-### B. Form Submission (`useForm`)
-* **Symptom:** User clicks submit, loading spinner shows, then stops. No error message, nothing happens.
-* **Diagnosis:** Server validation failed (`422 Unprocessable Entity`), but the UI isn't displaying the error message.
-* **Fix:** Check the template for the error binding:
-    ```html
-    <div v-if="form.errors.email" class="text-red-500">{{ form.errors.email }}</div>
-    ```
+<reactivity_loss>
+- Destructuring: `const { name } = props` → use `props.name` directly
+- Ref value: `count++` → `count.value++`
+</reactivity_loss>
 
-## 3. The "Reactivity Loss" Protocol (Standard Vue)
-**Trigger:** "Input isn't typing" or "Value won't update".
-
-1.  **Destructuring:** Did you do `const { name } = props`?
-    * **Fix:** Reactivity is lost. Use `props.name` directly in template, or `toRefs(props)` in script.
-2.  **Ref vs Value:** In `<script setup>`, did you forget `.value`?
-    * **Fix:** `count.value++`, not `count++`.
-
-## 4. Console Noise Filter
-When debugging, ignore these benign warnings, but **ATTACK** these errors:
-
-* **IGNORE:** `[Intervention] ... non-passive event listener` (Usually harmless scrolling lib).
-* **ATTACK:** `Prop "user" expects a Object, got Array`.
-    * *Cause:* Laravel returned `[]` (empty array) for a user, but Vue expected `{}`.
-    * *Fix:* Adjust Laravel resource to return `null` or empty object, or adjust Vue prop type.
-
-## Trigger Phrases
-
-Activate this skill when the user says things like:
-- "Fix Vue reactivity issues"
-- "Debug Inertia page reload"
-- "Why is my form not submitting?"
-- "Trace data flow in Vue"
-
+<console_noise>
+IGNORE: `[Intervention] non-passive event listener` (benign)
+ATTACK: `Prop "user" expects Object, got Array` → Laravel returned [] not {}
+</console_noise>

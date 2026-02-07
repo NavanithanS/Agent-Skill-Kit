@@ -8,6 +8,27 @@ import yaml
 from ask.utils.filesystem import get_skills_dir
 
 
+def _parse_skill_md_frontmatter(skill_md_path: Path) -> Optional[Dict]:
+    """
+    Parse YAML frontmatter from a SKILL.md file.
+    
+    Returns the frontmatter as a dict, or None if parsing fails.
+    """
+    try:
+        content = skill_md_path.read_text(encoding="utf-8")
+        if not content.startswith("---"):
+            return None
+        
+        # Find closing ---
+        end_idx = content.find("---", 3)
+        if end_idx == -1:
+            return None
+        
+        frontmatter_text = content[3:end_idx].strip()
+        return yaml.safe_load(frontmatter_text)
+    except Exception:
+        return None
+
 def get_all_skills() -> List[Dict]:
     """
     Discover and parse all skills in the skills directory.
@@ -47,6 +68,14 @@ def get_all_skills() -> List[Dict]:
                             readme_md = skill_dir / "README.md"
                             if skill_md.exists():
                                 skill["_instruction_file"] = str(skill_md)
+                                # Parse SKILL.md frontmatter for triggers
+                                frontmatter = _parse_skill_md_frontmatter(skill_md)
+                                if frontmatter:
+                                    # Merge frontmatter into skill (frontmatter takes precedence)
+                                    if "triggers" in frontmatter:
+                                        skill["triggers"] = frontmatter["triggers"]
+                                    if "description" in frontmatter and not skill.get("description"):
+                                        skill["description"] = frontmatter["description"]
                             elif readme_md.exists():
                                 skill["_instruction_file"] = str(readme_md)
                                 

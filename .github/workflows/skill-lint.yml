@@ -1,0 +1,45 @@
+name: Skill Lint
+
+on:
+  push:
+    branches: [ "main", "master" ]
+    paths:
+      - 'skills/**/*.md'
+  pull_request:
+    branches: [ "main", "master" ]
+    paths:
+      - 'skills/**/*.md'
+
+jobs:
+  lint-skills:
+    runs-on: ubuntu-latest
+    name: Check skill token limits
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[dev]"
+    
+    - name: Lint skills
+      run: |
+        python -m ask skill lint
+    
+    - name: Generate token report
+      run: |
+        python -m ask skill profile
+    
+    - name: Compile manifest
+      run: |
+        python -m ask skill compile
+        
+    - name: Check manifest is up to date
+      run: |
+        git diff --exit-code skills/manifest.json || (echo "❌ manifest.json is out of date. Run 'ask skill compile' and commit." && exit 1)

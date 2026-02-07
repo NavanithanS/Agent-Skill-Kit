@@ -1,26 +1,28 @@
 ---
 name: ask-security-sentinel
-description: Pre-flight security checker. Scans for exposed secrets and vulnerable patterns.
+description: Pre-flight security checker. Scan for secrets and vulnerabilities.
+triggers: ["scan for secrets", "sql injection check", "security check", "verify code safety"]
 ---
 
-## 1. Secret Scanning
-**Trigger:** Before any `git commit` or `deploy`.
-* **Scan:** Look for patterns resembling:
-    * `sk_live_...` (Stripe)
-    * `ghp_...` (GitHub)
-    * `ey...` (JWTs)
-* **Action:** If found, HALT immediately and warn the user to move it to `.env`.
+<critical_constraints>
+✅ MUST run before git commit or deploy
+✅ MUST halt and warn if secrets found
+✅ MUST enforce parameterized queries
+</critical_constraints>
 
-## 2. Vulnerability Check
-* **SQL Injection:** Check for raw DB queries using variables directly (e.g., `DB::select("SELECT * FROM users WHERE id = $id")`).
-    * *Correction:* Enforce bindings: `DB::select("...", [$id])`.
-* **XSS:** Check for `{!! $variable !!}` in Blade. Ensure the user *explicitly* confirmed it is safe HTML.
+<secret_patterns>
+- `sk_live_...` (Stripe)
+- `ghp_...` (GitHub)
+- `ey...` (JWT tokens)
+→ If found: HALT, warn user, move to .env
+</secret_patterns>
 
-## Trigger Phrases
+<vulnerability_checks>
+## SQL Injection
+❌ Bad: `DB::select("SELECT * FROM users WHERE id = $id")`
+✅ Good: `DB::select("...", [$id])`
 
-Activate this skill when the user says things like:
-- "Scan for secrets"
-- "Check for SQL injection risks"
-- "Pre-flight security check"
-- "Verify code safety before commit"
-
+## XSS
+- Check for `{!! $variable !!}` in Blade
+- Ensure user explicitly confirmed safe HTML
+</vulnerability_checks>

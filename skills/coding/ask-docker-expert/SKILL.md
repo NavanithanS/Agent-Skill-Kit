@@ -1,54 +1,52 @@
 ---
 name: ask-docker-expert
-description: Expert guidance on Docker, Docker Compose, and container optimization. Focuses on multi-stage builds and security.
+description: Docker and Docker Compose optimization. Multi-stage builds, security, debugging.
+triggers: ["optimize dockerfile", "debug container", "multi-stage build", "secure docker"]
 ---
 
-## 1. Dockerfile Best Practices
-When writing a `Dockerfile`:
+<critical_constraints>
+❌ NO running as root → use `USER node` or create user
+❌ NO unpinned base images → `node:18-alpine3.18`
+❌ NO hardcoded secrets → use .env files
+✅ MUST use multi-stage builds for compiled/Node.js apps
+✅ MUST use .dockerignore (exclude node_modules, .git)
+</critical_constraints>
 
-*   **Multi-Stage Builds:** ALWAYS use multi-stage builds for compiled languages or Node.js apps to keep the final image small.
-    ```dockerfile
-    # Build Stage
-    FROM node:18-alpine AS builder
-    WORKDIR /app
-    COPY package*.json ./
-    RUN npm ci
-    COPY . .
-    RUN npm run build
-    
-    # Production Stage
-    FROM node:18-alpine
-    WORKDIR /app
-    COPY --from=builder /app/dist ./dist
-    COPY --from=builder /app/package.json ./
-    RUN npm install --production
-    CMD ["npm", "start"]
-    ```
-*   **Layer Caching:** Order instructions from least to most frequently likely to change. (Copy package.json and install deps BEFORE copying source code).
-*   **Security:**
-    *   Never run as root (use `USER node` or create a user).
-    *   Pin base image versions (e.g., `node:18-alpine3.18`).
+<multi_stage_template>
+```dockerfile
+# Build Stage
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
 
-## 2. Docker Compose
-*   **Versions:** Use valid Compose file syntax (no `version:` top-level key needed in newer specs, but `3.8` is safe if required).
-*   **Services:**
-    *   Use `healthcheck` for dependencies (e.g., waiting for DB).
-    *   Use `.env` files for secrets (never hardcode passwords).
+# Production Stage
+FROM node:18-alpine
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package.json ./
+RUN npm install --production
+USER node
+CMD ["npm", "start"]
+```
+</multi_stage_template>
 
-## 3. Debugging Containers
-*   **Connectivity:** Suggest `docker network inspect` or `docker compose exec app curl db:5432` to test internal networking.
-*   **Logs:** `docker logs -f <container_id>` is the first step.
-*   **Shell Access:** `docker exec -it <container_id> /bin/sh` (or `/bin/bash`).
+<layer_caching>
+Order: least → most frequently changed
+1. Copy package.json, install deps
+2. THEN copy source code
+</layer_caching>
 
-## 4. Optimization
-*   **This skill is aggressive about image size.**
-*   Suggest `.dockerignore` to exclude `node_modules`, `.git`, `Dockerfile`, etc.
+<compose>
+- Use healthcheck for dependencies
+- Use .env for secrets
+- Version 3.8 if required
+</compose>
 
-## Trigger Phrases
-
-Activate this skill when the user says things like:
-- "Optimize this Dockerfile"
-- "Debug container connectivity"
-- "Create a multi-stage build"
-- "Secure my Docker image"
-
+<debugging>
+- Connectivity: `docker compose exec app curl db:5432`
+- Logs: `docker logs -f <container_id>`
+- Shell: `docker exec -it <container_id> /bin/sh`
+</debugging>
