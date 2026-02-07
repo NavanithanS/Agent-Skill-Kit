@@ -1,4 +1,4 @@
-# Conceptual Integrity Sentinel
+# Ask Conceptual Integrity Sentinel
 
 A Principal-level engineering agent that audits repositories for architectural drift, bloated abstractions, and "dead code." It enforces Agentic Engineering protocols: Assumption Surfacing, Confusion Management, and Simplicity First.
 

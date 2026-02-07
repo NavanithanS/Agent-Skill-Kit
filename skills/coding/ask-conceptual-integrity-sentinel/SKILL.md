@@ -1,5 +1,5 @@
 ---
-name: conceptual-integrity-sentinel
+name: ask-conceptual-integrity-sentinel
 description: >
   A Principal-level engineering agent that audits repositories for architectural drift,
   bloated abstractions, and "dead code." It enforces Agentic Engineering
