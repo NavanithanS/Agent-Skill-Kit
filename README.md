@@ -2,7 +2,19 @@
 
 ![Agent Skill Kit Banner](https://raw.githubusercontent.com/NavanithanS/Agent-Skill-Kit/master/assets/banner.png)
 
-**Agent Skill Kit (ASK)** is a CLI toolkit for managing, distributing, and syncing skills across multiple AI agents. It serves as a unified "package manager" for your AI's capabilities, allowing you to define a skill once and deploy it to **Gemini, Claude, Codex, Antigravity, Cursor**, and more.
+**Centralized skills repository and CLI toolkit for AI agents (Gemini, Claude, OpenAI).**
+
+## 🚀 Major Update (v0.3.0)
+ASK now supports the **Model Context Protocol (MCP)** and a "Gold Standard" skill architecture optimized for agentic reasoning.
+
+### New Features
+-   **MCP Server**: Native support for Claude Desktop. Add to `claude_desktop_config.json`.
+-   **Gold Standard Skills**: Strict `SKILL.md` + `scripts/` + `assets/` structure for 33+ skills.
+-   **Validation Gates**: Enforced logic to prevent agent hallucinations.
+
+---
+
+It serves as a unified "package manager" for your AI's capabilities, allowing you to define a skill once and deploy it to **Gemini, Claude, Codex, Antigravity, Cursor**, and more.
 
 ## 🧠 Why Agent Skill Kit?
 
