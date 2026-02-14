@@ -9,7 +9,8 @@ console = Console()
 
 @click.command(name="validate")
 @click.option("--skill", help="Validate a specific skill by name")
-def validate(skill):
+@click.pass_context
+def validate(ctx, skill):
     """Validate skill structure and metadata."""
     
     if skill:
@@ -34,13 +35,21 @@ def validate(skill):
         # 1. Naming Convention
         if not skill_name.startswith("ask-"):
             errors.append("Name must start with 'ask-'")
+        if not skill_name.islower() or "_" in skill_name:
+             errors.append("Name must be kebab-case (lowercase with hyphens)")
             
-        # 2. Required Files
+        # 2. Required Files & Directories (Gold Standard)
         if not (skill_path / "skill.yaml").exists():
              errors.append("Missing skill.yaml")
         
-        if not (skill_path / "SKILL.md").exists() and not (skill_path / "README.md").exists():
-             errors.append("Missing SKILL.md or README.md")
+        if not (skill_path / "SKILL.md").exists():
+             errors.append("Missing SKILL.md (README.md is deprecated)")
+
+        if not (skill_path / "scripts").exists():
+             errors.append("Missing 'scripts/' directory (Required for Validation Gates)")
+             
+        if not (skill_path / "tests").exists():
+             errors.append("Missing 'tests/' directory (Required for Operational Excellence)")
 
         # 3. Metadata Structure
         if not s.get("version"):
@@ -57,8 +66,8 @@ def validate(skill):
                 console.print(f"  - {err}")
         else:
             passed += 1
-            # Only show success in verbose mode? 
-            # console.print(f"[green]✓ {skill_name}[/green]")
+            if ctx.obj.get('verbose'):
+                console.print(f"[green]✓ {skill_name}[/green]")
 
     console.print(f"\n[bold]Result:[/bold] {passed} passed, {issues} failed.")
     

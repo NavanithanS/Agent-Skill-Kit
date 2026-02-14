@@ -1,74 +1,88 @@
 ---
 name: ask-skill-creator
-description: Meta-skill for creating new skills in Agent Skill Kit.
-triggers: ["create a skill", "new skill", "add skill for"]
+description: >
+  Use this skill when the user asks to create a new skill or add a new capability to the Agent Skill Kit.
+  Triggers: "create a skill", "new skill", "add skill for", "teach the agent".
+  
+  Do NOT use this skill for:
+  - Creating normal software features (use a coding architect).
+  - Modifying the core ASK runtime.
+
+  Capabilities:
+  - Scaffolds the "Gold Standard" directory structure (SKILL.md, scripts/, assets/, tests/).
+  - Generates optimized Frontmatter and Algorithmic Instructions.
+  - Updates the root README.md.
 ---
 
-<critical_constraints>
-❌ NO skill names without `ask-` prefix
-❌ NO generic descriptions → be specific
-❌ NO skipping SKILL.md frontmatter
-✅ MUST create: skill.yaml, README.md, SKILL.md
-✅ MUST update root README.md skill table
-✅ MUST follow kebab-case naming
+# Skill Creation Protocol
+
+## <critical_constraints>
+1. ❌ **NO** generic descriptions. Be highly specific and semantic.
+2. ❌ **NO** missing directories. MUST create `scripts/`, `assets/`, `tests/`.
+3. ✅ **MUST** prefix skill name with `ask-` and use kebab-case.
+4. ✅ **MUST** include `<critical_constraints>`, `<process>`, and `<thinking>` sections in the new `SKILL.md`.
 </critical_constraints>
 
-<naming_rules>
-- Prefix: `ask-` (required)
-- Format: lowercase-with-hyphens
-- Length: 2-50 chars
-- Chars: letters, numbers, hyphens only
-✓ ask-python-refactor, ask-git-workflow
-✗ python-refactor, MySkill, skill_1
-</naming_rules>
-
-<categories>
-coding: programming, languages, refactoring
-planning: analysis, decision-making, reasoning
-tooling: tools, workflows, automation, meta-skills
-</categories>
-
-<file_structure>
+## <file_structure>
 skills/<category>/<skill-name>/
-├── skill.yaml    # Metadata
-├── README.md     # Documentation
-└── SKILL.md      # Protocol (frontmatter + content)
+├── SKILL.md          # 🧠 The Brain (Frontmatter + Protocol)
+├── scripts/          # 🛡️ Guardrails (Empty .py/.js placeholders)
+├── assets/           # 📚 Knowledge (examples.md)
+└── tests/            # 🧪 Verification (case1.md)
 </file_structure>
 
-<templates>
-## skill.yaml
+## <process>
+1. **Analyze Request**:
+   - Determine `category` (coding, planning, tooling).
+   - Determine `skill-name` (must start with `ask-`).
+
+2. **<thinking> Template Design**:
+   - Draft the `SKILL.md` frontmatter with clear `Triggers` and `Negative Constraints`.
+   - Design 3-5 algorithmic steps for the `<process>` section.
+   - Plan at least one "Critical Constraint" specific to this skill.
+   </thinking>
+
+3. **Scaffold Directory**:
+   - Create `skills/<category>/<skill-name>/`.
+   - Create subfolders: `scripts/`, `assets/`, `tests/`.
+
+4. **Generate Content**:
+   - **`SKILL.md`**: Write the full protocol.
+   - **`assets/examples.md`**: Create a placeholder or basic example.
+   - **`tests/case1.md`**: Create a sample input/output test case.
+
+5. **Register**:
+   - Update the root `README.md` skill table with the new skill.
+</process>
+
+## <templates>
+
+### SKILL.md Frontmatter
 ```yaml
-name: ask-example
-version: 1.0.0
-category: coding
-description: Brief description (max 100 chars)
-tags: [relevant, tags]
-agents: [codex, gemini, claude, antigravity]
+---
+name: ask-example-skill
+description: >
+  Use when [user intent].
+  Triggers: "phrase 1", "phrase 2".
+  
+  Do NOT use for:
+  - [Constraint 1]
+---
 ```
 
-## SKILL.md
+### SKILL.md Body
 ```markdown
----
-name: skill-name
-description: Brief description
-triggers: ["phrase1", "phrase2"]
----
+# [Skill Name] Protocol
 
-<critical_constraints>
-❌ NO [forbidden]
-✅ MUST [required]
+## <critical_constraints>
+1. ...
 </critical_constraints>
 
-<heuristics>
-- condition → action
-</heuristics>
+## <process>
+1. **Step 1**: ...
+2. **<thinking> Plan**: ...
+   </thinking>
+3. **Step 3**: ...
+</process>
 ```
 </templates>
-
-<workflow>
-1. Clarify: purpose, category, scope
-2. Generate: skill.yaml, README.md, SKILL.md
-3. Write to skills/<category>/<name>/
-4. Update root README.md skill table
-5. Verify: YAML valid, all fields present
-</workflow>

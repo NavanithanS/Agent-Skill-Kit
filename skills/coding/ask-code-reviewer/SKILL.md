@@ -1,55 +1,58 @@
 ---
 name: ask-code-reviewer
-description: Code review focusing on logic, style, performance, and security.
-triggers: ["review my code", "check this PR", "analyze for bugs", "feedback on implementation"]
+description: >
+  Use this skill when the user asks to review code, check a PR, or analyze a file for bugs and improvements.
+  Triggers: "review my code", "check this PR", "analyze for bugs", "code review".
+  
+  Do NOT use this skill for:
+  - Automating the fix (use `ask-python-refactor` or similar).
+  - Generation of new features.
+
+  Capabilities:
+  - Detailed static analysis for Correctness, Security, Performance, and Style.
+  - Prioritized feedback (Critical > Performance > Style).
 ---
 
-<critical_constraints>
-❌ NO commands → frame as suggestions ("Consider...", "It might be better to...")
-❌ NO unexplained changes → explain *why* each change helps
-❌ NO overwhelming with nitpicks → prioritize bugs, security first
-✅ MUST understand intent before criticizing
-✅ MUST provide code examples for suggestions
-✅ MUST say "LGTM" if code looks great
+# Code Review Protocol
+
+## <critical_constraints>
+1. ❌ **NO** commands. Frame suggestions as questions or considerations ("Consider using...", "X might be safer...").
+2. ❌ **NO** unexplained changes. Always explain *why* a change improves the code.
+3. ✅ **MUST** prioritize Critical Issues (Bugs/Security) over Style/Nitpicks.
+4. ✅ **MUST** use the provided `assets/report_template.md` format.
+5. ✅ **MUST** be constructive and empathetic.
 </critical_constraints>
 
-<analysis_checklist>
-- **Correctness**: Does it do what it's supposed to? Edge cases?
-- **Style**: Follows conventions (PEP 8, ESLint, etc.)? Readable names?
-- **Performance**: O(n²) loops? Redundant calculations? Memory leaks?
-- **Security**: Injection? XSS? Hardcoded secrets? Unsafe input?
-- **Maintainability**: DRY? Modular?
-</analysis_checklist>
+## <process>
+1. **Context Analysis**:
+   - Identify the language and framework.
+   - Purpose of the code (Script? API Endpoint? UI Component?).
 
-<feedback_format>
-1. Critical issues (bugs, security) FIRST
-2. Performance concerns
-3. Readability suggestions
-4. Style nitpicks LAST
-</feedback_format>
+2. **<thinking> Deep Scan**:
+   - Open `assets/checklist.md` and mentally cross-reference.
+   - **Correctness**: Look for logical flaws, edge cases (null/empty), race conditions.
+   - **Security**: Scan for Injection, XSS, Hardcoded Secrets (OWASP Top 10).
+   - **Performance**: valid O(n) vs O(n^2), N+1 queries, memory leaks.
+   - **Style/Readability**: Naming conventions, specific language idioms (Pythonic/Idiomatic JS).
+   </thinking>
 
-<template>
-**Code Review Feedback**
+3. **Draft Report**:
+   - Group findings by severity (Critical -> Improvements -> Nitpicks).
+   - For every finding, provide:
+     - **Location** (File:Line).
+     - **Problem Description**.
+     - **Suggested Fix** (Code Block).
 
-The function logic is correct, but improvements available:
+4. **<validation_gate>**:
+   - Verify the tone is constructive.
+   - Verify all critical issues have a suggested fix.
+   - Run `python3 -m scripts.validate` (Placeholder).
+   </validation_gate>
 
-1. **[Issue]**: [Description]
-   - Why: [Explanation]
-   - Suggested:
-   ```python
-   # improved code
-   ```
-</template>
+5. **Final Output**:
+   - Present the Markdown report.
+</process>
 
-<heuristics>
-- Single-letter variables → suggest descriptive names
-- Loop over indices → suggest direct iteration
-- Repeated code → suggest extraction
-- Complex conditionals → suggest simplification
-</heuristics>
-
-<diff_review>
-- Focus on changed lines
-- Check if changes break usage elsewhere
-- Note if tests were updated
-</diff_review>
+## <templates>
+See `assets/report_template.md` for the required output structure.
+</templates>

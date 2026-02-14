@@ -1,55 +1,83 @@
 ---
 name: ask-owasp-security-review
-description: Static security audit aligned with OWASP Top 10, with severity ratings and remediation.
-triggers: ["security audit", "owasp vulnerabilities", "security review", "is this secure"]
+description: >
+  Use this skill when the user asks to review code for security vulnerabilities,
+  audit a file for safety, or check for OWASP Top 10 risks.
+  
+  Triggers: "security audit", "is this secure", "check for vulnerabilities", "find security bugs".
+  
+  Do NOT use this skill for:
+  - Dynamic Application Security Testing (DAST) or runtime analysis.
+  - Generating new secure code from scratch (use a coding architect skill).
+  - General code quality or linting (unless security-related).
+  
+  Capabilities:
+  - Static analysis of detailed code snippets.
+  - Mapping findings to OWASP Top 10 (2021).
+  - Providing remediation code patterns.
 ---
 
-<critical_constraints>
-❌ NO code execution → static analysis only
-❌ NO false positives → report only with clear evidence
-❌ NO findings without remediation
-✅ MUST map findings to OWASP category
-✅ MUST provide severity + location + fix
-✅ MUST confirm with user before suggesting changes
+# OWASP Security Review Protocol
+
+## <critical_constraints>
+1. ❌ **NO** code execution. Perform static analysis only.
+2. ❌ **NO** false positives. Report only with clear evidence.
+3. ✅ **MUST** map every finding to an [OWASP Top 10](https://owasp.org/Top10/) category.
+4. ✅ **MUST** provide `Severity`, `Location`, and `Remediation` for every finding.
 </critical_constraints>
 
-<owasp_checklist>
-A01 Broken Access Control: IDOR, path traversal, missing authz, CORS
-A02 Cryptographic Failures: MD5/SHA1, hardcoded keys, weak random
-A03 Injection: SQL, OS cmd, LDAP, template (SSTI), NoSQL
-A04 Insecure Design: no rate limit, no brute-force protection
-A05 Security Misconfiguration: default creds, verbose errors, permissive CORS
-A06 Vulnerable Components: outdated deps, known CVEs
-A07 Auth Failures: weak passwords, session fixation, creds in logs
-A08 Integrity Failures: insecure deserialization, unsigned updates
-A09 Logging Failures: missing auth logs, PII in logs
-A10 SSRF: unvalidated URLs, no allowlists
+## <process>
+Follow these steps strictly:
+
+1. **Context Analysis**:
+   - Identify the language (Python, JS, Java, etc.) and framework.
+   - Trace data flow from "Sources" (user input) to "Sinks" (DB, API, IO).
+
+2. **<thinking> Vulnerability Scan**:
+   - Mentally check against the **OWASP Checklist** below.
+   - Does input bypass validation? (A03: Injection, A01: Broken Access Control)
+   - Are secrets hardcoded? (A02: Cryptographic Failures)
+   - Is there clear logging? (A09: Logging Failures)
+   </thinking>
+
+3. **Report Generation**:
+   - If findings exist, format them in the standard Markdown Table in `security_report.md`.
+   - If no findings, explicitly state "No immediate security risks found".
+
+4. **<validation_gate>**:
+   - Run: `python3 -m scripts.validate` (or reference the installed script path).
+   - If exit code != 0, READ the error, FIX the report, and RE-RUN validation.
+   </validation_gate>
+
+5. **Remediation**:
+   - For each Critical/High finding, provide a corrected code snippet.
+   - Reference `assets/examples.md` for style if needed.
+</process>
+
+## <owasp_checklist>
+- **A01 Broken Access Control**: IDOR, path traversal, missing authz.
+- **A02 Cryptographic Failures**: Hardcoded keys, weak crypto (MD5/SHA1).
+- **A03 Injection**: SQLi, OS Command Injection, SSTI.
+- **A04 Insecure Design**: Missing rate limiting, no brute-force protection.
+- **A05 Security Misconfiguration**: Default creds, verbose errors.
+- **A06 Vulnerable Components**: Outdated libraries.
+- **A07 Auth Failures**: Weak passwords, session fixation.
+- **A08 Integrity Failures**: Insecure deserialization.
+- **A09 Logging Failures**: Missing logs or PII in logs.
+- **A10 SSRF**: Unvalidated URLs.
 </owasp_checklist>
 
-<severity_scale>
-Critical: RCE, SQLi, auth bypass
-High: XSS, IDOR, exposed secrets
-Medium: CSRF, weak crypto, improper error handling
-Low: best practice deviation, missing headers
-Info: observations, recommendations
-</severity_scale>
+## <output_template>
+### Security Audit Results
 
-<output_format>
 | Vulnerability | OWASP | Severity | Location | Description | Remediation |
 |---------------|-------|----------|----------|-------------|-------------|
-| SQL Injection | A03 | Critical | auth.py:42 | Input in query | Parameterized queries |
-</output_format>
+| [Name] | [Category] | [Critical/High/Med/Low] | [File:Line] | [Brief description] | [Actionable fix] |
 
-<tools>
-Python: bandit, safety
-JS: npm audit, Snyk
-Java: SpotBugs+FindSecBugs
-General: Semgrep, CodeQL
-</tools>
+### Summary
+[Brief risk assessment]
+</output_template>
 
-<heuristics>
-- f-string in SQL → likely injection
-- API key in source → hardcoded secret
-- @route without @auth → missing authorization
-- request.get(user_url) → potential SSRF
-</heuristics>
+## <examples>
+See `assets/examples.md` for detailed case studies.
+</examples>

@@ -3,7 +3,7 @@
 from importlib.metadata import version, PackageNotFoundError
 
 try:
-    __version__ = version("agent-skill-kit")
+    __version__ = "0.3.0"
 except PackageNotFoundError:
     __version__ = "unknown"
 __author__ = "Nava"
