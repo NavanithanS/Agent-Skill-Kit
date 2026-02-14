@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "generated": "2026-02-07T18:11:16.273564",
+  "generated": "2026-02-14T14:02:16.760009",
   "skills": [
     {
       "name": "ask-add-agent",
@@ -57,8 +57,7 @@
       "triggers": [
         "plan this epic",
         "break into tickets",
-        "project management",
-        "delivery manager"
+        "project management"
       ],
       "path": "planning/ask-buildmaster"
     },
@@ -66,12 +65,7 @@
       "name": "ask-code-reviewer",
       "description": "An AI code reviewer that provides constructive feedback on code changes.",
       "category": "coding",
-      "triggers": [
-        "review my code",
-        "check this PR",
-        "analyze for bugs",
-        "feedback on implementation"
-      ],
+      "triggers": [],
       "path": "coding/ask-code-reviewer"
     },
     {
@@ -234,12 +228,7 @@
       "name": "ask-owasp-security-review",
       "description": "Conduct a thorough static security review of code, identifying vulnerabilities aligned with OWASP Top 10 risks, with severity ratings and remediation suggestions.",
       "category": "coding",
-      "triggers": [
-        "security audit",
-        "owasp vulnerabilities",
-        "security review",
-        "is this secure"
-      ],
+      "triggers": [],
       "path": "coding/ask-owasp-security-review"
     },
     {
@@ -342,11 +331,7 @@
       "name": "ask-skill-creator",
       "description": "Teaches AI agents how to create skills for Agent Skill Kit",
       "category": "tooling",
-      "triggers": [
-        "create a skill",
-        "new skill",
-        "add skill for"
-      ],
+      "triggers": [],
       "path": "tooling/ask-skill-creator"
     },
     {
