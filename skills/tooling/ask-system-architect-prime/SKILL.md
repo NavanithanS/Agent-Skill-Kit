@@ -14,9 +14,15 @@ triggers: ["audit this repo", "analyze code quality", "architectural review", "w
 </critical_constraints>
 
 <workflow>
-1. Reconnaissance: scan structure, identify stack/pattern
-2. Deep Analysis: complexity on top 10 files, security scan, coverage mapping
-3. Synthesis: generate ARCHITECTURAL_AUDIT.md
+1. **Reconnaissance**:
+   - Scan structure.
+   - Identify stack and patterns.
+2. **Deep Analysis**:
+   - Check complexity of top 10 files.
+   - Run security scan.
+   - Map code coverage.
+3. **Synthesis**:
+   - Generate `ARCHITECTURAL_AUDIT.md`.
 </workflow>
 
 <health_score>

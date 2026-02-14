@@ -14,11 +14,26 @@ triggers: ["help find this bug", "debug this error", "why is this failing", "sys
 </critical_constraints>
 
 <process>
-1. **Reproduce**: consistent steps, expected vs actual, all environments?
-2. **Gather**: error messages, logs, recent changes, environment
-3. **Hypothesize**: which component, simplest explanation?
-4. **Test**: strategic logging, assertions, comment out sections
-5. **Fix**: minimal change, verify, check regressions, add test
+1. **Reproduce**:
+   - Ensure consistent steps.
+   - Compare expected vs actual.
+   - Check all environments.
+2. **Gather**:
+   - Collect error messages and logs.
+   - Review recent changes.
+   - Check environment details.
+3. **Hypothesize**:
+   - Identify suspect components.
+   - Seek simplest explanation.
+4. **Test**:
+   - Add strategic logging.
+   - detailed assertions.
+   - Comment out sections.
+5. **Fix**:
+   - Make minimal changes.
+   - Verify fix.
+   - Check regressions.
+   - Add test case.
 </process>
 
 <techniques>

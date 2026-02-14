@@ -1,58 +1,47 @@
 ---
 name: ask-code-reviewer
 description: >
-  Use this skill when the user asks to review code, check a PR, or analyze a file for bugs and improvements.
+  Start code reviews, PR checks, or bug analysis.
   Triggers: "review my code", "check this PR", "analyze for bugs", "code review".
   
-  Do NOT use this skill for:
-  - Automating the fix (use `ask-python-refactor` or similar).
-  - Generation of new features.
-
+  Do NOT use for:
+  - Automating fixes (use `ask-python-refactor`).
+  - Generating new features.
+  
   Capabilities:
-  - Detailed static analysis for Correctness, Security, Performance, and Style.
-  - Prioritized feedback (Critical > Performance > Style).
+  - Static analysis: Correctness, Security, Performance, Style.
+  - Feedback priority: Critical > Performance > Style.
 ---
 
 # Code Review Protocol
 
 ## <critical_constraints>
-1. ❌ **NO** commands. Frame suggestions as questions or considerations ("Consider using...", "X might be safer...").
-2. ❌ **NO** unexplained changes. Always explain *why* a change improves the code.
-3. ✅ **MUST** prioritize Critical Issues (Bugs/Security) over Style/Nitpicks.
-4. ✅ **MUST** use the provided `assets/report_template.md` format.
-5. ✅ **MUST** be constructive and empathetic.
+1. ❌ **NO** commands. Frame suggestions as questions ("Why not use X?" vs "Use X").
+2. ❌ **NO** unexplained changes. Explain *why* it improves code.
+3. ✅ **MUST** prioritize Critical (Bugs/Security) > Style.
+4. ✅ **MUST** use `assets/report_template.md`.
+5. ✅ **MUST** be constructive.
 </critical_constraints>
 
 ## <process>
-1. **Context Analysis**:
-   - Identify the language and framework.
-   - Purpose of the code (Script? API Endpoint? UI Component?).
-
+1. **Context**: identify language, framework, purpose.
 2. **<thinking> Deep Scan**:
-   - Open `assets/checklist.md` and mentally cross-reference.
-   - **Correctness**: Look for logical flaws, edge cases (null/empty), race conditions.
-   - **Security**: Scan for Injection, XSS, Hardcoded Secrets (OWASP Top 10).
-   - **Performance**: valid O(n) vs O(n^2), N+1 queries, memory leaks.
-   - **Style/Readability**: Naming conventions, specific language idioms (Pythonic/Idiomatic JS).
+   - Check against `assets/checklist.md`.
+   - **Correctness**: Logical flaws, null checks, race conditions.
+   - **Security**: Injection, XSS, Secrets.
+   - **Performance**: Big O, N+1 queries, leaks.
+   - **Style**: Naming, idioms.
    </thinking>
-
 3. **Draft Report**:
-   - Group findings by severity (Critical -> Improvements -> Nitpicks).
-   - For every finding, provide:
-     - **Location** (File:Line).
-     - **Problem Description**.
-     - **Suggested Fix** (Code Block).
-
+   - Group by severity.
+   - Include Location, Problem, Suggested Fix.
 4. **<validation_gate>**:
-   - Verify the tone is constructive.
-   - Verify all critical issues have a suggested fix.
-   - Run `python3 -m scripts.validate` (Placeholder).
+   - Check tone. Ensure critical issues have fixes.
+   - Run validation script.
    </validation_gate>
-
-5. **Final Output**:
-   - Present the Markdown report.
+5. **Final Output**: Present Markdown report.
 </process>
 
 ## <templates>
-See `assets/report_template.md` for the required output structure.
+See `assets/report_template.md`.
 </templates>

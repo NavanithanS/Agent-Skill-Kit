@@ -4,12 +4,13 @@ import re
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
-# Try to import tiktoken, fallback to estimation if not available
+# Try to import tiktoken, fallback to estimation if not available or offline
 try:
     import tiktoken
     _encoder = tiktoken.get_encoding("cl100k_base")
     HAS_TIKTOKEN = True
-except ImportError:
+except (ImportError, Exception):
+    # Fallback if not installed or if network error prevents downloading encoding
     _encoder = None
     HAS_TIKTOKEN = False
 
