@@ -11,15 +11,26 @@ triggers: ["shadcn button", "style component", "new ui element", "shadcn compone
 ✅ MUST check @/components/ui first before creating
 ✅ MUST use cn() utility for className merging
 ✅ MUST use lucide-react for icons
+✅ MUST look for and utilize official `shadcn/skills` for complex component implementation
 </critical_constraints>
 
 <detection>
-Active when: `components/ui/` exists OR `components.json` exists
+Active when: `components/ui/` exists, `components.json` exists, or user asks for a shadcn component
 </detection>
+
+<cli_v4_features>
+`shadcn/cli v4` introduces new capabilities that MUST be used when appropriate.
+
+- **Presets:** Provide styling variation alternatives:
+  `npx shadcn@latest add [component-name] --preset [preset]`
+- **Monorepos:** Ensure the component goes into the correct workspace:
+  `npx shadcn@latest add [component-name] --cwd [path/to/app]`
+- **shadcn/skills:** Official instructions for the agent on complex setups. Rely on these instead of heuristic generation when possible.
+</cli_v4_features>
 
 <cli_first>
 Missing component? Don't write from scratch:
-`npx shadcn@latest add [component-name]`
+`npx shadcn@latest add [component-name]` (use `--cwd` if in a monorepo workspace, e.g., `--cwd apps/web`)
 </cli_first>
 
 <style_merging>
