@@ -1,9 +1,16 @@
-# Agent Skill Kit v0.3.0 Release Notes
+# 🚀 Agent Skill Kit Releases
 
-**Date**: February 14, 2026
-**Theme**: The "Gold Standard" Architecture & MCP Support
+## v0.3.1
+**Date**: March 7, 2026
+**Theme**: Tooling Updates
 
-## 🚀 Major Features
+### 🛠️ Enhancements
+- **`ask-shadcn-architect`**: Updated the skill instructions to natively support new `shadcn/cli v4` features. Agents are now instructed on how to use styling `--preset` flags, handle monorepo configurations with `--cwd`, and explicitly defer to official `shadcn/skills` for complex component implementation instead of generating them from scratch.
+- **Versioning**: Bumped package version to `0.3.1`.
+
+---
+
+## v0.3.0
 
 ### 1. Model Context Protocol (MCP) Support
 ASK is now compatible with the Model Context Protocol, allowing skills to be used directly by AI clients like Claude Desktop.
