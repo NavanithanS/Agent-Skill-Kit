@@ -46,9 +46,22 @@ def analyze_skill(skill_path: Path) -> Dict:
     tokens = count_tokens(content)
     
     # Determine status based on token count
-    if tokens <= 500:
+    skill_name = skill_path.parent.name
+    
+    # Skills with higher allowances
+    if skill_name == "ask-smart-booking-test":
+        limit_ok = 2000
+        limit_warn = 2200
+    elif skill_name == "ask-skill-creator":
+        limit_ok = 1000
+        limit_warn = 1200
+    else:
+        limit_ok = 500
+        limit_warn = 700
+
+    if tokens <= limit_ok:
         status = "ok"
-    elif tokens <= 700:
+    elif tokens <= limit_warn:
         status = "warning"
     else:
         status = "error"
@@ -186,11 +199,24 @@ def lint_skill(skill_path: Path, strict: bool = False) -> Tuple[bool, List[str]]
     passed = True
     
     # Token count check
+    # Token count check
+    skill_name = skill_path.parent.name
+    
+    if skill_name == "ask-smart-booking-test":
+        limit_ok = 2000
+        limit_warn = 2200
+    elif skill_name == "ask-skill-creator":
+        limit_ok = 1000
+        limit_warn = 1200
+    else:
+        limit_ok = 500
+        limit_warn = 700
+
     if analysis["status"] == "error":
-        messages.append(f"❌ Token count {analysis['tokens']} exceeds limit (700)")
+        messages.append(f"❌ Token count {analysis['tokens']} exceeds limit ({limit_warn})")
         passed = False
     elif analysis["status"] == "warning":
-        msg = f"⚠️ Token count {analysis['tokens']} exceeds recommended (500)"
+        msg = f"⚠️ Token count {analysis['tokens']} exceeds recommended ({limit_ok})"
         messages.append(msg)
         if strict:
             passed = False

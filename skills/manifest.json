@@ -381,6 +381,18 @@
         "trace vue data flow"
       ],
       "path": "coding/ask-vue-mechanic"
+    },
+    {
+      "name": "ask-smart-booking-test",
+      "description": "An advanced autonomous testing skill for verifying end-to-end booking flows. Specializes in Flights, Movies, and Tours with integrated Payment Gateway testing.",
+      "category": "tooling",
+      "triggers": [
+        "test booking flow",
+        "verify reservation",
+        "test payment gateway",
+        "booking smoke test"
+      ],
+      "path": "tooling/ask-smart-booking-test"
     }
   ]
 }

@@ -1,0 +1,16 @@
+name: ask-smart-booking-test
+version: 2.1.0
+category: tooling
+description: An advanced autonomous testing skill for verifying end-to-end booking flows. Specializes in Flights, Movies, and Tours with integrated Payment Gateway testing.
+tags:
+  - testing
+  - automation
+  - browser
+  - payment
+  - quality-assurance
+agents:
+  - antigravity
+  - codex
+  - gemini
+  - claude
+  - cursor

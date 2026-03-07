@@ -1,0 +1,89 @@
+{
+    "stripe": [
+        {
+            "type": "Visa",
+            "number": "4242 4242 4242 4242",
+            "cvc": "123",
+            "exp": "Future",
+            "behavior": "Success",
+            "notes": "Standard Happy Path"
+        },
+        {
+            "type": "Visa",
+            "number": "4000 0025 0000 3155",
+            "cvc": "123",
+            "exp": "Future",
+            "behavior": "Requires 3D Secure",
+            "notes": "SCA Test"
+        },
+        {
+            "type": "Visa",
+            "number": "4000 0000 0000 0002",
+            "cvc": "123",
+            "exp": "Future",
+            "behavior": "Decline",
+            "notes": "Generic Decline"
+        }
+    ],
+    "paypal": [
+        {
+            "type": "Visa",
+            "number": "4032 0367 3553 6011",
+            "cvc": "123",
+            "exp": "03/2031",
+            "behavior": "Success",
+            "notes": "Standard Visa"
+        },
+        {
+            "type": "Visa",
+            "number": "4012 0000 7777 7777",
+            "cvc": "123",
+            "exp": "03/2031",
+            "behavior": "Success",
+            "notes": "FastLane Visa"
+        },
+        {
+            "type": "Checking",
+            "number": "049224654006",
+            "routing": "325272063",
+            "behavior": "Success",
+            "notes": "Bank Account"
+        }
+    ],
+    "square": [
+        {
+            "type": "Mastercard",
+            "number": "5105 1051 0510 5100",
+            "cvc": "123",
+            "exp": "Future",
+            "behavior": "Success",
+            "notes": ""
+        },
+        {
+            "type": "Amex",
+            "number": "3782 8224 6310 005",
+            "cvc": "1234",
+            "exp": "Future",
+            "behavior": "Success",
+            "notes": "Requires 4-digit CVC"
+        }
+    ],
+    "razorpay": [
+        {
+            "type": "Mastercard",
+            "number": "5555 5555 5555 4444",
+            "cvc": "123",
+            "exp": "Future",
+            "behavior": "Success",
+            "notes": ""
+        },
+        {
+            "type": "Visa",
+            "number": "4012 8888 8888 1881",
+            "cvc": "123",
+            "exp": "Future",
+            "behavior": "Success",
+            "notes": "International Success"
+        }
+    ]
+}

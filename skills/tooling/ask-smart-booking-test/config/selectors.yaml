@@ -1,0 +1,3 @@
+# Optional: Common CSS selectors for known sites
+selectors:
+  flight_search_button: "button[type='submit']"

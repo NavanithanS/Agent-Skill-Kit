@@ -1,0 +1,27 @@
+{
+    "identity": {
+        "first_name": "Lex",
+        "last_name": "Luthor",
+        "full_name": "Lex Luthor",
+        "email": "luthor@navins.biz",
+        "phone": "555-0199",
+        "address": {
+            "line1": "LuthorCorp Plaza",
+            "line2": "355 1000 Broadway",
+            "city": "Metropolis",
+            "state": "KS",
+            "zip": "66632",
+            "country": "US"
+        },
+        "dob": "1980-01-01",
+        "company": "LuthorCorp",
+        "paypal": {
+            "account_id": "CFK4W95ZJXVLE",
+            "email": "luthor@navins.biz",
+            "password": "or#.2w}K",
+            "phone": "2025063704",
+            "account_type": "Personal",
+            "country": "US"
+        }
+    }
+}
