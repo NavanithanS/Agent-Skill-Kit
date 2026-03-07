@@ -31,6 +31,22 @@ All 33 skills rewritten to v2.0 schema:
 
 ---
 
+## [0.4.0] - 2026-03-07
+
+### 🚀 New Features
+
+#### Hierarchical Multi-Agent Systems (HMAS) & Orchestration
+Introduced the concept of Orchestrators and Subagents to the Agent Skill Kit. This bypasses the context window limits of single-agent workflows.
+
+-   **`ask-parallel-auditor`**: The premier Orchestrator skill. Chunks repositories and delegates audits to parallel background subagents inside isolated Git worktrees.
+-   **`ask-ast-mapper`**: A highly constrained, read-only Subagent. Generates lightweight JSON dependency maps to prevent parent orchestrators from burning tokens reading codebase structure.
+-   **`ask-context-janitor`**: An aggressive token-optimizing subagent. Summarizes massive logs, pull requests, and parallel audit outputs into strict Markdown/JSON summaries.
+
+### 📦 Technical Changes
+- All meta-tooling skills now strictly enforce the presence of `scripts/` and `tests/` directories to pass validation gates.
+
+---
+
 ## [0.1.6] - 2026-02-01
 
 ### 🚀 New Features

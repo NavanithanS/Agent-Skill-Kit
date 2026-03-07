@@ -4,14 +4,15 @@
 
 **Centralized skills repository and CLI toolkit for AI agents (Gemini, Claude, OpenAI).**
 
-## 🚀 Major Update (v0.3.1)
-ASK now supports the **Model Context Protocol (MCP)** and a "Gold Standard" skill architecture optimized for agentic reasoning.
+## 🚀 Major Update (v0.4.0)
+ASK now supports the **Hierarchical Multi-Agent System (HMAS)** paradigm. Introduce parallel orchestration to your AI with new Subagent capabilities!
 
 ### New Features
--   **ask-shadcn-architect update**: Added new instructions guiding the agent to use `shadcn/cli v4` features, specifically `--preset`, `--cwd` (monorepo paths), and an explicit directive to leverage `shadcn/skills`.
+-   **ask-parallel-auditor**: New Orchestrator skill to chunk and run subagents in isolated worktrees entirely in parallel, bypassing token limits.
+-   **ask-ast-mapper & ask-context-janitor**: New Subagent skills designed to map dependencies and optimize tokens on behalf of a parent agent workflow.
+-   **ask-shadcn-architect update**: Added new instructions guiding the agent to use `shadcn/cli v4` features.
 -   **MCP Server**: Native support for Claude Desktop. Add to `claude_desktop_config.json`.
--   **Gold Standard Skills**: Strict `SKILL.md` + `scripts/` + `assets/` structure for 33+ skills.
--   **Validation Gates**: Enforced logic to prevent agent hallucinations.
+-   **Gold Standard Skills**: Strict `SKILL.md` + `scripts/` + `assets/` structure for 37+ skills.
 
 ---
 
