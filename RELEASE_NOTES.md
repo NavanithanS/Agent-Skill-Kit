@@ -1,5 +1,24 @@
 # 🚀 Agent Skill Kit Releases
 
+## v0.4.0
+**Date**: March 7, 2026
+**Theme**: Hierarchical Multi-Agent Systems (HMAS) & Orchestration
+
+### 🧠 New Paradigm: Subagent Orchestration
+We've introduced the concept of **Orchestrators** and **Subagents** to the Agent Skill Kit. This allows AI agents to bypass the context window limits of single-agent workflows by chunking tasks and delegating them to highly constrained parallel workers.
+
+### 🛠️ New Skills
+- **`ask-parallel-auditor`**: The premier Orchestrator skill. Chunks massive repositories and spawns parallel background subtasks inside isolated Git worktrees.
+- **`ask-ast-mapper`**: A highly constrained, read-only Subagent. Generates lightweight JSON dependency maps to prevent parent orchestrators from burning tokens reading codebase structure.
+- **`ask-context-janitor`**: An aggressive token-optimizing subagent. Summarizes massive logs, pull requests, and multi-agent audit outputs into strict Markdown/JSON executive summaries.
+
+### 🛡️ Technical & Governance Updates
+- **Validation Gates Enforced**: The new tooling skills strictly enforce the presence of `scripts/` and `tests/` directories to pass rigorous CI validation checks.
+- **Token Schemas**: Leveraged the v2.0 token-optimized `<critical_constraints>` format to keep subagent prompts under 200 tokens.
+- **Versioning**: Bumped package version to `0.4.0`.
+
+---
+
 ## v0.3.1
 **Date**: March 7, 2026
 **Theme**: Tooling Updates
