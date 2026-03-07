@@ -66,6 +66,18 @@ cd Agent-Skill-Kit
 pip install -e .
 ```
 
+### Upgrading an Existing Installation
+When a new version (like `v0.4.0`) is released, you must upgrade the CLI and then sync the new skills down to your local AI agents.
+
+```bash
+# 1. Upgrade the CLI
+pip install --upgrade agent-skill-kit  # If using PyPI
+brew upgrade agent-skill-kit           # If using Homebrew
+
+# 2. Sync the new skills to your agents
+ask update
+```
+
 ## 🛠 Usage
 
 ### 1. Copy Skills to an Agent ⭐
