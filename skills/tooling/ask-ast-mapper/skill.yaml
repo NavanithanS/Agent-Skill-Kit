@@ -1,0 +1,14 @@
+name: ask-ast-mapper
+version: 1.0.0
+category: tooling
+description: Read-only subagent designed to generate lightweight AST (Abstract Syntax Tree) dependency maps.
+tags:
+  - AST
+  - dependency
+  - subagent
+  - mapping
+agents:
+  - codex
+  - gemini
+  - claude
+  - antigravity

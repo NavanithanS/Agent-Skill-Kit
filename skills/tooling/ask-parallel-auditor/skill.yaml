@@ -1,0 +1,14 @@
+name: ask-parallel-auditor
+version: 1.0.0
+category: tooling
+description: Orchestrator skill that splits a target repository into chunks and runs multiple audit subagents in parallel.
+tags:
+  - orchestrator
+  - parallel
+  - audit
+  - subagent
+agents:
+  - codex
+  - gemini
+  - claude
+  - antigravity

@@ -219,7 +219,52 @@ ASK comes with a curated collection of skills to boost your AI agent's capabilit
 
 ### Tooling Skills (Meta-Skills)
 
-#### 🛠️ ask-skill-creator
+#### 🧹 ask-context-janitor
+**Description**: Aggressive token optimizer and context summarizer for reducing large text files, logs, or agent outputs.
+
+**How to Use**:
+```bash
+ask copy antigravity --skill ask-context-janitor
+```
+
+**Use Cases**:
+- Summarizing massive `.log` files from build errors.
+- Digesting large `ARCHITECTURAL_AUDIT.md` files or `git diff` outputs.
+- Acting as a data-reducer for multi-agent workflows.
+
+---
+
+#### �️ ask-ast-mapper
+**Description**: Read-only subagent for generating lightweight AST dependency maps and structural overviews of directories.
+
+**How to Use**:
+```bash
+ask copy antigravity --skill ask-ast-mapper
+```
+
+**Use Cases**:
+- Quickly mapping dependencies of a directory without reading every file.
+- Generating a lightweight JSON structure of imports and class methods.
+- Acting as a reconnaissance subagent for heavier architectural agents.
+
+---
+
+#### ⚡ ask-parallel-auditor
+**Description**: Orchestrator skill that splits a target repository into chunks and runs multiple audit subagents in parallel to bypass context limits.
+
+**How to Use**:
+```bash
+ask copy antigravity --skill ask-parallel-auditor
+```
+
+**Use Cases**:
+- Running repository-wide security scans or complexity audits.
+- Delegating task subsets to identical subagents (e.g., `ask-owasp-security-review`).
+- Bypassing the token limit of single-agent workflows.
+
+---
+
+#### �🛠️ ask-skill-creator
 **Description**: Teaches AI agents how to create skills for Agent Skill Kit
 
 **How to Use**:

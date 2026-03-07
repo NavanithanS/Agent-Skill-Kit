@@ -1,0 +1,14 @@
+name: ask-context-janitor
+version: 1.0.0
+category: tooling
+description: Aggressive token optimizer and context summarizer for AI orchestrators
+tags:
+  - context
+  - subagent
+  - tokens
+  - summarization
+agents:
+  - codex
+  - gemini
+  - claude
+  - antigravity
