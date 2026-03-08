@@ -1,13 +1,13 @@
 # Changelog
 
-## [1.4.1] - 2026-03-08
+## [0.4.1] - 2026-03-08
 
 ### 🛡️ Safety & Quality
 - **ask-commit-assistance (v1.1.0)**: Strictly forbid autonomous commits. The agent must now hand over the final `git commit` command to the user.
 - **Skill Standardization**: Restructured `ask-commit-assistance` to follow the v2.0 token-optimized format and `ask-skill-creator` guidelines.
 
 ### 🔄 Meta
-- Unified project versioning across all core files to `1.4.1`.
+- Unified project versioning across all core files to `0.4.1`.
 
 ## [0.2.0] - 2026-02-07
 

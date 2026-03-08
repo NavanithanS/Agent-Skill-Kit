@@ -1,6 +1,6 @@
 # 🚀 Agent Skill Kit Releases
 
-## v1.4.1
+## v0.4.1
 **Date**: March 8, 2026
 **Theme**: Safety First & Version Unification
 
@@ -10,7 +10,7 @@ We've overhauled the **`ask-commit-assistance`** skill (bumped to v1.1.0). This 
 - Added explicit `❌ NEVER AUTO-COMMIT` critical constraints.
 
 ### 📦 Project Unification
-- Unified the package version to **v1.4.1** across `pyproject.toml`, adapters, and Homebrew formulae to resolve inconsistencies.
+- Unified the package version to **v0.4.1** across `pyproject.toml`, adapters, and Homebrew formulae to resolve inconsistencies.
 
 ## v0.4.0
 **Date**: March 7, 2026
