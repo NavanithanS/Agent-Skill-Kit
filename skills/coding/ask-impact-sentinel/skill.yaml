@@ -1,0 +1,15 @@
+name: ask-impact-sentinel
+version: 1.0.0
+category: coding
+description: Guidelines for impact analysis, breaking change detection, and strategic database design.
+tags:
+  - impact-analysis
+  - breaking-changes
+  - database-optimization
+  - regression-testing
+  - senior-engineer
+agents:
+  - codex
+  - gemini
+  - claude
+  - antigravity

@@ -215,6 +215,7 @@ ASK comes with a curated collection of skills to boost your AI agent's capabilit
 | **[owasp-security-review](skills/coding/ask-owasp-security-review/README.md)** | Static code analysis aligned with OWASP Top 10 | • Security scanning<br>• Identifying vulnerabilities<br>• Compliance checks |
 | **[python-refactor](skills/coding/ask-python-refactor/README.md)** | Guidelines for Python code refactoring | • Improving code quality<br>• Refactoring legacy code<br>• Python best practices |
 | **[refactoring-readability](skills/coding/ask-refactoring-readability/README.md)** | Improves code structure for clarity | • Renaming vars/functions<br>• Reducing complexity<br>• Improving readability |
+| **[impact-sentinel](skills/coding/ask-impact-sentinel/README.md)** | Guidelines for impact analysis and database design | • Breaking change detection<br>• Strategic DB design<br>• Safe optimization |
 | **[unit-test-generation](skills/coding/ask-unit-test-generation/README.md)** | Automates creation of comprehensive unit tests | • Generating new tests<br>• Covering edge cases<br>• Improving coverage |
 | **[vue-architect](skills/coding/ask-vue-architect/README.md)** | Expert scaffolding for Vue 3 (Inertia/Nuxt) | • Component blueprints<br>• Stack detection<br>• Best practices enforcement |
 | **[vue-mechanic](skills/coding/ask-vue-mechanic/README.md)** | Expert maintenance skill for Vue 3 (Inertia) | • Fixing navigation reloads<br>• Debugging prop mismatches<br>• Solving reactivity issues |
