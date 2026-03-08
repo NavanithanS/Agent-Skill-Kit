@@ -1,7 +1,7 @@
 name: ask-commit-assistance
-version: 1.0.1
+version: 1.1.0
 category: coding
-description: Assist with code review, staging, and committing changes.
+description: Assist with code review and staging. NEVER automatically commits.
 tags:
   - git
   - commit

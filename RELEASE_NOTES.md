@@ -1,5 +1,17 @@
 # 🚀 Agent Skill Kit Releases
 
+## v1.4.1
+**Date**: March 8, 2026
+**Theme**: Safety First & Version Unification
+
+### 🛡️ Safety Update: "Zero Auto-Commit"
+We've overhauled the **`ask-commit-assistance`** skill (bumped to v1.1.0). This update introduces strict constraints that prevent any AI agent from executing `git commit` autonomously. 
+- Agents will now review, scan for secrets, and stage files, but the final commit remains a manual user action.
+- Added explicit `❌ NEVER AUTO-COMMIT` critical constraints.
+
+### 📦 Project Unification
+- Unified the package version to **v1.4.1** across `pyproject.toml`, adapters, and Homebrew formulae to resolve inconsistencies.
+
 ## v0.4.0
 **Date**: March 7, 2026
 **Theme**: Hierarchical Multi-Agent Systems (HMAS) & Orchestration
