@@ -6,7 +6,7 @@ from rich.prompt import Prompt
 from rich.table import Table
 
 from ask.utils.skill_registry import get_skill, get_all_skills, resolve_dependencies
-from ask.utils.filesystem import get_adapter
+from ask.utils.filesystem import get_adapter, get_safe_cwd
 from ask.utils.agent_registry import get_available_agents, get_agent_scopes
 
 console = Console()
@@ -255,6 +255,18 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool):
     if scopes["global"]:
         table.add_column("Global (user)", style="green")
     
+    # Calculate project root once
+    project_root = get_safe_cwd()
+    
+    # Cache adapters for preview
+    local_adapter = None
+    if scopes["local"]:
+        local_adapter = get_adapter(agent, use_global=False, project_root=project_root)
+        
+    global_adapter = None
+    if scopes["global"]:
+        global_adapter = get_adapter(agent, use_global=True)
+
     for skill in skills:
         row = [skill["name"]]
         
@@ -268,16 +280,14 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool):
              
         row.append(type_str)
         
-        if scopes["local"]:
-            adapter = get_adapter(agent, use_global=False)
-            target = adapter.get_target_path(skill)
+        if scopes["local"] and local_adapter:
+            target = local_adapter.get_target_path(skill)
             exists = target.exists()
             status = f"[yellow](exists)[/yellow]" if exists else ""
             row.append(f"{target} {status}")
         
-        if scopes["global"]:
-            adapter = get_adapter(agent, use_global=True)
-            target = adapter.get_target_path(skill)
+        if scopes["global"] and global_adapter:
+            target = global_adapter.get_target_path(skill)
             exists = target.exists()
             status = f"[yellow](exists)[/yellow]" if exists else ""
             row.append(f"{target} {status}")
@@ -321,8 +331,12 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool):
         use_global = False
         scope_name = "local"
     
-    # Get adapter for chosen scope
-    adapter = get_adapter(agent, use_global=use_global)
+    # Select adapter for chosen scope
+    adapter = global_adapter if use_global else local_adapter
+    
+    if not adapter:
+        # Fallback if not cached (should not happen normally)
+        adapter = get_adapter(agent, use_global=use_global, project_root=project_root)
     
     # Copy skills
     console.print(f"\n[bold]Copying to {scope_name}...[/bold]\n")

@@ -20,8 +20,8 @@ class AntigravityAdapter(BaseAdapter):
             # Global: ~/.gemini/antigravity/skills/
             self.target_dir = Path.home() / ".gemini" / "antigravity" / "skills"
         else:
-            # Local: .agent/skills/
-            self.project_root = project_root or Path.cwd()
+            from ask.utils.filesystem import get_safe_cwd
+            self.project_root = project_root or get_safe_cwd()
             self.target_dir = self.project_root / ".agent" / "skills"
     
     def get_target_path(self, skill: Dict, name: str = None) -> Path:

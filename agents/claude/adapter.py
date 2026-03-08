@@ -15,11 +15,13 @@ class ClaudeAdapter(BaseAdapter):
     - Global (user):   ~/.claude/commands/<skill-name>.md
     """
     
-    def __init__(self, use_global: bool = False):
+    def __init__(self, use_global: bool = False, project_root: Path = None):
         if use_global:
             self.target_dir = Path.home() / ".claude" / "commands"
         else:
-            self.target_dir = Path.cwd() / ".claude" / "commands"
+            from ask.utils.filesystem import get_safe_cwd
+            root = project_root or get_safe_cwd()
+            self.target_dir = root / ".claude" / "commands"
     
     def get_target_path(self, skill: Dict, name: str = None) -> Path:
         """Get the target path for a skill."""

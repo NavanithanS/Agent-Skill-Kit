@@ -25,7 +25,8 @@ class CodexAdapter(BaseAdapter):
             self.target_file = "instructions.md"
         else:
             # Local: codex.md in project root
-            self.target_dir = project_root or Path.cwd()
+            from ask.utils.filesystem import get_safe_cwd
+            self.target_dir = project_root or get_safe_cwd()
             self.target_file = "codex.md"
     
     def get_target_path(self, skill: Dict, name: str = None) -> Path:

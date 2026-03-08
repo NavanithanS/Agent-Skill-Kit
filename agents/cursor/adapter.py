@@ -18,11 +18,13 @@ class CursorAdapter(BaseAdapter):
     Cursor uses Markdown files in the .cursor/rules directory.
     """
     
-    def __init__(self, use_global: bool = False):
+    def __init__(self, use_global: bool = False, project_root: Path = None):
         if use_global:
             self.target_dir = Path.home() / ".cursor" / "rules"
         else:
-            self.target_dir = Path.cwd() / ".cursor" / "rules"
+            from ask.utils.filesystem import get_safe_cwd
+            root = project_root or get_safe_cwd()
+            self.target_dir = root / ".cursor" / "rules"
     
     def get_target_path(self, skill: Dict, name: str = None) -> Path:
         """Get the target path for a skill."""

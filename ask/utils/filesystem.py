@@ -1,10 +1,27 @@
-"""Filesystem utilities for Agent Skill Kit."""
-
 import os
 import shutil
 import importlib
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Any
+
+
+def get_safe_cwd() -> Path:
+    """
+    Get the current working directory safely.
+    
+    Handles FileNotFoundError which occurs if the CWD has been deleted.
+    """
+    try:
+        return Path.cwd()
+    except FileNotFoundError:
+        # Fallback to project root if possible, or raise a better error
+        root = get_project_root()
+        if root.exists():
+            return root
+        raise RuntimeError(
+            "Current working directory is invalid (it may have been deleted). "
+            "Please cd into a valid directory."
+        )
 
 
 def get_project_root() -> Path:
@@ -55,7 +72,7 @@ def safe_copy_file(src: Path, dst: Path, force: bool = False) -> dict:
     return {"status": "copied", "target": str(dst)}
 
 
-def get_adapter(agent_name: str, use_global: bool = False):
+def get_adapter(agent_name: str, use_global: bool = False, project_root: Optional[Path] = None):
     """
     Dynamic adapter loader for agent-specific transformations.
     
@@ -75,6 +92,12 @@ def get_adapter(agent_name: str, use_global: bool = False):
         adapter_class = getattr(module, class_name)
         
         # 4. Instantiate and return
+        # Check if adapter accepts project_root
+        import inspect
+        sig = inspect.signature(adapter_class.__init__)
+        if "project_root" in sig.parameters:
+            return adapter_class(use_global=use_global, project_root=project_root)
+        
         return adapter_class(use_global=use_global)
         
     except (ImportError, AttributeError) as e:
