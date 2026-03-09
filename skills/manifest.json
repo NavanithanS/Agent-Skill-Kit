@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "generated": "2026-02-14T14:02:16.760009",
+  "generated": "2026-03-09T08:42:22.435919",
   "skills": [
     {
       "name": "ask-add-agent",
@@ -25,6 +25,13 @@
         "choosing technology"
       ],
       "path": "planning/ask-adr-logger"
+    },
+    {
+      "name": "ask-ast-mapper",
+      "description": "Read-only subagent designed to generate lightweight AST (Abstract Syntax Tree) dependency maps.",
+      "category": "tooling",
+      "triggers": [],
+      "path": "tooling/ask-ast-mapper"
     },
     {
       "name": "ask-brainstorm",
@@ -70,7 +77,7 @@
     },
     {
       "name": "ask-commit-assistance",
-      "description": "Assist with code review, staging, and committing changes.",
+      "description": "Assist with code review and staging. NEVER automatically commits.",
       "category": "coding",
       "triggers": [
         "review my changes",
@@ -103,6 +110,17 @@
         "find dead code"
       ],
       "path": "coding/ask-conceptual-integrity-sentinel"
+    },
+    {
+      "name": "ask-context-janitor",
+      "description": "Aggressive token optimizer and context summarizer for AI orchestrators",
+      "category": "tooling",
+      "triggers": [
+        "summarize log",
+        "optimize context",
+        "reduce this output"
+      ],
+      "path": "tooling/ask-context-janitor"
     },
     {
       "name": "ask-db-migration-assistant",
@@ -189,6 +207,13 @@
       "path": "coding/ask-flutter-mechanic"
     },
     {
+      "name": "ask-impact-sentinel",
+      "description": "Guidelines for impact analysis, breaking change detection, and strategic database design.",
+      "category": "coding",
+      "triggers": [],
+      "path": "coding/ask-impact-sentinel"
+    },
+    {
       "name": "ask-laravel-architect",
       "description": "Senior scaffolding skill. Handles SQL vs Mongo (Jenssegers/Official), SoftDeletes, and strict API standards.",
       "category": "coding",
@@ -230,6 +255,13 @@
       "category": "coding",
       "triggers": [],
       "path": "coding/ask-owasp-security-review"
+    },
+    {
+      "name": "ask-parallel-auditor",
+      "description": "Orchestrator skill that splits a target repository into chunks and runs multiple audit subagents in parallel.",
+      "category": "tooling",
+      "triggers": [],
+      "path": "tooling/ask-parallel-auditor"
     },
     {
       "name": "ask-pdf-processing",
@@ -335,6 +367,13 @@
       "path": "tooling/ask-skill-creator"
     },
     {
+      "name": "ask-smart-booking-test",
+      "description": "An advanced autonomous testing skill for verifying end-to-end booking flows. Specializes in Flights, Movies, and Tours with integrated Payment Gateway testing.",
+      "category": "tooling",
+      "triggers": [],
+      "path": "tooling/ask-smart-booking-test"
+    },
+    {
       "name": "ask-system-architect-prime",
       "description": "Principal Software Architect for repository audits, complexity analysis, and actionable refactoring recommendations",
       "category": "tooling",
@@ -381,18 +420,6 @@
         "trace vue data flow"
       ],
       "path": "coding/ask-vue-mechanic"
-    },
-    {
-      "name": "ask-smart-booking-test",
-      "description": "An advanced autonomous testing skill for verifying end-to-end booking flows. Specializes in Flights, Movies, and Tours with integrated Payment Gateway testing.",
-      "category": "tooling",
-      "triggers": [
-        "test booking flow",
-        "verify reservation",
-        "test payment gateway",
-        "booking smoke test"
-      ],
-      "path": "tooling/ask-smart-booking-test"
     }
   ]
 }
