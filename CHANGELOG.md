@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2] - 2026-03-09
+
+### New Features
+- **Claude Adapter**: Updated the Claude skill adapter to use the new `skills/<skill-name>/SKILL.md` structure with YAML frontmatter.
+- **Skills**: Added `ask-impact-sentinel` skill.
+- **Skill Manifest**: Updated `manifest.json` with new skills.
+
 ## [0.4.1] - 2026-03-08
 
 ### 🛡️ Safety & Quality

@@ -1,5 +1,16 @@
 # 🚀 Agent Skill Kit Releases
 
+## v0.4.2
+**Date**: March 9, 2026
+**Theme**: Claude Adapter Update & New Skills
+
+### 🚀 Claude Adapter Update
+- **`ask.adapters.claude`**: Updated the skill copying logic for Claude. It now expects and correctly handles the `skills/<skill-name>/SKILL.md` structure with YAML frontmatter, aligning Claude with the new "Gold Standard" skill architecture.
+
+### 🛠️ New Skills & Manifest
+- Added the **`ask-impact-sentinel`** skill.
+- Updated the central `manifest.json` for skill routing.
+
 ## v0.4.1
 **Date**: March 8, 2026
 **Theme**: Safety First & Version Unification
