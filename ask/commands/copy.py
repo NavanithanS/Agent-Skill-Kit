@@ -3,6 +3,7 @@
 import click
 import os
 import shutil
+from pathlib import Path
 from rich.console import Console
 from rich.prompt import Prompt
 from rich.table import Table
@@ -119,7 +120,8 @@ def prompt_agent_selection(skills):
         else:
             # For "all" skills, show count of compatible skills
             compat_count = sum(1 for s in skills if agent in s.get("agents", []))
-            compat_display = f"[green]{compat_count}/{len(skills)}[/green]" if compat_count > 0 else "[dim]0/{len(skills)}[/dim]"
+            # Fallback formatted string missing the f-string prefix
+            compat_display = f"[green]{compat_count}/{len(skills)}[/green]" if compat_count > 0 else f"[dim]0/{len(skills)}[/dim]"
         
         table.add_row(str(idx), agent, compat_display)
     
@@ -409,4 +411,4 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool):
     console.print(f"[green]Done![/green] {success_count} copied/symlinked, {skip_count} skipped.")
     
     if success_count > 0:
-        console.print(f"\n[bold yellow]💡 Tip:[/bold yellow] Keep these skills up to date by running [cyan]ask update[/cyan] periodically.")
+        console.print("\n[bold yellow]💡 Tip:[/bold yellow] Keep these skills up to date by running [cyan]ask update[/cyan] periodically.")
