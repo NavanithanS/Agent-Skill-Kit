@@ -4,7 +4,7 @@ import click
 from rich.console import Console
 
 from ask import __version__
-from ask.commands import create, copy, sync, update, list_skills, add_agent, remove, validate, skill
+from ask.commands import create, copy, sync, update, list_skills, add_agent, remove, validate, skill, purge, rules
 from ask.utils.logging import setup_logging
 from ask.utils.config import load_config
 
@@ -36,6 +36,8 @@ main.add_command(validate.validate)
 main.add_command(list_skills.list_cmd, name="list")
 main.add_command(add_agent.add_agent)
 main.add_command(skill.skill)
+main.add_command(purge.purge)
+main.add_command(rules.rules)
 
 
 if __name__ == "__main__":

@@ -8,10 +8,10 @@
 ASK now supports the **Hierarchical Multi-Agent System (HMAS)** paradigm. Introduce parallel orchestration to your AI with new Subagent capabilities!
 
 ### New Features
+-   **Universal Source of Truth**: `ask copy` now defaults to `.agents/skills/` as the single source of truth for your AI skills, and automatically symlinks to older tools (like Cursor, Codex) while avoiding redundant copies!
+-   **ask rules compile**: Manage your `.cursorrules`, `CLAUDE.md`, and `.agent/rules/` from a central `.agents/rules` repository natively using `ask rules compile`.
+-   **ask purge**: A new interactive command to safely clean old `ask-*` tracking files across all your agents.
 -   **ask-parallel-auditor**: New Orchestrator skill to chunk and run subagents in isolated worktrees entirely in parallel, bypassing token limits.
--   **ask-ast-mapper & ask-context-janitor**: New Subagent skills designed to map dependencies and optimize tokens on behalf of a parent agent workflow.
--   **ask-shadcn-architect update**: Added new instructions guiding the agent to use `shadcn/cli v4` features.
--   **MCP Server**: Native support for Claude Desktop. Add to `claude_desktop_config.json`.
 -   **Gold Standard Skills**: Strict `SKILL.md` + `scripts/` + `assets/` structure for 37+ skills.
 
 ---
@@ -114,13 +114,26 @@ ask list --search "docker"
 ask list --category coding --agent claude
 ```
 
-### 3. Validate Library
+### 3. Manage Rules (ask rules compile)
+Easily manage rule files (`.cursorrules`, `CLAUDE.md`, `.agent/rules/`) by compiling them from a single central Universal Truth directory!
+```bash
+# Place your `.md` snippets in .agents/rules/ or ~/.agents/rules/
+ask rules compile
+```
+
+### 4. Interactive Purge (ask purge)
+Safely delete `ask-*` skills from selected target agents (or the entire Universal directory) with interactive selection prompts.
+```bash
+ask purge
+```
+
+### 5. Validate Library
 Check your skill library for errors, missing metadata, or circular dependencies.
 ```bash
 ask validate
 ```
 
-### 3. Create a New Skill
+### 6. Create a New Skill
 **AI-Assisted** (Recommended):
 Simply ask your AI agent to create a skill for you:
 ```
@@ -140,13 +153,13 @@ Launch the interactive wizard to generate a standardized skill template.
 ask create skill
 ```
 
-### 4. Sync All Skills
+### 7. Sync All Skills
 Synchronize your entire skill library to all supported agents at once.
 ```bash
 ask sync all
 ```
 
-### 5. Update Skills
+### 8. Update Skills
 Keep your installed skills up-to-date with the latest versions from the repository.
 ```bash
 ask update
@@ -156,14 +169,14 @@ Features:
 - **Interactive**: Select which skills to update (or use `--yes` to update all).
 - **Safe**: Automatic backup (`SKILL.md.bak`) created before overwriting.
 
-### 6. Add Support for New Agents
+### 9. Add Support for New Agents
 Want to use **Windsurf** or **Aider**? Use the scaffold wizard:
 ```bash
 ask add-agent
 ```
 This creates the necessary adapter code, making the new agent available instantly.
 
-### 7. Skill Development Tools (New in v0.2.0)
+### 10. Skill Development Tools (New in v0.2.0)
 
 ```bash
 # Lint skills for token limits and schema compliance

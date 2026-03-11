@@ -1,5 +1,18 @@
 # 🚀 Agent Skill Kit Releases
 
+## v0.5.0
+**Date**: March 11, 2026
+**Theme**: Universal Source of Truth & Rule Generation
+
+### 🌐 Universal Source of Truth (USoT)
+Agent Skill Kit now pioneers the **Universal Source of Truth** for AI agent skills. As AI coding tools multiply (Cursor, Claude Code, Gemini, Antigravity), managing skills across all of them was becoming tedious.
+- **`ask copy`**: Now intelligently copies the skill definition to a universal directory (`.agents/skills/`) and automatically deploys a symlink to the specific agent's folder (e.g. `.cursor/rules/`). Updates to the USoT instantly reflect across all your agents!
+- **`ask purge`**: A brand new interactive command that allows you safely and rapidly delete `ask-*` tracking capabilities from selected legacy agent folders.
+
+### 📜 Universal Rule Generation
+Agents often use "Rules" (like `.cursorrules` or `CLAUDE.md`) to define passive repo constraints ("always use TypeScript", "no Tailwind"). ASK now manages these globally!
+- **`ask rules compile`**: Simply place your rule snippets in `.agents/rules/` (`~/.agents/rules/` for global) and run this new command to instantly compile them into `.cursorrules`, `CLAUDE.md`, and `.agent/rules/rules.md`. Write your rules once, apply them everywhere.
+
 ## v0.4.2
 **Date**: March 9, 2026
 **Theme**: Claude Adapter Update & New Skills

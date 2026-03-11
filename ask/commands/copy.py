@@ -1,6 +1,8 @@
 """Copy command - Copy skills to agent directories."""
 
 import click
+import os
+import shutil
 from rich.console import Console
 from rich.prompt import Prompt
 from rich.table import Table
@@ -258,14 +260,20 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool):
     # Calculate project root once
     project_root = get_safe_cwd()
     
+    from agents.universal.adapter import UniversalAdapter
+    
     # Cache adapters for preview
     local_adapter = None
+    local_universal = None
     if scopes["local"]:
         local_adapter = get_adapter(agent, use_global=False, project_root=project_root)
+        local_universal = UniversalAdapter(use_global=False, project_root=project_root)
         
     global_adapter = None
+    global_universal = None
     if scopes["global"]:
         global_adapter = get_adapter(agent, use_global=True)
+        global_universal = UniversalAdapter(use_global=True)
 
     for skill in skills:
         row = [skill["name"]]
@@ -333,51 +341,72 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool):
     
     # Select adapter for chosen scope
     adapter = global_adapter if use_global else local_adapter
+    universal_adapter = global_universal if use_global else local_universal
     
-    if not adapter:
-        # Fallback if not cached (should not happen normally)
+    if not universal_adapter:
+        universal_adapter = UniversalAdapter(use_global=use_global, project_root=project_root)
+    if not adapter and agent != "universal":
         adapter = get_adapter(agent, use_global=use_global, project_root=project_root)
     
     # Copy skills
-    console.print(f"\n[bold]Copying to {scope_name}...[/bold]\n")
+    console.print(f"\n[bold]Copying to {scope_name} (Universal Source of Truth)...[/bold]\n")
     
     success_count = 0
     skip_count = 0
     
     for skill in skills:
         try:
-            result = adapter.copy_skill(skill)
+            name_to_use = skill.get("name")
             
-            if result["status"] == "copied":
-                console.print(f"  [green]✓[/green] {skill['name']} → {result['target']}")
-                success_count += 1
-            elif result["status"] == "conflict":
-                # Prompt user for new name
-                console.print(f"  [yellow]⚠️  '{skill['name']}' already exists[/yellow]")
-                
-                new_name = Prompt.ask(
-                    "    Enter new name (or 'skip')",
-                    default="skip"
-                )
-                
+            # 1. Write to Universal Source of Truth
+            result = universal_adapter.copy_skill(skill)
+            
+            if result["status"] == "conflict":
+                console.print(f"  [yellow]⚠️  '{skill['name']}' already exists in USoT[/yellow]")
+                new_name = Prompt.ask("    Enter new name (or 'skip')", default="skip")
                 if new_name.lower() == "skip":
                     console.print(f"  [yellow]○[/yellow] {skill['name']} skipped")
                     skip_count += 1
+                    continue
                 else:
-                    # Copy with new name
-                    result = adapter.copy_skill(skill, new_name=new_name)
-                    if result["status"] == "copied":
-                        console.print(f"  [green]✓[/green] {skill['name']} → {result['target']}")
-                        success_count += 1
-                    else:
+                    name_to_use = new_name
+                    result = universal_adapter.copy_skill(skill, new_name=new_name)
+                    if result["status"] != "copied":
                         console.print(f"  [red]✗[/red] Failed: {result.get('error', 'Unknown')}")
-                        
-        except Exception as e:
+                        continue
+            
+            u_path = Path(result["target"]) # Universal path (e.g. .agents/skills/my-skill/SKILL.md)
+            
+            # 2. Deploy symlink to the specific chosen agent (unless it's universal itself)
+            if agent != "universal" and adapter:
+                # Specific agent target (e.g. cursor: .cursor/rules/my-skill.md, gemini: .gemini/skills/my-skill/SKILL.md)
+                agent_target = adapter.get_target_path(skill, name_to_use)
+                
+                # Check for legacy hard-copied file/folder and remove it to migrate
+                if agent_target.exists() and not agent_target.is_symlink():
+                    if agent_target.is_dir():
+                        shutil.rmtree(agent_target)
+                    else:
+                        agent_target.unlink()
+                
+                if not agent_target.exists():
+                    agent_target.parent.mkdir(parents=True, exist_ok=True)
+                    rel_path = os.path.relpath(u_path, agent_target.parent)
+                    agent_target.symlink_to(rel_path)
+            
+            # Print success
+            if agent == "universal":
+                 console.print(f"  [green]✓[/green] {skill['name']} → USoT ({u_path})")
+            else:
+                 console.print(f"  [green]✓[/green] {skill['name']} → USoT and symlinked for {agent}")
+            success_count += 1
+            
+        except OSError as e:
             console.print(f"  [red]✗[/red] {skill['name']}: {e}")
     
     # Summary
     console.print()
-    console.print(f"[green]Done![/green] {success_count} copied, {skip_count} skipped.")
+    console.print(f"[green]Done![/green] {success_count} copied/symlinked, {skip_count} skipped.")
     
     if success_count > 0:
         console.print(f"\n[bold yellow]💡 Tip:[/bold yellow] Keep these skills up to date by running [cyan]ask update[/cyan] periodically.")

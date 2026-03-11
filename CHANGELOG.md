@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.0] - 2026-03-11
+
+### 🚀 New Features
+- **Universal Source of Truth**: Added a new Universal Adapter allowing `.agents/skills/` to be the primary home for all skills.
+- **Smart Symlinking**: `ask copy <agent>` now writes to the Universal Source of Truth and symlinks to the specific agent folder, keeping skills in sync across tools like Cursor and Claude Code.
+- **Interactive Purge**: New `ask purge` command to cleanly interactive remove `ask-*` skills from selected agent directories.
+- **Rule Generation**: New `ask rules compile` command to compile markdown files from `.agents/rules/` directly into `.cursorrules`, `CLAUDE.md`, and `.agent/rules/rules.md`.
+
 ## [0.4.2] - 2026-03-09
 
 ### New Features
