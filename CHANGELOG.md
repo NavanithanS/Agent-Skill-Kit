@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.5.1] - 2026-03-12
+
+### 🐛 Bug Fixes
+- **`ask create skill`**: Now scaffolds `SKILL.md` (not the deprecated `README.md`), and creates the required `scripts/` and `tests/` directories — new skills no longer fail `ask validate` immediately after creation.
+- **`ask create skill` / `ask validate`**: Fixed category list — `"reasoning"` and `"other"` replaced with `"planning"` to match the actual `skills/` directory structure. Skills created under `"reasoning"` were silently undiscoverable.
+- **`ask sync`**: Rewritten to route through the Universal Source of Truth (USoT) and symlink to each agent — matching the `ask copy` architecture. Previously bypassed USoT entirely, causing synced skills to be invisible to `ask update`.
+- **`ask sync`**: `all` argument is now optional — `ask sync` works without arguments.
+- **`ask validate`**: "Result" summary now prints after the dependency check so circular-dependency failures are included in the count.
+- **`ask copy`**: Restored `[yellow](exists)` Rich markup in the preview table (was accidentally stripped during f-string cleanup).
+- **`ask copy`**: Single skill selected interactively no longer displays as `"Dependency"` in the preview table.
+- **`ask copy`**: `universal` agent now correctly shows as compatible with all skills in the agent selection table.
+- **`ask copy`**: Conflict resolution replaced single free-text prompt with a 4-option menu: `use existing / overwrite / rename / skip`.
+- **`ask purge`**: Agent argument validated at runtime (not import time); extracted `_collect_targets` helper to remove duplicate scan logic; added `--all-skills` flag.
+- **`ask add-agent`**: Tip command now correctly references `ask-bug-finder` instead of the non-existent `bug-finder`.
+- **Tests**: Updated stale `test_claude_transform` assertions to match the adapter's current frontmatter-only output format.
+
+### 🧹 Cleanup
+- Removed unused imports across 7 files (`pathlib.Path`, `yaml`, `os`, `typing.Optional`, `typing.Any`, `get_skill`, `get_skills_dir`, `get_agent_scopes`).
+
 ## [0.5.0] - 2026-03-11
 
 ### 🚀 New Features

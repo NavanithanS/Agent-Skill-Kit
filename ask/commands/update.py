@@ -2,13 +2,12 @@
 
 import click
 import shutil
-from pathlib import Path
 from rich.console import Console
 from rich.prompt import Prompt
 from rich.table import Table
 from typing import List, Dict, Any
 
-from ask.utils.skill_registry import get_skill, get_all_skills
+from ask.utils.skill_registry import get_all_skills
 from ask.utils.filesystem import get_adapter
 from ask.utils.agent_registry import get_available_agents
 

@@ -1,7 +1,6 @@
 """Validation utilities for Agent Skill Kit."""
 
 import re
-from typing import Optional
 
 
 def validate_skill_name(name: str) -> bool:
@@ -25,7 +24,7 @@ def validate_skill_name(name: str) -> bool:
 
 def validate_category(category: str) -> bool:
     """Validate a skill category."""
-    valid_categories = ["coding", "reasoning", "tooling", "other"]
+    valid_categories = ["coding", "planning", "tooling"]
     return category in valid_categories
 
 

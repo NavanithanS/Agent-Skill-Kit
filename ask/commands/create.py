@@ -1,10 +1,6 @@
 """Create command - Interactive skill creation wizard."""
 
-import os
-from pathlib import Path
-
 import click
-import yaml
 from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import Prompt, Confirm
@@ -15,7 +11,7 @@ from ask.utils.agent_registry import get_available_agents
 
 console = Console()
 
-CATEGORIES = ["coding", "reasoning", "tooling", "other"]
+CATEGORIES = ["coding", "planning", "tooling"]
 
 SKILL_YAML_TEMPLATE = """name: {name}
 version: 1.0.0
@@ -128,7 +124,9 @@ def skill(name: str, category: str, description: str):
         raise click.Abort()
     
     safe_create_dir(skill_path)
-    
+    safe_create_dir(skill_path / "scripts")
+    safe_create_dir(skill_path / "tests")
+
     # Create skill.yaml
     tags_yaml = "\n".join(f"  - {tag}" for tag in tags) if tags else "[]"
     agents_yaml = "\n".join(f"  - {agent}" for agent in get_available_agents())
@@ -142,22 +140,22 @@ def skill(name: str, category: str, description: str):
     
     (skill_path / "skill.yaml").write_text(skill_yaml_content, encoding="utf-8")
     
-    # Create README.md
+    # Create SKILL.md
     title = name.replace("-", " ").title()
     readme_content = README_TEMPLATE.format(
         title=title,
         description=description
     )
-    
-    (skill_path / "README.md").write_text(readme_content, encoding="utf-8")
-    
-    console.print(f"\n[green]✅ Skill created successfully![/green]")
+
+    (skill_path / "SKILL.md").write_text(readme_content, encoding="utf-8")
+
+    console.print("\n[green]✅ Skill created successfully![/green]")
     console.print(f"   Location: [cyan]{skill_path}[/cyan]")
-    console.print(f"\n   Edit your skill:")
+    console.print("\n   Edit your skill:")
     console.print(f"   • [dim]{skill_path}/skill.yaml[/dim]")
-    console.print(f"   • [dim]{skill_path}/README.md[/dim]")
+    console.print(f"   • [dim]{skill_path}/SKILL.md[/dim]")
     
     # AI suggestion
-    console.print(f"\n[bold yellow]💡 Tip:[/bold yellow] For richer content, ask your AI agent:")
+    console.print("\n[bold yellow]💡 Tip:[/bold yellow] For richer content, ask your AI agent:")
     console.print(f'   [dim]"Improve the skill {name} with more examples and best practices"[/dim]')
 

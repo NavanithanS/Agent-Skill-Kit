@@ -2,7 +2,7 @@
 
 import re
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Tuple
 
 # Try to import tiktoken, fallback to estimation if not available or offline
 try:

@@ -1,5 +1,33 @@
 # 🚀 Agent Skill Kit Releases
 
+## v0.5.1
+**Date**: March 12, 2026
+**Theme**: Bug Fix Release — CLI Correctness & USoT Integrity
+
+### 🐛 What's Fixed
+
+**`ask create skill` was broken end-to-end:**
+- Created `README.md` instead of `SKILL.md` — every new skill immediately failed `ask validate`
+- Didn't scaffold `scripts/` or `tests/` directories — two more instant validation failures
+- Offered `"reasoning"` and `"other"` as categories — both point to directories the skill registry never scans, making skills permanently undiscoverable. Fixed to `["coding", "planning", "tooling"]`.
+
+**`ask sync` bypassed the Universal Source of Truth:**
+- Previously wrote skills directly to each agent's folder, bypassing `.agents/skills/`. Synced skills were invisible to `ask update` and broke the symlink architecture introduced in v0.5.0. Now uses the same USoT-first, then-symlink pattern as `ask copy`.
+- `ask sync` (without `all`) now works — the `all` argument is optional.
+
+**`ask validate` showed an incorrect final count:**
+- The "Result: X passed, Y failed" summary printed before the dependency check ran, so circular-dependency failures were never reflected in it.
+
+**`ask copy` UX fixes:**
+- `[yellow](exists)` markup in the preview table was accidentally stripped during a cleanup pass, removing the visual conflict warning.
+- Single interactively-selected skill incorrectly displayed as `"Dependency"` in the preview table.
+- `universal` agent was excluded from the compatibility list for single-skill selections.
+- Conflict resolution replaced a confusing free-text prompt with a clear 4-option menu: **use existing / overwrite / rename / skip**.
+
+**Other fixes:**
+- `ask add-agent` tip referenced `bug-finder` (invalid) — fixed to `ask-bug-finder`.
+- `ask purge` agent argument now validated at runtime instead of import time.
+
 ## v0.5.0
 **Date**: March 11, 2026
 **Theme**: Universal Source of Truth & Rule Generation

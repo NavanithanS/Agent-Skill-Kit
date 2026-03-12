@@ -3,7 +3,7 @@
 from importlib.metadata import version, PackageNotFoundError
 
 try:
-    __version__ = "0.5.0"
+    __version__ = "0.5.1"
 except PackageNotFoundError:
     __version__ = "unknown"
 __author__ = "Nava"

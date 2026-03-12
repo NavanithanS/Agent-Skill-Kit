@@ -37,7 +37,7 @@ def list_cmd(ctx, category: str, agent: str, search: str, verbose: bool):
     if not skills:
         console.print("[yellow]No skills found matching your criteria.[/yellow]")
         if category or agent or search:
-            console.print(f"[dim]Try adjusting your filters.[/dim]")
+            console.print("[dim]Try adjusting your filters.[/dim]")
         return
     
     table = Table(title="📦 Available Skills", show_header=True, header_style="bold cyan")

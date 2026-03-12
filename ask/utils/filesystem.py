@@ -1,8 +1,7 @@
-import os
 import shutil
 import importlib
 from pathlib import Path
-from typing import Optional, Any
+from typing import Optional
 
 
 def get_safe_cwd() -> Path:
@@ -100,7 +99,7 @@ def get_adapter(agent_name: str, use_global: bool = False, project_root: Optiona
         
         return adapter_class(use_global=use_global)
         
-    except (ImportError, AttributeError) as e:
+    except (ImportError, AttributeError):
         # Fallback or error logging could go here
         # print(f"DEBUG: Failed to load adapter for {agent_name}: {e}")
         return None

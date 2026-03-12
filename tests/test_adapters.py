@@ -46,8 +46,9 @@ def test_claude_transform():
     }
     content = adapter.transform(skill)
     
-    assert "# Test Skill" in content
-    assert "A test skill" in content
+    assert 'name: "test-skill"' in content
+    assert 'description: "A test skill"' in content
+    assert "---" in content
 
 def test_base_copy_skill(tmp_path):
     """Test safe copy logic in BaseAdapter."""

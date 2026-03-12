@@ -1,9 +1,8 @@
 import click
-import yaml
 from pathlib import Path
 from rich.console import Console
 
-from ask.utils.skill_registry import get_all_skills, get_skill, get_skills_dir
+from ask.utils.skill_registry import get_all_skills, get_skill
 
 console = Console()
 
@@ -69,19 +68,24 @@ def validate(ctx, skill):
             if ctx.obj.get('verbose'):
                 console.print(f"[green]✓ {skill_name}[/green]")
 
-    console.print(f"\n[bold]Result:[/bold] {passed} passed, {issues} failed.")
-    
     # Check for circular dependencies globally
-    console.print(f"\n[bold]Validating dependency chains...[/bold]")
+    console.print("\n[bold]Validating dependency chains...[/bold]")
     all_skills_map = {s["name"]: s for s in get_all_skills()}
-    
+
+    dep_issues = 0
     for s in skills:
         try:
             from ask.utils.skill_registry import resolve_dependencies
             resolve_dependencies(s.get("name"), skill_map=all_skills_map)
         except ValueError as e:
-             issues += 1
-             console.print(f"  [red]Circular Dependency:[/red] {e}")
+            dep_issues += 1
+            issues += 1
+            console.print(f"  [red]Circular Dependency:[/red] {e}")
+
+    if dep_issues == 0:
+        console.print("[green]✓ All dependency chains OK.[/green]")
+
+    console.print(f"\n[bold]Result:[/bold] {passed} passed, {issues} failed.")
 
     if issues > 0:
         raise click.Abort()

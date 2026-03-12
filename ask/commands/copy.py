@@ -77,7 +77,7 @@ def prompt_skill_selection():
             else:
                 console.print(f"[red]Invalid choice. Please enter 0-{len(all_skills)} or 'all'[/red]")
         except ValueError:
-            console.print(f"[red]Invalid input. Please enter a number, 'all', or '0' to cancel[/red]")
+            console.print("[red]Invalid input. Please enter a number, 'all', or '0' to cancel[/red]")
 
 
 def prompt_agent_selection(skills):
@@ -99,7 +99,7 @@ def prompt_agent_selection(skills):
     if len(skills) == 1:
         # Single skill - show compatibility
         skill_agents = set(skills[0].get("agents", []))
-        compatible_agents = [agent for agent in available_agents if agent in skill_agents]
+        compatible_agents = [agent for agent in available_agents if agent == "universal" or agent in skill_agents]
         
         console.print(f"\n[bold cyan]🤖 Select Agent for '{skills[0]['name']}'[/bold cyan]\n")
     else:
@@ -119,8 +119,11 @@ def prompt_agent_selection(skills):
             compat_display = "[green]✓[/green]" if is_compatible else "[dim]✗[/dim]"
         else:
             # For "all" skills, show count of compatible skills
-            compat_count = sum(1 for s in skills if agent in s.get("agents", []))
-            # Fallback formatted string missing the f-string prefix
+            if agent == "universal":
+                compat_count = len(skills)
+            else:
+                compat_count = sum(1 for s in skills if agent in s.get("agents", []))
+            
             compat_display = f"[green]{compat_count}/{len(skills)}[/green]" if compat_count > 0 else f"[dim]0/{len(skills)}[/dim]"
         
         table.add_row(str(idx), agent, compat_display)
@@ -212,7 +215,11 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool):
         
         # Get skills to copy
         if copy_all:
-            skills = [s for s in get_all_skills() if agent in s.get("agents", [])]
+            if agent == "universal":
+                skills = get_all_skills()
+            else:
+                skills = [s for s in get_all_skills() if agent in s.get("agents", [])]
+            
             if not skills:
                 console.print(f"[yellow]No skills found compatible with {agent}[/yellow]")
                 return
@@ -285,6 +292,8 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool):
              type_str = "Direct"
         elif skill_name and skill["name"] == skill_name:
              type_str = "Direct"
+        elif len(skills) == 1:
+             type_str = "Direct"
         else:
              type_str = "Dependency"
              
@@ -293,13 +302,13 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool):
         if scopes["local"] and local_adapter:
             target = local_adapter.get_target_path(skill)
             exists = target.exists()
-            status = f"[yellow](exists)[/yellow]" if exists else ""
+            status = "[yellow](exists)[/yellow]" if exists else ""
             row.append(f"{target} {status}")
-        
+
         if scopes["global"] and global_adapter:
             target = global_adapter.get_target_path(skill)
             exists = target.exists()
-            status = f"[yellow](exists)[/yellow]" if exists else ""
+            status = "[yellow](exists)[/yellow]" if exists else ""
             row.append(f"{target} {status}")
         
         table.add_row(*row)
@@ -365,19 +374,33 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool):
             
             if result["status"] == "conflict":
                 console.print(f"  [yellow]⚠️  '{skill['name']}' already exists in USoT[/yellow]")
-                new_name = Prompt.ask("    Enter new name (or 'skip')", default="skip")
-                if new_name.lower() == "skip":
+                choice = Prompt.ask(
+                    "    What would you like to do?",
+                    choices=["use existing", "overwrite", "rename", "skip"],
+                    default="use existing"
+                )
+                
+                if choice == "skip":
                     console.print(f"  [yellow]○[/yellow] {skill['name']} skipped")
                     skip_count += 1
                     continue
-                else:
+                elif choice == "overwrite":
+                    result = universal_adapter.copy_skill(skill, force=True)
+                    if result["status"] != "copied":
+                        console.print(f"  [red]✗[/red] Failed to overwrite: {result.get('error', 'Unknown')}")
+                        continue
+                elif choice == "rename":
+                    new_name = Prompt.ask("    Enter new name")
                     name_to_use = new_name
                     result = universal_adapter.copy_skill(skill, new_name=new_name)
                     if result["status"] != "copied":
-                        console.print(f"  [red]✗[/red] Failed: {result.get('error', 'Unknown')}")
+                        console.print(f"  [red]✗[/red] Failed to copy with new name: {result.get('error', 'Unknown')}")
                         continue
+                else: # "use existing"
+                    # result["target"] already contains the existing path
+                    pass
             
-            u_path = Path(result["target"]) # Universal path (e.g. .agents/skills/my-skill/SKILL.md)
+            u_path = Path(result["target"]) # Universal path
             
             # 2. Deploy symlink to the specific chosen agent (unless it's universal itself)
             if agent != "universal" and adapter:

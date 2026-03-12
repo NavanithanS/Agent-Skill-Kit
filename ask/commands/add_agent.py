@@ -1,7 +1,6 @@
 """Add-agent command - Scaffold a new agent adapter."""
 
 import click
-from pathlib import Path
 from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import Prompt, Confirm
@@ -100,13 +99,13 @@ def add_agent(agent_name: str, local_path: str, global_path: str):
     # Get paths if not provided
     if not local_path:
         local_path = Prompt.ask(
-            f"Local path (project directory)",
+            "Local path (project directory)",
             default=f".{agent_name}/skills"
         )
     
     if not global_path:
         global_path = Prompt.ask(
-            f"Global path (user home)",
+            "Global path (user home)",
             default=f"~/.{agent_name}/skills"
         )
     
@@ -114,7 +113,7 @@ def add_agent(agent_name: str, local_path: str, global_path: str):
     local_dir = local_path.lstrip("./")
     global_dir = global_path.replace("~/", "").lstrip("./")
     
-    console.print(f"\n[bold]Summary:[/bold]")
+    console.print("\n[bold]Summary:[/bold]")
     console.print(f"  Agent: [cyan]{agent_name}[/cyan]")
     console.print(f"  Local: [cyan]{local_path}[/cyan]")
     console.print(f"  Global: [cyan]{global_path}[/cyan]")
@@ -143,10 +142,10 @@ def add_agent(agent_name: str, local_path: str, global_path: str):
     
     
     console.print(f"\n[green]✅ Agent '{agent_name}' added successfully![/green]")
-    console.print(f"\nTest it with:")
-    console.print(f"  [dim]ask copy {agent_name} --skill bug-finder[/dim]")
+    console.print("\nTest it with:")
+    console.print(f"  [dim]ask copy {agent_name} --skill ask-bug-finder[/dim]")
     
     # AI suggestion
-    console.print(f"\n[bold yellow]💡 Tip:[/bold yellow] For better adapter, ask your AI agent:")
+    console.print("\n[bold yellow]💡 Tip:[/bold yellow] For better adapter, ask your AI agent:")
     console.print(f'   [dim]"Review and improve the {agent_name} adapter with correct paths and format"[/dim]')
 

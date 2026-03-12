@@ -1,6 +1,5 @@
 """Agent registry - Dynamic agent discovery and management."""
 
-from pathlib import Path
 from typing import List, Dict
 
 from ask.utils.filesystem import get_project_root
