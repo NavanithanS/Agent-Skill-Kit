@@ -1,5 +1,42 @@
 # 🚀 Agent Skill Kit Releases
 
+## v0.5.2
+**Date**: March 13, 2026
+**Theme**: Frictionless Copy — Scope Flags & USoT Clarity
+
+### 🚀 What's New
+
+**No more destination prompts when you know where you're copying:**
+
+`ask copy` now accepts `--global` and `--local` flags to skip the destination prompt entirely.
+
+```bash
+ask copy claude --skill ask-code-reviewer --global      # straight to ~/.claude/skills/
+ask copy universal --skill ask-laravel-mechanic --local  # straight to .agents/skills/
+ask copy claude --skill ask-code-reviewer --overwrite   # overwrite without conflict prompt
+```
+
+**`--overwrite` / `-f`:** Skip the "already exists in USoT" conflict menu and overwrite directly. Ideal for update workflows.
+
+**Smarter preview table:** When `--local` or `--global` is passed, the preview table now only shows the relevant path column — no more noise from the other scope.
+
+**`universal` skips compatibility check:** Copying to `universal` no longer asks "this agent isn't listed, copy anyway?" — USoT accepts all skills by definition.
+
+**`ask purge all` now tells you about USoT leftovers:**
+
+```
+✨ No ask-* skills found to purge in the selected agent(s).
+💡 Found in USoT: ask-laravel-mechanic
+   Run: ask purge universal to remove them.
+```
+
+### 🐛 What's Fixed
+- `--global`/`--local` conflict error now fires before the preview table renders (not after a blank table)
+- Scope prompt default could reference an invalid choice when only one scope was supported
+- Copy failures (OSError) were silently ignored in the final summary — now shown as `X failed`
+- `ask purge all` USoT hint was filtering by `ask-` prefix — now always scans all skills so nothing is missed
+- Duplicate skill names suppressed in purge hint when the same skill exists in both local and global USoT
+
 ## v0.5.1
 **Date**: March 12, 2026
 **Theme**: Bug Fix Release — CLI Correctness & USoT Integrity

@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.5.2] - 2026-03-13
+
+### 🚀 New Features
+- **`ask copy --global`**: New flag to copy directly to the global (user home) location without prompting for destination.
+- **`ask copy --local`**: New flag to copy directly to the local (project) location without prompting for destination.
+- **`ask copy --overwrite` / `-f`**: New flag to overwrite an existing skill in USoT without the conflict prompt.
+- **`ask copy universal`**: Skips the compatibility warning — `universal` accepts all skills by definition.
+- **Preview table**: Now shows only the relevant column (`Local` or `Global`) when a scope flag is passed.
+- **`ask purge all` hint**: When no skills are found but the USoT contains skills, now shows their names and suggests `ask purge universal`.
+
+### 🐛 Bug Fixes
+- **`ask copy`**: `--global`/`--local` mutual exclusion guard now fires before the preview table renders (previously showed a malformed empty table first).
+- **`ask copy`**: Scope prompt default was `"2"` even when only global scope was available — corrected to always match a valid choice.
+- **`ask copy`**: Added guard for degenerate adapter configs where both local and global scopes are disabled.
+- **`ask copy`**: `fail_count` now tracked and shown in the final summary (previously silent on OSError failures).
+- **`ask purge all` hint**: USoT scan now always searches all skills regardless of `--all-skills` flag (previously missed non-`ask-` prefixed skills).
+- **`ask purge all` hint**: Skill names deduplicated when same skill exists in both local and global USoT.
+
+### 🧹 Cleanup
+- Simplified skill type classification in preview table to a single expression.
+- Fixed 5-space indentation inconsistency in copy loop print statements.
+- Added `Optional[bool]` type annotations on `use_global`/`use_local` parameters.
+
 ## [0.5.1] - 2026-03-12
 
 ### 🐛 Bug Fixes

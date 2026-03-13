@@ -111,9 +111,15 @@ def purge(agent: str, yes: bool, all_skills: bool = False):
 
         if agent == "all":
             console.print("[dim]Note: 'all' excludes 'universal' (USoT) to protect your Source of Truth.[/dim]")
-            console.print("[dim]      Select 'universal' explicitly to purge USoT.[/dim]")
+            # Check if universal has skills and surface a targeted hint
+            usot_targets = []
+            _collect_targets(get_adapter("universal", use_global=False), "universal", "Local", True, usot_targets)
+            _collect_targets(get_adapter("universal", use_global=True), "universal", "Global", True, usot_targets)
+            if usot_targets:
+                skill_names = ", ".join(sorted({t["path"].name for t in usot_targets}))
+                console.print(f"[yellow]💡 Found in USoT:[/yellow] [cyan]{skill_names}[/cyan]")
+                console.print("[yellow]   Run:[/yellow] [bold]ask purge universal[/bold] [dim]to remove them.[/dim]")
         elif not all_skills:
-            # Fix #5: only show the prefix hint when a specific agent was targeted (not "all")
             console.print("[dim]Note: Only searching for 'ask-' prefixed skills. Use --all-skills to see everything.[/dim]")
 
         return
