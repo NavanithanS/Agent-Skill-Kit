@@ -1,6 +1,5 @@
 """Sync command - Synchronize all skills to all agents."""
 
-import os
 import shutil
 from pathlib import Path
 
@@ -10,7 +9,7 @@ from rich.prompt import Prompt
 from rich.table import Table
 
 from ask.utils.skill_registry import get_all_skills
-from ask.utils.filesystem import get_adapter
+from ask.utils.filesystem import get_adapter, deploy_skill_link
 from ask.utils.agent_registry import get_available_agents
 from agents.universal.adapter import UniversalAdapter
 
@@ -96,17 +95,21 @@ def sync(target: str = "all"):
                 agent_target = adapter.get_target_path(skill)
 
                 # Migrate any legacy hard-copied file/folder to a symlink
+                # is_symlink() catches broken symlinks that .exists() misses
                 if agent_target.exists() and not agent_target.is_symlink():
                     if agent_target.is_dir():
                         shutil.rmtree(agent_target)
                     else:
                         agent_target.unlink()
+                elif agent_target.is_symlink():
+                    # Stale symlink pointing to a deleted USoT — remove to re-link
+                    agent_target.unlink()
 
-                if not agent_target.exists():
-                    agent_target.parent.mkdir(parents=True, exist_ok=True)
-                    rel_path = os.path.relpath(u_path, agent_target.parent)
-                    agent_target.symlink_to(rel_path)
+                if not agent_target.exists() and not agent_target.is_symlink():
+                    deploy_mode = deploy_skill_link(u_path, agent_target)
                     results[agent]["copied"] += 1
+                    if deploy_mode == "copy":
+                        console.print(f"[dim]  ⚠ {skill['name']} → {agent}: copied (symlinks unavailable)[/dim]")
                 else:
                     results[agent]["skipped"] += 1
 

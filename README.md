@@ -2,17 +2,26 @@
 
 ![Agent Skill Kit Banner](https://raw.githubusercontent.com/NavanithanS/Agent-Skill-Kit/master/assets/banner.png)
 
-**Centralized skills repository and CLI toolkit for AI agents (Gemini, Claude, OpenAI).**
+**Centralized skills repository and CLI toolkit for AI agents (Gemini, Claude, Codex, Cursor, Antigravity).**
 
-## 🚀 Major Update (v0.4.0)
-ASK now supports the **Hierarchical Multi-Agent System (HMAS)** paradigm. Introduce parallel orchestration to your AI with new Subagent capabilities!
+> **📖 Docs & Command Builder → [navanithans.github.io/Agent-Skill-Kit](https://navanithans.github.io/Agent-Skill-Kit/)**
+> Browse all 38 skills, generate `ask copy` / `ask purge` commands visually, with dark mode support.
 
-### New Features
--   **Universal Source of Truth**: `ask copy` now defaults to `.agents/skills/` as the single source of truth for your AI skills, and automatically symlinks to older tools (like Cursor, Codex) while avoiding redundant copies!
--   **ask rules compile**: Manage your `.cursorrules`, `CLAUDE.md`, and `.agent/rules/` from a central `.agents/rules` repository natively using `ask rules compile`.
--   **ask purge**: A new interactive command to safely clean old `ask-*` tracking files across all your agents.
--   **ask-parallel-auditor**: New Orchestrator skill to chunk and run subagents in isolated worktrees entirely in parallel, bypassing token limits.
--   **Gold Standard Skills**: Strict `SKILL.md` + `scripts/` + `assets/` structure for 37+ skills.
+---
+
+## 🚀 What's New in v0.6.0
+
+### 🧙 Interactive Wizard
+```bash
+ask wizard
+```
+Guided step-by-step UI for copy, purge, sync, and update — no flags required.
+
+### 🌐 GitHub Pages Docs Site
+Live at **[navanithans.github.io/Agent-Skill-Kit](https://navanithans.github.io/Agent-Skill-Kit/)**:
+- **Command Builder** — generate `ask copy` or `ask purge` commands with one click
+- **Skill Browser** — search, filter, and explore all 38 skills with agent compatibility badges
+- **Dark mode** — full shadcn/ui zinc palette, persists across sessions
 
 ---
 
@@ -33,15 +42,16 @@ Managing instructions for multiple AI agents is tedious. You often have to:
 ## 🚀 Features
 
 - **Multi-Agent Support**: Native support for Gemini, Claude Code, OpenAI Codex, Antigravity, and Cursor.
-- **Skill Dependencies**: Automatically resolves and installs dependent skills (e.g., a "Vue Architect" skill depends on "TypeScript Basics").
+- **Interactive Wizard**: `ask wizard` guides you through copy, purge, sync, and update with a step-by-step UI.
+- **Docs Site**: Command Builder + Skill Browser at [navanithans.github.io/Agent-Skill-Kit](https://navanithans.github.io/Agent-Skill-Kit/).
+- **Skill Dependencies**: Automatically resolves and installs dependent skills.
+- **Universal Source of Truth**: Skills stored in `.agents/skills/` and symlinked to each agent — update once, propagate everywhere.
 - **Dynamic Discovery**: Automatically discovers available agents in the `agents/` directory.
-- **Safe Copy**: Strictly adheres to "Do Not Overwrite". Prompts for a new name if a skill conflicts.
-- **Configuration**: Customizable defaults via `~/.askconfig.yaml` (e.g., set your default agent).
-- **Search & Validate**: Powerful search tools and integrity checks (`ask validate`) to keep your library healthy.
-- **Local & Global**: Choose between **Project-Local** (specific to one repo) or **Global** (user-wide) deployment.
+- **Safe Copy**: Never overwrites silently. Prompts to use existing, overwrite, rename, or skip on conflict.
+- **Local & Global**: Choose between Project-Local (per-repo) or Global (user-wide) deployment.
 - **Skill Linting**: Token analysis and schema validation with `ask skill lint`.
 - **Manifest Generation**: Auto-generate `manifest.json` for skill routing.
-- **Extensible**: Add support for any new AI agent in seconds via the `ask add-agent` wizard.
+- **Extensible**: Add support for any new AI agent in seconds via `ask add-agent`.
 
 ## 📦 Installation
 
@@ -80,7 +90,24 @@ ask update
 
 ## 🛠 Usage
 
-### 1. Copy Skills to an Agent ⭐
+### 0. Interactive Wizard (New in v0.6.0) ⭐
+The easiest way to use ASK — let the wizard guide you.
+
+```bash
+ask wizard
+```
+
+Guides you through four actions:
+| # | Action | What it does |
+|---|--------|-------------|
+| 1 | **copy** | Select skills + agent + scope → install |
+| 2 | **purge** | Select an agent → remove all `ask-*` skills |
+| 3 | **sync** | Sync every skill to every agent |
+| 4 | **update** | Update all installed skills to latest |
+
+---
+
+### 1. Copy Skills to an Agent
 **The primary way to use ASK** — Deploy skills to your AI agents using the interactive wizard.
 
 **Interactive Mode** (Recommended):
@@ -403,11 +430,17 @@ ask copy antigravity --skill ask-system-architect-prime
 ### 🚀 Quick Start with Skills
 
 ```bash
+# Guided wizard (new in v0.6.0)
+ask wizard
+
+# Or use the docs site Command Builder — no terminal needed
+# → https://navanithans.github.io/Agent-Skill-Kit/
+
 # View all available skills
 ask list
 
 # Deploy a specific skill to an agent
-ask copy gemini --skill ask-bug-finder
+ask copy gemini --skill ask-bug-finder --global
 
 # Deploy all compatible skills to an agent
 ask copy claude --all
@@ -417,9 +450,6 @@ ask sync all
 
 # Create your own skill (interactive)
 ask create skill
-
-# Or ask your AI agent to create one (if skill-creator is deployed)
-"Create a new skill for API testing best practices"
 ```
 
 ## �📐 Skill Format
@@ -477,17 +507,23 @@ triggers: ["trigger phrase 1", "trigger phrase 2"]
 ```
 agent-skill-kit/
 ├── ask/                     # CLI Source Code
-│   ├── commands/            # logic for create, copy, sync, add-agent
-│   └── utils/               # adapter logic, filesystem helpers
+│   ├── commands/            # copy, sync, purge, wizard, create, …
+│   └── utils/               # adapter loader, filesystem helpers
 ├── agents/                  # Adapters for each AI agent
 │   ├── gemini/
 │   ├── claude/
 │   ├── codex/
 │   ├── antigravity/
-│   └── cursor/              # (Added via ask add-agent)
-└── skills/                  # The Skill Library
-    ├── coding/
-    └── tooling/
+│   └── cursor/
+├── skills/                  # The Skill Library (38 skills)
+│   ├── coding/
+│   ├── planning/
+│   ├── tooling/
+│   └── manifest.json        # Auto-generated by ask skill compile
+├── docs/                    # GitHub Pages site
+│   └── index.html           # Generated by scripts/generate_site.py
+└── scripts/
+    └── generate_site.py     # Static site generator
 ```
 
 ## 🤝 Contributing

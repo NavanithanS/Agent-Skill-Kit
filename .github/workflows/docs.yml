@@ -1,0 +1,39 @@
+name: Generate Docs Site
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'skills/**'
+      - 'scripts/generate_site.py'
+      - 'ask/commands/skill.py'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install ASK
+        run: pip install -e .
+
+      - name: Compile manifest
+        run: ask skill compile
+
+      - name: Generate site
+        run: python scripts/generate_site.py
+
+      - name: Commit docs
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add docs/ skills/manifest.json
+          git diff --cached --quiet || git commit -m "chore: regenerate docs site [skip ci]"
+          git push

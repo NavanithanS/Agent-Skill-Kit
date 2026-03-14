@@ -1,3 +1,5 @@
+import os
+import sys
 import shutil
 import importlib
 from pathlib import Path
@@ -69,6 +71,55 @@ def safe_copy_file(src: Path, dst: Path, force: bool = False) -> dict:
     
     shutil.copy2(src, dst)
     return {"status": "copied", "target": str(dst)}
+
+
+def deploy_skill_link(usot_path: Path, agent_target: Path) -> str:
+    """
+    Deploy a skill from USoT to an agent target path.
+
+    Tries a relative symlink first. Falls back to a file/directory copy on
+    Windows when symlink creation requires elevated privileges (WinError 1314).
+
+    Note: os.path.relpath is used intentionally over Path.relative_to because
+    it handles cross-drive paths on Windows without raising ValueError.
+
+    Precondition: agent_target must not exist. Any existing entry (including
+    broken/stale symlinks) must be removed by the caller before this call.
+    This function removes dangling symlinks automatically as a safety net.
+
+    Returns:
+        "symlink" — symlink created
+        "copy"    — fell back to hard copy (Windows without Developer Mode / Admin)
+
+    Raises:
+        FileNotFoundError: if usot_path does not exist.
+        OSError: for any symlink error other than WinError 1314.
+    """
+    # Safety net: remove any dangling symlink left at the target
+    if agent_target.is_symlink():
+        agent_target.unlink()
+
+    agent_target.parent.mkdir(parents=True, exist_ok=True)
+    rel_path = os.path.relpath(usot_path, agent_target.parent)
+
+    try:
+        agent_target.symlink_to(rel_path)
+        return "symlink"
+    except OSError as exc:
+        # WinError 1314: privilege not held — fall back to copy.
+        # Cygwin uses POSIX symlinks and will not hit this branch.
+        win_priv_error = sys.platform == "win32" and getattr(exc, "winerror", None) == 1314
+        if not win_priv_error:
+            raise  # unexpected error — re-raise
+
+        if not usot_path.exists():
+            raise FileNotFoundError(f"USoT source does not exist: {usot_path}") from exc
+
+        if usot_path.is_dir():
+            shutil.copytree(usot_path, agent_target, dirs_exist_ok=True)
+        else:
+            shutil.copy2(usot_path, agent_target)
+        return "copy"
 
 
 def get_adapter(agent_name: str, use_global: bool = False, project_root: Optional[Path] = None):

@@ -1,5 +1,54 @@
 # 🚀 Agent Skill Kit Releases
 
+## v0.6.0
+**Date**: March 14, 2026
+**Theme**: Interactive Wizard & GitHub Pages Docs Site
+
+### 🧙 ask wizard — Guided CLI Workflow
+
+A new top-level command that walks you through copy, purge, sync, or update in a friendly numbered-step UI:
+
+```bash
+ask wizard
+```
+
+You'll be guided through:
+1. **Action** — copy, purge, sync, or update
+2. **Skill selection** — multi-select with numbers or `all`
+3. **Agent selection** — multi-select with compatibility hints
+4. **Scope** — global or local
+
+No more memorizing flags for common workflows.
+
+---
+
+### 🌐 GitHub Pages Docs Site
+
+Agent Skill Kit now has a live docs site at **https://navanithans.github.io/Agent-Skill-Kit/**
+
+**Command Builder** — point-and-click command generation:
+- Select one or more skills (with search + category filter)
+- Pick an action: **copy** or **purge**
+- Choose your agent (compatibility-filtered for copy; all agents + `all` for purge)
+- Set scope (global / local)
+- Get a ready-to-paste command — with a one-click copy button
+
+**Skill Browser** — explore all 38 skills:
+- Search by name, description, or trigger phrase
+- Filter by category
+- See agent compatibility badges per skill
+- Click `+ Select` to instantly load a skill into the Command Builder
+
+**Dark mode** — full shadcn/ui zinc palette (🌙/☀️ toggle, respects `prefers-color-scheme`).
+
+The site is auto-generated from `skills/manifest.json` on every push via GitHub Actions.
+
+---
+
+### 🐛 Fixes
+- Docs site: action switching now correctly resets the skill list's visual state
+- Docs site: purge → copy transition no longer generates invalid `ask copy all` commands
+
 ## v0.5.2
 **Date**: March 13, 2026
 **Theme**: Frictionless Copy — Scope Flags & USoT Clarity

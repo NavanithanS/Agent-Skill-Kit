@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.6.0] - 2026-03-14
+
+### 🚀 New Features
+- **`ask wizard`**: Interactive guided workflow — choose copy, purge, sync, or update from a numbered-step UI. Multi-selects skills and agents, prompts for scope, and executes the selected action.
+- **GitHub Pages docs site**: New site at `https://navanithans.github.io/Agent-Skill-Kit/` featuring:
+  - **Command Builder**: Interactive wizard for generating `ask copy` and `ask purge` commands with live output, multi-skill selection, agent compatibility filtering, dark mode, and one-click copy.
+  - **Skill Browser**: Searchable, filterable table of all 38 skills with category badges, agent tags, and "+ Select" integration with the builder.
+- **`scripts/generate_site.py`**: Static site generator — reads `skills/manifest.json` and outputs `docs/index.html` with full dark mode (shadcn/ui zinc palette).
+- **`.github/workflows/docs.yml`**: GitHub Actions CI that auto-regenerates the docs site on every push to master.
+- **`CLAUDE.md`**: Project guidance file for Claude Code with architecture overview and command reference.
+
+### 🐛 Bug Fixes
+- **Docs site**: `setAction()` now calls `renderSkillList()` on action switch — stale green checkboxes no longer persist after clearing selected skills.
+- **Docs site**: `selectedAgent = 'all'` is now reset when switching purge → copy, preventing invalid `ask copy all --skill …` command generation.
+
+### 🎨 Design
+- Command Builder and Skill Browser badges follow shadcn/ui zinc palette: `rounded-md`, `font-semibold`, neutral zinc-100/zinc-900 backgrounds, zinc-200 borders.
+- Agent pills updated from `rounded-full` to `rounded-md` throughout.
+- Full dark mode using shadcn/ui zinc-950 (`#09090b`) page, zinc-900 cards, zinc-800 borders.
+
 ## [0.5.2] - 2026-03-13
 
 ### 🚀 New Features

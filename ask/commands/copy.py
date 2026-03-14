@@ -1,7 +1,6 @@
 """Copy command - Copy skills to agent directories."""
 
 import click
-import os
 import shutil
 from pathlib import Path
 from typing import Optional
@@ -10,7 +9,7 @@ from rich.prompt import Prompt
 from rich.table import Table
 
 from ask.utils.skill_registry import get_skill, get_all_skills, resolve_dependencies
-from ask.utils.filesystem import get_adapter, get_safe_cwd
+from ask.utils.filesystem import get_adapter, get_safe_cwd, deploy_skill_link
 from ask.utils.agent_registry import get_available_agents, get_agent_scopes
 
 console = Console()
@@ -441,26 +440,30 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool, use_global: Optional[
 
             u_path = Path(result["target"]) # Universal path
 
-            # 2. Deploy symlink to the specific chosen agent (unless it's universal itself)
+            # 2. Deploy to the specific chosen agent (unless it's universal itself)
+            deploy_mode = None
             if agent != "universal" and adapter:
-                # Specific agent target (e.g. cursor: .cursor/rules/my-skill.md, gemini: .gemini/skills/my-skill/SKILL.md)
                 agent_target = adapter.get_target_path(skill, name_to_use)
 
-                # Check for legacy hard-copied file/folder and remove it to migrate
+                # Remove legacy hard-copied file/folder to migrate to link.
+                # Also remove stale/broken symlinks — is_symlink() catches
+                # broken ones that .exists() misses.
                 if agent_target.exists() and not agent_target.is_symlink():
                     if agent_target.is_dir():
                         shutil.rmtree(agent_target)
                     else:
                         agent_target.unlink()
+                elif agent_target.is_symlink():
+                    agent_target.unlink()
 
                 if not agent_target.exists():
-                    agent_target.parent.mkdir(parents=True, exist_ok=True)
-                    rel_path = os.path.relpath(u_path, agent_target.parent)
-                    agent_target.symlink_to(rel_path)
+                    deploy_mode = deploy_skill_link(u_path, agent_target)
 
             # Print success
             if agent == "universal":
                 console.print(f"  [green]✓[/green] {skill['name']} → USoT ({u_path})")
+            elif deploy_mode == "copy":
+                console.print(f"  [green]✓[/green] {skill['name']} → USoT + copied for {agent} [dim](symlinks unavailable on this OS)[/dim]")
             else:
                 console.print(f"  [green]✓[/green] {skill['name']} → USoT and symlinked for {agent}")
             success_count += 1

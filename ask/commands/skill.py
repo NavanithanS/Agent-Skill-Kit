@@ -178,6 +178,8 @@ def compile(output: str):
             "name": skill.get("name"),
             "description": skill.get("description", ""),
             "category": Path(skill.get("_path", "")).parent.name,
+            "agents": skill.get("agents", []),
+            "version": skill.get("version", ""),
             "triggers": skill.get("triggers", []),
             "path": str(Path(skill.get("_path", "")).relative_to(get_skills_dir())) if skill.get("_path") else None,
         }

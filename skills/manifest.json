@@ -1,11 +1,19 @@
 {
   "version": "2.0.0",
-  "generated": "2026-03-09T08:42:22.435919",
+  "generated": "2026-03-14T15:23:49.179232",
   "skills": [
     {
       "name": "ask-add-agent",
       "description": "How to add support for new AI code editors to Agent Skill Kit",
       "category": "tooling",
+      "agents": [
+        "codex",
+        "gemini",
+        "claude",
+        "antigravity",
+        "cursor"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "add agent support",
         "create adapter",
@@ -18,6 +26,14 @@
       "name": "ask-adr-logger",
       "description": "Automatically records Architectural Decision Records (ADRs) when a significant technical decision is made.",
       "category": "planning",
+      "agents": [
+        "gemini",
+        "claude",
+        "cursor",
+        "antigravity",
+        "codex"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "log adr",
         "record decision",
@@ -30,6 +46,13 @@
       "name": "ask-ast-mapper",
       "description": "Read-only subagent designed to generate lightweight AST (Abstract Syntax Tree) dependency maps.",
       "category": "tooling",
+      "agents": [
+        "codex",
+        "gemini",
+        "claude",
+        "antigravity"
+      ],
+      "version": "1.0.0",
       "triggers": [],
       "path": "tooling/ask-ast-mapper"
     },
@@ -37,6 +60,14 @@
       "name": "ask-brainstorm",
       "description": "Explores user intent, requirements, and design before implementation. Required before any creative work.",
       "category": "planning",
+      "agents": [
+        "gemini",
+        "claude",
+        "cursor",
+        "antigravity",
+        "codex"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "brainstorm this",
         "have an idea",
@@ -49,6 +80,14 @@
       "name": "ask-bug-finder",
       "description": "Best practices for systematic bug hunting and debugging",
       "category": "coding",
+      "agents": [
+        "codex",
+        "gemini",
+        "claude",
+        "antigravity",
+        "cursor"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "help find this bug",
         "debug this error",
@@ -61,6 +100,14 @@
       "name": "ask-buildmaster",
       "description": "Smart Epic Orchestration Agent - Acts as PM + Tech Lead + Delivery Manager for epic planning, execution, and delivery.",
       "category": "planning",
+      "agents": [
+        "gemini",
+        "claude",
+        "cursor",
+        "antigravity",
+        "codex"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "plan this epic",
         "break into tickets",
@@ -72,6 +119,14 @@
       "name": "ask-code-reviewer",
       "description": "An AI code reviewer that provides constructive feedback on code changes.",
       "category": "coding",
+      "agents": [
+        "codex",
+        "gemini",
+        "claude",
+        "antigravity",
+        "cursor"
+      ],
+      "version": "1.0.0",
       "triggers": [],
       "path": "coding/ask-code-reviewer"
     },
@@ -79,6 +134,14 @@
       "name": "ask-commit-assistance",
       "description": "Assist with code review and staging. NEVER automatically commits.",
       "category": "coding",
+      "agents": [
+        "antigravity",
+        "cursor",
+        "gemini",
+        "claude",
+        "codex"
+      ],
+      "version": "1.1.0",
       "triggers": [
         "review my changes",
         "help commit",
@@ -91,6 +154,14 @@
       "name": "ask-component-scaffolder",
       "description": "Standardizes UI component creation by generating a consistent folder structure and files.",
       "category": "coding",
+      "agents": [
+        "gemini",
+        "claude",
+        "cursor",
+        "antigravity",
+        "codex"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "create component",
         "scaffold ui",
@@ -103,6 +174,13 @@
       "name": "ask-conceptual-integrity-sentinel",
       "description": "Principal-level engineering agent that audits repositories for architectural drift, bloated abstractions, and \"dead code.\"",
       "category": "coding",
+      "agents": [
+        "antigravity",
+        "gemini",
+        "claude",
+        "codex"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "study this repo",
         "audit for complexity",
@@ -115,6 +193,13 @@
       "name": "ask-context-janitor",
       "description": "Aggressive token optimizer and context summarizer for AI orchestrators",
       "category": "tooling",
+      "agents": [
+        "codex",
+        "gemini",
+        "claude",
+        "antigravity"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "summarize log",
         "optimize context",
@@ -126,6 +211,14 @@
       "name": "ask-db-migration-assistant",
       "description": "Ensures safe database schema updates by requiring migration and rollback scripts before execution.",
       "category": "coding",
+      "agents": [
+        "gemini",
+        "claude",
+        "cursor",
+        "antigravity",
+        "codex"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "add column",
         "database migration",
@@ -138,6 +231,14 @@
       "name": "ask-docker-expert",
       "description": "Expert guidance on Docker, Docker Compose, and container optimization. Focuses on multi-stage builds and security.",
       "category": "coding",
+      "agents": [
+        "antigravity",
+        "gemini",
+        "claude",
+        "cursor",
+        "codex"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "optimize dockerfile",
         "debug container",
@@ -150,6 +251,14 @@
       "name": "ask-effective-llm-coder",
       "description": "Guides the agent in effective LLM-assisted coding using best practices for declarative workflows, simplicity, tenacity, and iterative refinement.",
       "category": "coding",
+      "agents": [
+        "gemini",
+        "claude",
+        "cursor",
+        "antigravity",
+        "codex"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "effective code",
         "llm coding",
@@ -162,6 +271,14 @@
       "name": "ask-explaining-code",
       "description": "Explains code using analogies, ASCII diagrams, and step-by-step walkthroughs",
       "category": "coding",
+      "agents": [
+        "codex",
+        "gemini",
+        "claude",
+        "antigravity",
+        "cursor"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "explain this code",
         "how does this work",
@@ -174,6 +291,14 @@
       "name": "ask-fastapi-architect",
       "description": "Expert scaffolding for FastAPI projects. Enforces Pydantic V2, Async Database patterns, and Dependency Injection.",
       "category": "coding",
+      "agents": [
+        "antigravity",
+        "gemini",
+        "claude",
+        "cursor",
+        "codex"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "scaffold fastapi",
         "pydantic model",
@@ -186,6 +311,14 @@
       "name": "ask-flutter-architect",
       "description": "Senior Flutter skill using FVM. Enforces project-specific standards: Provider, Layer-First Architecture, Stream-based Services, and strict coding conventions.",
       "category": "coding",
+      "agents": [
+        "antigravity",
+        "gemini",
+        "claude",
+        "cursor",
+        "codex"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "flutter screen",
         "create flutter service",
@@ -198,6 +331,14 @@
       "name": "ask-flutter-mechanic",
       "description": "Maintenance skill for Flutter projects using FVM. Handles clean builds, iOS/Android specific fixes, asset generation, and release protocols.",
       "category": "coding",
+      "agents": [
+        "antigravity",
+        "gemini",
+        "claude",
+        "cursor",
+        "codex"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "clean flutter build",
         "fix ios build",
@@ -210,6 +351,13 @@
       "name": "ask-impact-sentinel",
       "description": "Guidelines for impact analysis, breaking change detection, and strategic database design.",
       "category": "coding",
+      "agents": [
+        "codex",
+        "gemini",
+        "claude",
+        "antigravity"
+      ],
+      "version": "1.0.0",
       "triggers": [],
       "path": "coding/ask-impact-sentinel"
     },
@@ -217,6 +365,14 @@
       "name": "ask-laravel-architect",
       "description": "Senior scaffolding skill. Handles SQL vs Mongo (Jenssegers/Official), SoftDeletes, and strict API standards.",
       "category": "coding",
+      "agents": [
+        "codex",
+        "gemini",
+        "claude",
+        "antigravity",
+        "cursor"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "scaffold laravel controller",
         "create model migration",
@@ -229,6 +385,14 @@
       "name": "ask-laravel-mechanic",
       "description": "Senior maintenance skill. Enforces \"Zero Data Loss\" policies and handles Mongo/SQL debugging.",
       "category": "coding",
+      "agents": [
+        "codex",
+        "gemini",
+        "claude",
+        "antigravity",
+        "cursor"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "fix n+1 query",
         "debug laravel queue",
@@ -241,6 +405,14 @@
       "name": "ask-nextjs-architect",
       "description": "Expert scaffolding for Next.js 14+ (App Router). Enforces Server Components, Server Actions, and SEO best practices.",
       "category": "coding",
+      "agents": [
+        "antigravity",
+        "gemini",
+        "claude",
+        "cursor",
+        "codex"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "nextjs page",
         "server action",
@@ -253,6 +425,14 @@
       "name": "ask-owasp-security-review",
       "description": "Conduct a thorough static security review of code, identifying vulnerabilities aligned with OWASP Top 10 risks, with severity ratings and remediation suggestions.",
       "category": "coding",
+      "agents": [
+        "codex",
+        "gemini",
+        "claude",
+        "antigravity",
+        "cursor"
+      ],
+      "version": "1.0.0",
       "triggers": [],
       "path": "coding/ask-owasp-security-review"
     },
@@ -260,6 +440,13 @@
       "name": "ask-parallel-auditor",
       "description": "Orchestrator skill that splits a target repository into chunks and runs multiple audit subagents in parallel.",
       "category": "tooling",
+      "agents": [
+        "codex",
+        "gemini",
+        "claude",
+        "antigravity"
+      ],
+      "version": "1.0.0",
       "triggers": [],
       "path": "tooling/ask-parallel-auditor"
     },
@@ -267,6 +454,14 @@
       "name": "ask-pdf-processing",
       "description": "PDF text extraction, form filling, and merging using pypdf and pdfplumber",
       "category": "tooling",
+      "agents": [
+        "codex",
+        "gemini",
+        "claude",
+        "antigravity",
+        "cursor"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "extract text from pdf",
         "fill pdf form",
@@ -279,6 +474,14 @@
       "name": "ask-project-memory",
       "description": "Maintains a 'Project Brain' by recording architectural decisions and tech stack choices in a memory file.",
       "category": "planning",
+      "agents": [
+        "gemini",
+        "claude",
+        "cursor",
+        "antigravity",
+        "codex"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "record decision",
         "we decided to",
@@ -291,6 +494,14 @@
       "name": "ask-python-refactor",
       "description": "Best practices and guidelines for Python code refactoring",
       "category": "coding",
+      "agents": [
+        "codex",
+        "gemini",
+        "claude",
+        "antigravity",
+        "cursor"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "refactor python",
         "improve python code",
@@ -303,6 +514,14 @@
       "name": "ask-readme-gardener",
       "description": "Keeps documentation in sync with code by updating the README.md when features or APIs are added.",
       "category": "coding",
+      "agents": [
+        "gemini",
+        "claude",
+        "cursor",
+        "antigravity",
+        "codex"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "update readme",
         "document api",
@@ -315,6 +534,14 @@
       "name": "ask-refactoring-readability",
       "description": "Refactor code to enhance readability, following principles like DRY, meaningful names, and modularization.",
       "category": "coding",
+      "agents": [
+        "codex",
+        "gemini",
+        "claude",
+        "antigravity",
+        "cursor"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "make this readable",
         "simplify this logic",
@@ -327,6 +554,14 @@
       "name": "ask-security-sentinel",
       "description": "Pre-flight security checker. Scans for exposed secrets and vulnerable patterns properly.",
       "category": "coding",
+      "agents": [
+        "gemini",
+        "claude",
+        "cursor",
+        "antigravity",
+        "codex"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "scan for secrets",
         "sql injection check",
@@ -339,6 +574,14 @@
       "name": "ask-shadcn-architect",
       "description": "Strictly enforces shadcn/ui patterns, imports, and CLI usage when creating or modifying React UI components.",
       "category": "coding",
+      "agents": [
+        "gemini",
+        "claude",
+        "cursor",
+        "antigravity",
+        "codex"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "shadcn button",
         "style component",
@@ -351,6 +594,14 @@
       "name": "ask-skill-capture",
       "description": "Meta-skill. Analyzes the current session's lessons and saves them as a permanent reusable skill.",
       "category": "tooling",
+      "agents": [
+        "antigravity",
+        "gemini",
+        "claude",
+        "cursor",
+        "codex"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "capture as skill",
         "save this workflow",
@@ -363,6 +614,14 @@
       "name": "ask-skill-creator",
       "description": "Teaches AI agents how to create skills for Agent Skill Kit",
       "category": "tooling",
+      "agents": [
+        "codex",
+        "gemini",
+        "claude",
+        "antigravity",
+        "cursor"
+      ],
+      "version": "1.0.0",
       "triggers": [],
       "path": "tooling/ask-skill-creator"
     },
@@ -370,6 +629,14 @@
       "name": "ask-smart-booking-test",
       "description": "An advanced autonomous testing skill for verifying end-to-end booking flows. Specializes in Flights, Movies, and Tours with integrated Payment Gateway testing.",
       "category": "tooling",
+      "agents": [
+        "antigravity",
+        "codex",
+        "gemini",
+        "claude",
+        "cursor"
+      ],
+      "version": "2.1.0",
       "triggers": [],
       "path": "tooling/ask-smart-booking-test"
     },
@@ -377,6 +644,14 @@
       "name": "ask-system-architect-prime",
       "description": "Principal Software Architect for repository audits, complexity analysis, and actionable refactoring recommendations",
       "category": "tooling",
+      "agents": [
+        "codex",
+        "gemini",
+        "claude",
+        "antigravity",
+        "cursor"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "audit this repo",
         "analyze code quality",
@@ -389,6 +664,14 @@
       "name": "ask-unit-test-generation",
       "description": "Automates creation of comprehensive unit tests for functions or classes, emphasizing coverage of edge cases and assertions.",
       "category": "coding",
+      "agents": [
+        "codex",
+        "gemini",
+        "claude",
+        "antigravity",
+        "cursor"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "generate unit tests",
         "write tests for",
@@ -401,6 +684,14 @@
       "name": "ask-vue-architect",
       "description": "Expert scaffolding for Vue 3. Specialized for Laravel Inertia stacks, but supports Nuxt/Vite. Enforces Composition API & TypeScript.",
       "category": "coding",
+      "agents": [
+        "antigravity",
+        "gemini",
+        "claude",
+        "cursor",
+        "codex"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "create vue component",
         "scaffold vue page",
@@ -413,6 +704,14 @@
       "name": "ask-vue-mechanic",
       "description": "Expert maintenance skill for Vue 3 within Laravel Inertia. Fixes navigation reloads, prop mismatches, and reactivity issues.",
       "category": "coding",
+      "agents": [
+        "antigravity",
+        "gemini",
+        "claude",
+        "cursor",
+        "codex"
+      ],
+      "version": "1.0.0",
       "triggers": [
         "fix vue reactivity",
         "debug inertia reload",
