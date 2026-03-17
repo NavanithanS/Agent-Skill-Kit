@@ -1,0 +1,1 @@
+../.agents/skills/ask-conceptual-integrity-sentinel/SKILL.md

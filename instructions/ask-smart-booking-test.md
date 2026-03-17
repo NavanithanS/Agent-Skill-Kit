@@ -1,0 +1,1 @@
+../.agents/skills/ask-smart-booking-test/SKILL.md

@@ -52,27 +52,21 @@ def purge(agent: str, yes: bool, all_skills: bool = False):
         )
 
     if not agent:
-        console.print("\n[bold cyan]🗑️  Agent Purge Wizard[/bold cyan]\n")
+        console.print("\n[bold]Purge[/bold]  [dim]remove ask-* skills from agent directories[/dim]\n")
 
-        table = Table(show_header=True, header_style="bold")
-        table.add_column("#", style="dim", width=4)
-        table.add_column("Agent", style="cyan")
-
+        table = Table(show_header=False, box=None, padding=(0, 2))
         for idx, ag in enumerate(agents_list, 1):
-            table.add_row(str(idx), ag)
+            table.add_row(f"[dim]{idx}[/dim]", ag)
 
         console.print(table)
-        console.print("\n[bold]Choose an agent to clean:[/bold]")
-        console.print("  [dim]0[/dim] Cancel")
-        console.print(f"  [green]1-{len(agents_list)}[/green] Select agent by number")
-        console.print("  [yellow]all[/yellow] Purge ask-* from ALL agents (except universal)")
         console.print()
+        console.print("[dim]0 cancel · 1-{n} select · all purge all (except universal)[/dim]\n".format(n=len(agents_list)))
 
         while True:
-            choice = Prompt.ask("Enter choice", default="0")
+            choice = Prompt.ask("Agent", default="0")
 
             if choice == "0":
-                console.print("[yellow]Cancelled.[/yellow]")
+                console.print("[dim]Cancelled.[/dim]")
                 raise click.Abort()
 
             if choice.lower() == "all":
@@ -85,9 +79,9 @@ def purge(agent: str, yes: bool, all_skills: bool = False):
                     agent = agents_list[choice_num - 1]
                     break
                 else:
-                    console.print(f"[red]Invalid choice. Enter 0-{len(agents_list)} or 'all'[/red]")
+                    console.print(f"[red]Enter 0–{len(agents_list)} or all[/red]")
             except ValueError:
-                console.print("[red]Invalid input. Enter a number, 'all', or '0' to cancel[/red]")
+                console.print("[red]Enter a number, all, or 0 to cancel[/red]")
 
     # Fix #2: copy list to avoid mutating the shared agents_list reference
     agents_to_process = list(agents_list) if agent == "all" else [agent]
@@ -107,33 +101,30 @@ def purge(agent: str, yes: bool, all_skills: bool = False):
 
     if not targets_found:
         prefix_msg = "any" if all_skills else "ask-*"
-        console.print(f"\n[green]✨ No {prefix_msg} skills found to purge in the selected agent(s).[/green]")
+        console.print(f"\n[green]✓[/green] No {prefix_msg} skills found to purge.")
 
         if agent == "all":
-            console.print("[dim]Note: 'all' excludes 'universal' (USoT) to protect your Source of Truth.[/dim]")
-            # Check if universal has skills and surface a targeted hint
+            console.print("[dim]'all' excludes 'universal' (USoT). Run: ask purge universal to remove those.[/dim]")
             usot_targets = []
             _collect_targets(get_adapter("universal", use_global=False), "universal", "Local", True, usot_targets)
             _collect_targets(get_adapter("universal", use_global=True), "universal", "Global", True, usot_targets)
             if usot_targets:
                 skill_names = ", ".join(sorted({t["path"].name for t in usot_targets}))
-                console.print(f"[yellow]💡 Found in USoT:[/yellow] [cyan]{skill_names}[/cyan]")
-                console.print("[yellow]   Run:[/yellow] [bold]ask purge universal[/bold] [dim]to remove them.[/dim]")
+                console.print(f"[dim]Found in USoT: {skill_names}[/dim]")
         elif not all_skills:
-            console.print("[dim]Note: Only searching for 'ask-' prefixed skills. Use --all-skills to see everything.[/dim]")
+            console.print("[dim]Only searched 'ask-*' prefixed skills. Use --all-skills to see everything.[/dim]")
 
         return
 
-    # Fix #1: dynamic label respects --all-skills
     skill_label = "skill(s)" if all_skills else "'ask-*' skill(s)"
     console.print(f"\n[bold]Found {len(targets_found)} {skill_label} to purge:[/bold]")
     for target in targets_found:
-        console.print(f"  - [cyan]{target['agent']}[/cyan] ({target['scope']}): [dim]{target['path']}[/dim]")
+        console.print(f"  [dim]{target['agent']}[/dim] ({target['scope']})  {target['path']}")
     console.print()
 
     if not yes:
-        if not Confirm.ask("Are you sure you want to [red]permanently delete[/red] these items?"):
-            console.print("Cancelled.")
+        if not Confirm.ask("Permanently delete these items?"):
+            console.print("[dim]Cancelled.[/dim]")
             raise click.Abort()
 
     success_count = 0
@@ -145,12 +136,13 @@ def purge(agent: str, yes: bool, all_skills: bool = False):
                 path.unlink()
             elif path.is_dir():
                 shutil.rmtree(path)
-            console.print(f"  [green]✓[/green] Deleted: {path.name} from {target['agent']} ({target['scope']})")
+            console.print(f"  [green]✓[/green] {path.name} [dim]from {target['agent']} ({target['scope']})[/dim]")
             success_count += 1
         except OSError as e:
-            console.print(f"  [red]✗[/red] Failed to delete {path.name}: {e}")
+            console.print(f"  [red]✗[/red] {path.name} [dim]{e}[/dim]")
             fail_count += 1
 
-    console.print(f"\n[green]Purge complete![/green] Deleted {success_count} item(s).")
-    if fail_count > 0:
-        console.print(f"[red]Failed to delete {fail_count} item(s).[/red]")
+    parts = [f"{success_count} deleted"]
+    if fail_count:
+        parts.append(f"{fail_count} failed")
+    console.print("\n[dim]" + " · ".join(parts) + "[/dim]")

@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.7.0] - 2026-03-17
+
+### New Features
+- **`ask copy` — Fuzzy skill name matching**: `--skill` now falls back to substring matching when an exact name isn't found. A single match auto-resolves with a dim hint; multiple matches show a numbered disambiguation prompt.
+- **`ask copy` — Project stack detection**: Interactive mode sniffs `composer.json`, `package.json`, `pubspec.yaml`, and `requirements.txt`/`pyproject.toml` to detect Laravel, Vue, Next.js, React, Flutter, and FastAPI stacks, then surfaces relevant skills before the selection table.
+- **`ask copy` — Upfront conflict scan**: All skills are pre-checked against the USoT before copying begins. A single batch prompt (`1 skip all / 2 overwrite all / 3 ask per skill`) replaces per-skill interruptions mid-copy.
+- **`ask copy` — Search/filter in interactive skill list**: A search prompt appears before the numbered table; typing filters skills by name or description substring. Empty Enter shows all skills.
+
+### Improvements
+- **Terminal UI polish**: All 12 command files (`copy`, `wizard`, `sync`, `update`, `purge`, `create`, `add_agent`, `list_skills`, `validate`, `skill`, `remove`, `rules`) refreshed — emoji removed, pnpm-style `✓`/`✗`/`–` prefix output, dim summaries (`N copied · N skipped`), no panel borders.
+- **`CLAUDE.md`**: Added project guidance file for Claude Code with architecture overview and command reference.
+- **`instructions/`**: Added per-skill markdown docs for all 38 skills.
+
+### Bug Fixes
+- **`ask copy` preview table**: Path cells no longer have a trailing space when no conflict exists.
+- **`_detect_stacks`**: Removed dead `"@vue/core"` npm package check (not a real package; `"vue"` check is sufficient).
+
 ## [0.6.0] - 2026-03-14
 
 ### 🚀 New Features

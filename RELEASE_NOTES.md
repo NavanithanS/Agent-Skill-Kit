@@ -1,5 +1,76 @@
 # 🚀 Agent Skill Kit Releases
 
+## v0.7.0
+**Date**: March 17, 2026
+**Theme**: Smarter `ask copy` + Terminal UI Polish
+
+### 🔍 Fuzzy Skill Name Matching
+
+No more copy-pasting exact skill names. `--skill` now accepts partial names:
+
+```bash
+ask copy claude --skill fastapi-arch     # → ask-fastapi-architect (auto-resolved)
+ask copy claude --skill laravel          # → shows 4 matches to pick from
+```
+
+Single matches resolve automatically with a hint. Multiple matches show a numbered list.
+
+---
+
+### 🧠 Project Stack Detection
+
+Run `ask copy` in your project directory — ASK reads your dependency files and suggests skills before you even see the full list:
+
+```
+Detected: laravel, vue
+Suggested: ask-laravel-architect, ask-laravel-mechanic, ask-vue-architect
+```
+
+Detects: **Laravel**, **Vue**, **Next.js**, **React**, **Flutter**, **FastAPI** from `composer.json`, `package.json`, `pubspec.yaml`, `requirements.txt`, and `pyproject.toml`.
+
+---
+
+### ⚡ Upfront Conflict Scan
+
+Previously, conflicts surfaced one-by-one mid-copy. Now, all skills are pre-checked before anything is written. If conflicts exist, you choose a strategy once:
+
+```
+Warning: 2 skill(s) already installed: ask-laravel-architect, ask-vue-architect
+1 skip all  2 overwrite all  3 ask per skill
+Strategy [1/2/3] (1):
+```
+
+No more unexpected interruptions halfway through a bulk install.
+
+---
+
+### 🔎 Search/Filter in Interactive Skill List
+
+The interactive skill picker now starts with a search prompt:
+
+```
+Search (Enter to list all): docker
+1 match(es)
+```
+
+Type anything to filter by name or description. Press Enter to list all 38 skills.
+
+---
+
+### 🎨 Terminal UI Polish
+
+All 12 command outputs have been refreshed with a consistent, minimal aesthetic inspired by pnpm/yarn:
+
+- Emoji removed throughout
+- `  ✓ skill-name → agent` for success
+- `  ✗ skill-name reason` for failure
+- `  – skill-name skipped` for skips
+- `N copied · N skipped · N failed` dim summary lines
+- No panel borders or heavy box styles
+- `[bold]Header[/bold]  [dim]subtitle[/dim]` header pattern
+
+---
+
 ## v0.6.0
 **Date**: March 14, 2026
 **Theme**: Interactive Wizard & GitHub Pages Docs Site

@@ -9,19 +9,38 @@
 
 ---
 
-## 🚀 What's New in v0.6.0
+## 🚀 What's New in v0.7.0
 
-### 🧙 Interactive Wizard
+### 🔍 Fuzzy Skill Name Matching
+Partial names now resolve automatically via `--skill`:
 ```bash
-ask wizard
+ask copy claude --skill fastapi-arch    # auto-resolves → ask-fastapi-architect
+ask copy claude --skill laravel         # shows disambiguation list for 4 matches
 ```
-Guided step-by-step UI for copy, purge, sync, and update — no flags required.
 
-### 🌐 GitHub Pages Docs Site
-Live at **[navanithans.github.io/Agent-Skill-Kit](https://navanithans.github.io/Agent-Skill-Kit/)**:
-- **Command Builder** — generate `ask copy` or `ask purge` commands with one click
-- **Skill Browser** — search, filter, and explore all 38 skills with agent compatibility badges
-- **Dark mode** — full shadcn/ui zinc palette, persists across sessions
+### 🧠 Project Stack Detection
+`ask copy` (interactive) sniffs your project files and surfaces relevant skills upfront:
+```
+Detected: laravel, vue
+Suggested: ask-laravel-architect, ask-laravel-mechanic, ask-vue-architect
+```
+
+### ⚡ Upfront Conflict Scan
+All conflicts are detected before copying begins — one batch prompt replaces per-skill interruptions:
+```
+Warning: 2 skill(s) already installed: ask-laravel-architect, ask-vue-architect
+1 skip all  2 overwrite all  3 ask per skill
+```
+
+### 🔎 Search/Filter in Interactive Skill List
+Type to filter the skill table before selecting — no more scrolling through all 38 skills:
+```
+Search (Enter to list all): laravel
+4 match(es)
+```
+
+### 🎨 Terminal UI Polish
+All 12 command outputs refreshed — emoji removed, pnpm-style `✓`/`✗`/`–` prefixes, dim summaries, no panel borders.
 
 ---
 
@@ -90,7 +109,7 @@ ask update
 
 ## 🛠 Usage
 
-### 0. Interactive Wizard (New in v0.6.0) ⭐
+### 0. Interactive Wizard ⭐
 The easiest way to use ASK — let the wizard guide you.
 
 ```bash
@@ -108,21 +127,25 @@ Guides you through four actions:
 ---
 
 ### 1. Copy Skills to an Agent
-**The primary way to use ASK** — Deploy skills to your AI agents using the interactive wizard.
+**The primary way to use ASK** — Deploy skills to your AI agents.
 
 **Interactive Mode** (Recommended):
 ```bash
 ask copy
 ```
 The wizard guides you through:
-1. **Skill Selection**: Beautiful table showing all skills with descriptions and categories
-2. **Agent Selection**: Compatible agents highlighted for your chosen skill
-3. **Destination**: Choose between local (project) or global (user-wide) installation
+1. **Stack detection** — auto-suggests skills for your project (Laravel, Vue, Next.js, Flutter, FastAPI)
+2. **Search/filter** — type to narrow the skill list before selecting
+3. **Skill selection** — numbered table with descriptions and categories
+4. **Agent selection** — compatible agents highlighted for your chosen skill
+5. **Destination** — local (project) or global (user-wide)
+6. **Conflict scan** — all conflicts resolved upfront in one batch prompt
 
 **Quick Mode** (with flags):
 ```bash
-# Copy specific skill
+# Copy specific skill (fuzzy name matching — partial names work)
 ask copy gemini --skill bug-finder
+ask copy claude --skill fastapi-arch    # resolves → ask-fastapi-architect
 
 # Copy all compatible skills to an agent
 ask copy claude --all

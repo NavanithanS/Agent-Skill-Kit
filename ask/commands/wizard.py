@@ -2,7 +2,6 @@
 
 import click
 from rich.console import Console
-from rich.panel import Panel
 from rich.prompt import Prompt
 from rich.table import Table
 
@@ -24,8 +23,7 @@ ACTIONS = [
 # ---------------------------------------------------------------------------
 
 def _prompt_action() -> str:
-    console.print(Panel("[bold cyan]🧙 ASK Wizard[/bold cyan]\nGuided workflow — copy, purge, sync, or update.", expand=False))
-    console.print()
+    console.print("\n[bold]ASK Wizard[/bold]  [dim]copy · purge · sync · update[/dim]\n")
 
     table = Table(show_header=False, box=None, padding=(0, 2))
     for idx, (_, label) in enumerate(ACTIONS, 1):
@@ -34,9 +32,9 @@ def _prompt_action() -> str:
     console.print()
 
     while True:
-        choice = Prompt.ask("Choose action", default="0")
+        choice = Prompt.ask("Action", default="0")
         if choice == "0":
-            console.print("[yellow]Cancelled.[/yellow]")
+            console.print("[dim]Cancelled.[/dim]")
             raise click.Abort()
         try:
             n = int(choice)
@@ -51,15 +49,15 @@ def _prompt_skill_multi_select() -> list:
     """Multi-select skills by number. Returns list of skill dicts."""
     all_skills = get_all_skills()
     if not all_skills:
-        console.print("[red]❌ No skills found in the skill library.[/red]")
+        console.print("[red]Error:[/red] no skills found in the skill library.")
         raise click.Abort()
 
-    console.print("\n[bold cyan]📚 Select Skills[/bold cyan]\n")
+    console.print("\n[bold]Select Skills[/bold]\n")
     table = Table(show_header=True, header_style="bold", show_lines=False)
     table.add_column("#", style="dim", width=4)
-    table.add_column("Name", style="cyan")
-    table.add_column("Category", style="magenta")
-    table.add_column("Description")
+    table.add_column("Name")
+    table.add_column("Category", style="dim")
+    table.add_column("Description", style="dim")
 
     for idx, skill in enumerate(all_skills, 1):
         desc = skill.get("description", "")
@@ -71,7 +69,7 @@ def _prompt_skill_multi_select() -> list:
         )
     console.print(table)
     console.print()
-    console.print("[dim]Enter numbers separated by commas (e.g. 1,3) or 'all'[/dim]")
+    console.print("[dim]numbers comma-separated (e.g. 1,3) or all · 0 cancel[/dim]")
 
     while True:
         raw = Prompt.ask("Skills").strip()
@@ -85,23 +83,23 @@ def _prompt_skill_multi_select() -> list:
                 return [all_skills[i - 1] for i in indices]
         except ValueError:
             pass
-        console.print(f"[red]Enter numbers 1–{len(all_skills)}, comma-separated, or 'all'.[/red]")
+        console.print(f"[red]Enter numbers 1–{len(all_skills)}, comma-separated, or all.[/red]")
 
 
 def _prompt_agent_multi_select() -> list:
     """Multi-select agents by number. Returns list of agent name strings."""
     agents = get_available_agents()
     if not agents:
-        console.print("[red]❌ No agents found.[/red]")
+        console.print("[red]Error:[/red] no agents found.")
         raise click.Abort()
 
-    console.print("\n[bold cyan]🤖 Select Agents[/bold cyan]\n")
+    console.print("\n[bold]Select Agents[/bold]\n")
     table = Table(show_header=False, box=None, padding=(0, 2))
     for idx, agent in enumerate(agents, 1):
-        table.add_row(f"[dim]{idx}[/dim]", f"[cyan]{agent}[/cyan]")
+        table.add_row(f"[dim]{idx}[/dim]", agent)
     console.print(table)
     console.print()
-    console.print("[dim]Enter numbers separated by commas (e.g. 1,2) or 'all'[/dim]")
+    console.print("[dim]numbers comma-separated (e.g. 1,2) or all · 0 cancel[/dim]")
 
     while True:
         raw = Prompt.ask("Agents").strip()
@@ -115,14 +113,14 @@ def _prompt_agent_multi_select() -> list:
                 return [agents[i - 1] for i in indices]
         except ValueError:
             pass
-        console.print(f"[red]Enter numbers 1–{len(agents)}, comma-separated, or 'all'.[/red]")
+        console.print(f"[red]Enter numbers 1–{len(agents)}, comma-separated, or all.[/red]")
 
 
 def _prompt_scope() -> bool:
     """Returns True for global, False for local."""
-    console.print("\n[bold]Choose scope:[/bold]")
-    console.print("  [green]1[/green] Global (user home  ~/.agents/skills/)")
-    console.print("  [cyan]2[/cyan]  Local  (project    .agents/skills/)")
+    console.print("\n[bold]Scope[/bold]")
+    console.print("  [dim]1[/dim]  global  [dim](~/.agents/skills/)[/dim]")
+    console.print("  [dim]2[/dim]  local   [dim](.agents/skills/)[/dim]")
     console.print()
 
     while True:
@@ -145,17 +143,17 @@ def _run_copy_wizard(ctx):
 
     scope_label = "global" if use_global else "local"
 
-    console.print(f"\n[bold]📦 Preview[/bold]")
-    console.print(f"  Skills : {', '.join(s['name'] for s in selected_skills)}")
-    console.print(f"  Agents : {', '.join(selected_agents)}")
-    console.print(f"  Scope  : {scope_label}\n")
+    console.print(f"\n[bold]Preview[/bold]")
+    console.print(f"  [dim]skills[/dim]  {', '.join(s['name'] for s in selected_skills)}")
+    console.print(f"  [dim]agents[/dim]  {', '.join(selected_agents)}")
+    console.print(f"  [dim]scope[/dim]   {scope_label}\n")
 
     if not click.confirm("Execute?", default=True):
-        console.print("[yellow]Cancelled.[/yellow]")
+        console.print("[dim]Cancelled.[/dim]")
         return
 
     for agent in selected_agents:
-        console.rule(f"[cyan]{agent}[/cyan]")
+        console.print(f"\n[bold]{agent}[/bold]")
         for skill in selected_skills:
             ctx.invoke(
                 copy_cmd,
@@ -172,11 +170,11 @@ def _run_purge_wizard(ctx):
     from ask.commands.purge import purge as purge_cmd
 
     agents = sorted(set(get_available_agents() + ["universal"]))
-    console.print("\n[bold cyan]🗑️  Select Agent to Purge[/bold cyan]\n")
+    console.print("\n[bold]Select Agent to Purge[/bold]\n")
     table = Table(show_header=False, box=None, padding=(0, 2))
     for idx, agent in enumerate(agents, 1):
-        table.add_row(f"[dim]{idx}[/dim]", f"[cyan]{agent}[/cyan]")
-    table.add_row("[yellow]all[/yellow]", "All agents (except universal)")
+        table.add_row(f"[dim]{idx}[/dim]", agent)
+    table.add_row("[dim]all[/dim]", "[dim]all agents (except universal)[/dim]")
     console.print(table)
     console.print()
 
@@ -194,7 +192,7 @@ def _run_purge_wizard(ctx):
                 break
         except ValueError:
             pass
-        console.print(f"[red]Enter 1–{len(agents)}, 'all', or 0 to cancel.[/red]")
+        console.print(f"[red]Enter 1–{len(agents)}, all, or 0 to cancel.[/red]")
 
     ctx.invoke(purge_cmd, agent=target, yes=False, all_skills=False)
 
@@ -202,11 +200,10 @@ def _run_purge_wizard(ctx):
 def _run_sync_wizard(ctx):
     from ask.commands.sync import sync as sync_cmd
 
-    console.print("\n[bold cyan]🔄 Sync All Skills → All Agents[/bold cyan]")
-    console.print("[dim]Syncs every skill in the library to every installed agent.[/dim]")
-    console.print("[dim]You will be prompted for scope (global/local) next.[/dim]\n")
+    console.print("\n[bold]Sync[/bold]  [dim]all skills → all agents[/dim]")
+    console.print("[dim]You will be prompted for scope next.[/dim]\n")
     if not click.confirm("Proceed?", default=True):
-        console.print("[yellow]Cancelled.[/yellow]")
+        console.print("[dim]Cancelled.[/dim]")
         return
     ctx.invoke(sync_cmd, target="all")
 
@@ -214,10 +211,9 @@ def _run_sync_wizard(ctx):
 def _run_update_wizard(ctx):
     from ask.commands.update import update as update_cmd
 
-    console.print("\n[bold cyan]🔄 Update Installed Skills[/bold cyan]")
-    console.print("[dim]This will update all already-installed skills to their latest version.[/dim]\n")
+    console.print("\n[bold]Update[/bold]  [dim]installed skills → latest[/dim]\n")
     if not click.confirm("Proceed?", default=True):
-        console.print("[yellow]Cancelled.[/yellow]")
+        console.print("[dim]Cancelled.[/dim]")
         return
     ctx.invoke(update_cmd)
 

@@ -2,7 +2,6 @@
 
 import click
 from rich.console import Console
-from rich.panel import Panel
 from rich.prompt import Prompt, Confirm
 
 from ask.utils.filesystem import get_project_root
@@ -73,28 +72,24 @@ def add_agent(agent_name: str, local_path: str, global_path: str):
         ask add-agent windsurf --local-path .windsurf/rules --global-path ~/.windsurf/rules
     """
     if not agent_name:
-        console.print(Panel.fit(
-            "[bold cyan]🔌 Add Agent Wizard[/bold cyan]\n\n"
-            "Add support for a new AI code editor/agent",
-            border_style="cyan"
-        ))
-        agent_name = Prompt.ask("\n[bold]Agent Name[/bold] (e.g. cursor, windsurf)")
-        
+        console.print("\n[bold]Add Agent[/bold]  [dim]scaffold a new agent adapter[/dim]\n")
+        agent_name = Prompt.ask("Agent name (e.g. cursor, windsurf)")
+
     if not agent_name:
-        console.print("[red]❌ Agent name is required.[/red]")
+        console.print("[red]Error:[/red] agent name is required.")
         raise click.Abort()
 
     agent_name = agent_name.lower()
-    
+
     # Security: Validate agent name to prevent path traversal
     if not agent_name.replace("-", "").replace("_", "").isalnum():
-        console.print("[red]❌ Invalid agent name. Use only letters, numbers, hyphens, and underscores.[/red]")
+        console.print("[red]Error:[/red] invalid agent name — use only letters, numbers, hyphens, and underscores.")
         raise click.Abort()
 
     agent_title = agent_name.replace("-", " ").replace("_", " ").title()
     class_name = agent_title.replace(" ", "")
-    
-    console.print(f"\n[bold]🔌 Adding new agent: {agent_title}[/bold]\n")
+
+    console.print(f"\n[bold]Adding agent:[/bold] {agent_title}\n")
     
     # Get paths if not provided
     if not local_path:
@@ -113,13 +108,13 @@ def add_agent(agent_name: str, local_path: str, global_path: str):
     local_dir = local_path.lstrip("./")
     global_dir = global_path.replace("~/", "").lstrip("./")
     
-    console.print("\n[bold]Summary:[/bold]")
-    console.print(f"  Agent: [cyan]{agent_name}[/cyan]")
-    console.print(f"  Local: [cyan]{local_path}[/cyan]")
-    console.print(f"  Global: [cyan]{global_path}[/cyan]")
-    
+    console.print("\n[bold]Summary[/bold]")
+    console.print(f"  [dim]agent[/dim]   {agent_name}")
+    console.print(f"  [dim]local[/dim]   {local_path}")
+    console.print(f"  [dim]global[/dim]  {global_path}")
+
     if not Confirm.ask("\nCreate adapter?", default=True):
-        console.print("[yellow]Cancelled.[/yellow]")
+        console.print("[dim]Cancelled.[/dim]")
         raise click.Abort()
     
     project_root = get_project_root()
@@ -138,14 +133,9 @@ def add_agent(agent_name: str, local_path: str, global_path: str):
     
     adapter_file = adapter_dir / "adapter.py"
     adapter_file.write_text(adapter_content)
-    console.print(f"  [green]✓[/green] Created {adapter_file.relative_to(project_root)}")
-    
-    
-    console.print(f"\n[green]✅ Agent '{agent_name}' added successfully![/green]")
-    console.print("\nTest it with:")
+    console.print(f"  [green]✓[/green] {adapter_file.relative_to(project_root)}")
+
+    console.print(f"\n[green]✓[/green] Agent '{agent_name}' added")
     console.print(f"  [dim]ask copy {agent_name} --skill ask-bug-finder[/dim]")
-    
-    # AI suggestion
-    console.print("\n[bold yellow]💡 Tip:[/bold yellow] For better adapter, ask your AI agent:")
-    console.print(f'   [dim]"Review and improve the {agent_name} adapter with correct paths and format"[/dim]')
+    console.print(f'  [dim]Tip: ask your agent to "review and improve the {agent_name} adapter"[/dim]')
 

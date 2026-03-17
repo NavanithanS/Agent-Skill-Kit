@@ -1,0 +1,1 @@
+../.agents/skills/ask-fastapi-architect/SKILL.md

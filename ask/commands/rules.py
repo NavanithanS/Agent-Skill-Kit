@@ -57,11 +57,11 @@ def compile(use_global: bool):
     
     if not rule_files:
         scope = "global (~/.agents/rules/)" if use_global else "local (.agents/rules/)"
-        console.print(f"[yellow]No `.md` or `.txt` rules found in {scope}.[/yellow]")
+        console.print(f"[dim]No .md or .txt rules found in {scope}.[/dim]")
         console.print("[dim]Create a rule file (e.g., .agents/rules/typescript.md) and run again.[/dim]")
         return
-        
-    console.print(f"[cyan]Found {len(rule_files)} rule(s). Compiling...[/cyan]")
+
+    console.print(f"[dim]Found {len(rule_files)} rule(s). Compiling...[/dim]")
     
     compiled_content = compile_rules_content(rule_files)
     
@@ -90,4 +90,4 @@ def compile(use_global: bool):
         except Exception as e:
             console.print(f"  [red]✗[/red] Failed to write {target}: {e}")
             
-    console.print(f"\n[bold green]Successfully compiled rules to {success_count} format(s)![/bold green]")
+    console.print(f"\n[green]✓[/green] Compiled to {success_count} format(s)")

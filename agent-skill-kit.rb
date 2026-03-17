@@ -3,10 +3,10 @@ class AgentSkillKit < Formula
 
   desc "CLI package manager for AI agent skills — deploy skills to Claude, Gemini, Codex, Cursor, and more"
   homepage "https://navanithans.github.io/Agent-Skill-Kit/"
-  url "https://files.pythonhosted.org/packages/source/a/agent-skill-kit/agent_skill_kit-0.6.0.tar.gz"
+  url "https://files.pythonhosted.org/packages/source/a/agent-skill-kit/agent_skill_kit-0.7.0.tar.gz"
   sha256 "FILL_IN_AFTER_PYPI_PUBLISH"
   license "MIT"
-  version "0.6.0"
+  version "0.7.0"
 
   depends_on "python@3.12"
 
@@ -45,7 +45,7 @@ class AgentSkillKit < Formula
   end
 
   test do
-    assert_match "0.6.0", shell_output("#{bin}/ask --version")
+    assert_match "0.7.0", shell_output("#{bin}/ask --version")
     assert_match "copy", shell_output("#{bin}/ask --help")
   end
 end

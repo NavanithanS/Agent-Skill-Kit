@@ -31,36 +31,36 @@ def sync(target: str = "all"):
     skills = get_all_skills()
 
     if not skills:
-        console.print("[yellow]No skills found to sync.[/yellow]")
+        console.print("[yellow]Warning:[/yellow] no skills found to sync.")
         return
 
     agents = get_available_agents()
 
     if not agents:
-        console.print("[yellow]No agents found.[/yellow]")
+        console.print("[yellow]Warning:[/yellow] no agents found.")
         return
 
     # Ask for scope first
-    console.print(f"\n[bold]📦 Syncing {len(skills)} skill(s) to {len(agents)} agent(s)[/bold]\n")
-    console.print("[bold]Choose destination:[/bold]")
-    console.print("  [dim]0[/dim] Cancel")
-    console.print("  [green]1[/green] Global (user home directory)")
-    console.print("  [cyan]2[/cyan] Local (project directory)")
+    console.print(f"\n[bold]Sync[/bold]  [dim]{len(skills)} skill(s) → {len(agents)} agent(s)[/dim]\n")
+    console.print("[bold]Destination[/bold]")
+    console.print("  [dim]0[/dim]  cancel")
+    console.print("  [dim]1[/dim]  global  [dim](user home)[/dim]")
+    console.print("  [dim]2[/dim]  local   [dim](project)[/dim]")
 
     choice_num = Prompt.ask(
-        "Enter choice",
+        "Scope",
         choices=["0", "1", "2"],
         default="2"
     )
 
     if choice_num == "0":
-        console.print("[yellow]Cancelled.[/yellow]")
+        console.print("[dim]Cancelled.[/dim]")
         raise click.Abort()
 
     use_global = (choice_num == "1")
     scope_name = "global" if use_global else "local"
 
-    console.print(f"\n[bold]Syncing to {scope_name}...[/bold]\n")
+    console.print(f"\n[dim]Syncing to {scope_name}...[/dim]\n")
 
     # Pre-load adapters once to avoid repeated importlib calls
     universal_adapter = UniversalAdapter(use_global=use_global)
@@ -76,7 +76,7 @@ def sync(target: str = "all"):
             for agent in agents:
                 if agent in skill.get("agents", []):
                     results[agent]["failed"] += 1
-            console.print(f"[red]  ✗ {skill['name']}: unexpected USoT status {u_result['status']}[/red]")
+            console.print(f"  [red]✗[/red] {skill['name']} [dim]unexpected USoT status: {u_result['status']}[/dim]")
             continue
 
         u_path = Path(u_result["target"])
@@ -88,7 +88,7 @@ def sync(target: str = "all"):
 
             adapter = adapters.get(agent)
             if not adapter:
-                console.print(f"[yellow]⚠️  No adapter for {agent}, skipping[/yellow]")
+                console.print(f"  [dim]–[/dim] {skill['name']} → {agent} [dim](no adapter, skipped)[/dim]")
                 continue
 
             try:
@@ -109,16 +109,16 @@ def sync(target: str = "all"):
                     deploy_mode = deploy_skill_link(u_path, agent_target)
                     results[agent]["copied"] += 1
                     if deploy_mode == "copy":
-                        console.print(f"[dim]  ⚠ {skill['name']} → {agent}: copied (symlinks unavailable)[/dim]")
+                        console.print(f"  [green]✓[/green] {skill['name']} → {agent} [dim](copied, symlinks unavailable)[/dim]")
                 else:
                     results[agent]["skipped"] += 1
 
             except Exception as e:
                 results[agent]["failed"] += 1
-                console.print(f"[red]  ✗ {skill['name']} → {agent}: {e}[/red]")
+                console.print(f"  [red]✗[/red] {skill['name']} → {agent} [dim]{e}[/dim]")
 
     # Summary table
-    table = Table(title="Sync Summary", show_header=True, header_style="bold")
+    table = Table(title="Sync Summary", show_header=True, header_style="bold", box=None)
     table.add_column("Agent", style="cyan")
     table.add_column("Copied", style="green", justify="right")
     table.add_column("Skipped", style="yellow", justify="right")

@@ -69,21 +69,21 @@ def update(yes: bool):
     """
     
     # 1. Scan Phase
-    console.print("[bold cyan]🔍 Scanning for updates...[/bold cyan]")
+    console.print("[dim]Scanning for updates...[/dim]")
     updates_found = _scan_for_updates()
 
     if not updates_found:
-        console.print("[green]✨ All skills are up to date![/green]")
+        console.print("[green]✓[/green] All skills are up to date.")
         return
 
 
 
 
     # 2. Display Table
-    table = Table(title="Available Updates", show_header=True, header_style="bold")
+    table = Table(title="Available Updates", show_header=True, header_style="bold", box=None)
     table.add_column("#", style="dim", width=4)
     table.add_column("Agent", style="cyan")
-    table.add_column("Skill", style="bold white")
+    table.add_column("Skill")
     table.add_column("Current", style="yellow")
     table.add_column("Latest", style="green")
     table.add_column("Location", style="blue")
@@ -104,15 +104,12 @@ def update(yes: bool):
     if yes:
         selected_indices = range(len(updates_found))
     else:
-        console.print("\n[bold]Select skills to update:[/bold]")
-        console.print("  [green]all[/green]  Update all (default)")
-        console.print("  [dim]0[/dim]    Cancel")
-        console.print(f"  [cyan]1-{len(updates_found)}[/cyan] specific number(s) (comma separated)")
-        
-        choice = Prompt.ask("Choice", default="all")
-        
+        console.print("\n[dim]all update all (default) · 0 cancel · 1-{n} specific (comma-separated)[/dim]".format(n=len(updates_found)))
+
+        choice = Prompt.ask("Update", default="all")
+
         if choice == "0":
-            console.print("[yellow]Cancelled.[/yellow]")
+            console.print("[dim]Cancelled.[/dim]")
             return
         elif choice.lower() == "all":
             selected_indices = range(len(updates_found))
@@ -126,13 +123,13 @@ def update(yes: bool):
                     if 0 <= idx < len(updates_found):
                         selected_indices.append(idx)
                     else:
-                        console.print(f"[yellow]Ignoring invalid index: {p}[/yellow]")
+                        console.print(f"[dim]Ignoring invalid index: {p}[/dim]")
             except ValueError:
                 console.print("[red]Invalid input[/red]")
                 return
 
     if not selected_indices:
-        console.print("[yellow]No skills selected.[/yellow]")
+        console.print("[dim]No skills selected.[/dim]")
         return
 
     # Ask for cleanup preference once
@@ -141,7 +138,7 @@ def update(yes: bool):
         auto_delete_backup = click.confirm("Delete backups after successful update?", default=False)
     
     # 4. Execution
-    console.print("\n[bold]🚀 Updating...[/bold]\n")
+    console.print("\n[dim]Updating...[/dim]\n")
     
     success_count = 0
     
@@ -165,23 +162,23 @@ def update(yes: bool):
             result = adapter.copy_skill(skill, force=True)
             
             if result["status"] == "copied":
-                console.print(f"  [green]✓[/green] Updated {agent}/{skill_name}")
+                console.print(f"  [green]✓[/green] {agent}/{skill_name}")
                 success_count += 1
-                
+
                 # C. Cleanup determined by global preference
                 if auto_delete_backup:
-                     backup_path.unlink(missing_ok=True)
-                     console.print("    [dim]Backup deleted[/dim]")
+                    backup_path.unlink(missing_ok=True)
+                    console.print("    [dim]backup deleted[/dim]")
                 else:
-                     console.print(f"    [dim]Backup saved to {backup_path.name}[/dim]")
+                    console.print(f"    [dim]backup → {backup_path.name}[/dim]")
             else:
-                console.print(f"  [red]✗[/red] Failed to update {skill_name}: {result.get('reason')}")
-                
+                console.print(f"  [red]✗[/red] {skill_name} [dim]{result.get('reason')}[/dim]")
+
         except PermissionError:
-             console.print(f"  [red]✗[/red] Permission denied updating {skill_name}")
+            console.print(f"  [red]✗[/red] {skill_name} [dim]permission denied[/dim]")
         except OSError as e:
-             console.print(f"  [red]✗[/red] OS Error updating {skill_name}: {e}")
+            console.print(f"  [red]✗[/red] {skill_name} [dim]{e}[/dim]")
         except Exception as e:
-            console.print(f"  [red]✗[/red] Unexpected error updating {skill_name}: {e}")
-            
-    console.print(f"\n[green]Done! Updated {success_count} skill(s).[/green]")
+            console.print(f"  [red]✗[/red] {skill_name} [dim]{e}[/dim]")
+
+    console.print(f"\n[dim]Updated {success_count} skill(s).[/dim]")

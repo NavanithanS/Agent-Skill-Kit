@@ -1,0 +1,1 @@
+../.agents/skills/ask-vue-mechanic/SKILL.md

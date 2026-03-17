@@ -1,6 +1,7 @@
 """Copy command - Copy skills to agent directories."""
 
 import click
+import json
 import shutil
 from pathlib import Path
 from typing import Optional
@@ -14,9 +15,82 @@ from ask.utils.agent_registry import get_available_agents, get_agent_scopes
 
 console = Console()
 
+# Stack name → skill names that are relevant for that stack
+STACK_SKILLS = {
+    "laravel":  ["ask-laravel-architect", "ask-laravel-mechanic", "ask-vue-architect"],
+    "vue":      ["ask-vue-architect", "ask-vue-mechanic"],
+    "nextjs":   ["ask-nextjs-architect", "ask-shadcn-architect"],
+    "react":    ["ask-shadcn-architect"],
+    "flutter":  ["ask-flutter-architect", "ask-flutter-mechanic"],
+    "fastapi":  ["ask-fastapi-architect"],
+}
+
+
+def _detect_stacks(cwd: Path) -> list:
+    """Detect project stacks from filesystem signals in cwd."""
+    stacks = []
+
+    # PHP / Laravel
+    composer = cwd / "composer.json"
+    if composer.exists():
+        try:
+            data = json.loads(composer.read_text(encoding="utf-8"))
+            deps = {**data.get("require", {}), **data.get("require-dev", {})}
+            if any("laravel" in k for k in deps):
+                stacks.append("laravel")
+        except Exception:
+            pass
+
+    # JS / TS frameworks
+    package = cwd / "package.json"
+    if package.exists():
+        try:
+            data = json.loads(package.read_text(encoding="utf-8"))
+            deps = {**data.get("dependencies", {}), **data.get("devDependencies", {})}
+            if "next" in deps:
+                stacks.append("nextjs")
+            elif "vue" in deps:
+                stacks.append("vue")
+            elif "react" in deps:
+                stacks.append("react")
+        except Exception:
+            pass
+
+    # Flutter / Dart
+    if (cwd / "pubspec.yaml").exists():
+        stacks.append("flutter")
+
+    # Python / FastAPI
+    for fname in ("requirements.txt", "pyproject.toml"):
+        fpath = cwd / fname
+        if fpath.exists():
+            try:
+                if "fastapi" in fpath.read_text(encoding="utf-8").lower():
+                    stacks.append("fastapi")
+                    break
+            except Exception:
+                pass
+
+    return stacks
+
+
+def _fuzzy_match_skills(query: str, all_skills: list) -> list:
+    """Substring match on skill name and description. Strips ask- prefix before matching."""
+    q = query.lower().strip()
+    q_bare = q[4:] if q.startswith("ask-") else q
+
+    matches = []
+    for s in all_skills:
+        name = s.get("name", "").lower()
+        name_bare = name[4:] if name.startswith("ask-") else name
+        desc = s.get("description", "").lower()
+        if q_bare in name_bare or q in name or q_bare in desc:
+            matches.append(s)
+    return matches
+
 
 def prompt_skill_selection():
-    """Interactive skill selection with numbered menu.
+    """Interactive skill selection with search/filter and stack-aware suggestions.
 
     Returns:
         tuple: (selected_skills, is_all_flag) - List of skills and whether 'all' was selected
@@ -24,22 +98,53 @@ def prompt_skill_selection():
     all_skills = get_all_skills()
 
     if not all_skills:
-        console.print("[red]❌ No skills found in the skill library[/red]")
+        console.print("[red]Error:[/red] no skills found in the skill library")
         raise click.Abort()
 
-    # Display header
-    console.print("\n[bold cyan]📚 Available Skills[/bold cyan]\n")
+    console.print("\n[bold]Available Skills[/bold]  [dim]interactive[/dim]\n")
+
+    # Feature 4: detect stacks and surface relevant skills
+    cwd = get_safe_cwd()
+    stacks = _detect_stacks(cwd)
+    if stacks:
+        suggested_names: list[str] = []
+        for stack in stacks:
+            suggested_names.extend(STACK_SKILLS.get(stack, []))
+        # deduplicate, preserve order
+        seen: set[str] = set()
+        unique_suggestions = []
+        for n in suggested_names:
+            if n not in seen:
+                seen.add(n)
+                unique_suggestions.append(n)
+        available_names = {s["name"] for s in all_skills}
+        valid_suggestions = [n for n in unique_suggestions if n in available_names]
+        if valid_suggestions:
+            console.print(f"[dim]Detected: {', '.join(stacks)}[/dim]")
+            console.print(f"[dim]Suggested: {', '.join(valid_suggestions)}[/dim]\n")
+
+    # Feature 6: search/filter before rendering the list
+    search = Prompt.ask("[dim]Search[/dim] (Enter to list all)", default="").strip()
+
+    if search:
+        display_skills = _fuzzy_match_skills(search, all_skills)
+        if not display_skills:
+            console.print(f"[dim]No matches for '{search}'. Showing all.[/dim]\n")
+            display_skills = all_skills
+        else:
+            console.print(f"[dim]{len(display_skills)} match(es)[/dim]\n")
+    else:
+        display_skills = all_skills
 
     # Build table
-    table = Table(show_header=True, header_style="bold", show_lines=True)
+    table = Table(show_header=True, header_style="bold", show_lines=False)
     table.add_column("#", style="dim", width=4)
     table.add_column("Name", style="cyan")
     table.add_column("Description")
-    table.add_column("Category", style="magenta")
+    table.add_column("Category", style="dim")
 
-    for idx, skill in enumerate(all_skills, 1):
+    for idx, skill in enumerate(display_skills, 1):
         description = skill.get("description", "")
-        # Show up to ~100 chars (approx 2 lines)
         display_desc = description[:100] + "..." if len(description) > 100 else description
         table.add_row(
             str(idx),
@@ -51,33 +156,27 @@ def prompt_skill_selection():
     console.print(table)
     console.print()
 
-    # Prompt for selection
-    console.print("[bold]Choose a skill:[/bold]")
-    console.print("  [dim]0[/dim] Cancel")
-    console.print("  [green]1-{}[/green] Select skill by number".format(len(all_skills)))
-    console.print("  [yellow]all[/yellow] Copy all skills")
-    console.print()
+    console.print("[dim]0 cancel · 1-{n} select · all copy all[/dim]\n".format(n=len(display_skills)))
 
     while True:
-        choice = Prompt.ask("Enter choice", default="0")
+        choice = Prompt.ask("Skill", default="0")
 
         if choice == "0":
-            console.print("[yellow]Cancelled.[/yellow]")
+            console.print("[dim]Cancelled.[/dim]")
             raise click.Abort()
 
         if choice.lower() == "all":
-            return all_skills, True
+            return display_skills, True
 
-        # Try to parse as number
         try:
             choice_num = int(choice)
-            if 1 <= choice_num <= len(all_skills):
-                selected_skill = all_skills[choice_num - 1]
+            if 1 <= choice_num <= len(display_skills):
+                selected_skill = display_skills[choice_num - 1]
                 return [selected_skill], False
             else:
-                console.print(f"[red]Invalid choice. Please enter 0-{len(all_skills)} or 'all'[/red]")
+                console.print(f"[red]Enter 0–{len(display_skills)} or all[/red]")
         except ValueError:
-            console.print("[red]Invalid input. Please enter a number, 'all', or '0' to cancel[/red]")
+            console.print("[red]Enter a number, all, or 0 to cancel[/red]")
 
 
 def prompt_agent_selection(skills):
@@ -92,7 +191,7 @@ def prompt_agent_selection(skills):
     available_agents = get_available_agents()
 
     if not available_agents:
-        console.print("[red]❌ No agents available[/red]")
+        console.print("[red]Error:[/red] no agents available")
         raise click.Abort()
 
     # Determine compatible agents
@@ -101,14 +200,14 @@ def prompt_agent_selection(skills):
         skill_agents = set(skills[0].get("agents", []))
         compatible_agents = [agent for agent in available_agents if agent == "universal" or agent in skill_agents]
 
-        console.print(f"\n[bold cyan]🤖 Select Agent for '{skills[0]['name']}'[/bold cyan]\n")
+        console.print(f"\n[bold]Select Agent[/bold]  [dim]{skills[0]['name']}[/dim]\n")
     else:
         # Multiple skills - show all agents
         compatible_agents = available_agents
-        console.print(f"\n[bold cyan]🤖 Select Target Agent ({len(skills)} skills)[/bold cyan]\n")
+        console.print(f"\n[bold]Select Agent[/bold]  [dim]{len(skills)} skills[/dim]\n")
 
     # Display table
-    table = Table(show_header=True, header_style="bold", show_lines=True)
+    table = Table(show_header=True, header_style="bold", show_lines=False)
     table.add_column("#", style="dim", width=4)
     table.add_column("Agent", style="cyan")
     table.add_column("Compatible", style="green")
@@ -131,17 +230,13 @@ def prompt_agent_selection(skills):
     console.print(table)
     console.print()
 
-    # Prompt for selection
-    console.print("[bold]Choose target agent:[/bold]")
-    console.print("  [dim]0[/dim] Cancel")
-    console.print(f"  [green]1-{len(available_agents)}[/green] Select agent by number")
-    console.print()
+    console.print("[dim]0 cancel · 1-{n} select[/dim]\n".format(n=len(available_agents)))
 
     while True:
-        choice = Prompt.ask("Enter choice", default="0")
+        choice = Prompt.ask("Agent", default="0")
 
         if choice == "0":
-            console.print("[yellow]Cancelled.[/yellow]")
+            console.print("[dim]Cancelled.[/dim]")
             raise click.Abort()
 
         try:
@@ -151,15 +246,15 @@ def prompt_agent_selection(skills):
 
                 # Warn if incompatible (for single skill)
                 if len(skills) == 1 and selected_agent not in compatible_agents:
-                    console.print(f"[yellow]⚠️  '{skills[0]['name']}' doesn't list '{selected_agent}' as supported.[/yellow]")
+                    console.print(f"[yellow]Warning:[/yellow] '{skills[0]['name']}' doesn't list '{selected_agent}' as supported.")
                     if not click.confirm("Copy anyway?", default=False):
                         continue
 
                 return selected_agent
             else:
-                console.print(f"[red]Invalid choice. Please enter 0-{len(available_agents)}[/red]")
+                console.print(f"[red]Enter 0–{len(available_agents)}[/red]")
         except ValueError:
-            console.print("[red]Invalid input. Please enter a number or '0' to cancel[/red]")
+            console.print("[red]Enter a number or 0 to cancel[/red]")
 
 
 @click.command()
@@ -192,12 +287,12 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool, use_global: Optional[
     """
     # Fail fast: mutually exclusive flags
     if use_global and use_local:
-        console.print("[red]❌ --global and --local are mutually exclusive[/red]")
+        console.print("[red]Error:[/red] --global and --local are mutually exclusive")
         raise click.Abort()
 
     # Interactive mode: no arguments provided
     if not agent and not skill_name and not copy_all:
-        console.print("[bold magenta]🚀 Interactive Copy Wizard[/bold magenta]")
+        console.print("[bold]Copy[/bold]  [dim]interactive[/dim]")
 
         # Step 1: Select skill(s)
         skills, copy_all = prompt_skill_selection()
@@ -215,12 +310,12 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool, use_global: Optional[
             agent = config.get('defaults', {}).get('agent')
 
         if not agent:
-            console.print("[red]❌ AGENT argument required when using --skill or --all flags[/red]")
-            console.print("[dim]Tip: Run 'ask copy' with no arguments for interactive mode[/dim]")
+            console.print("[red]Error:[/red] AGENT required when using --skill or --all")
+            console.print("[dim]Run 'ask copy' with no arguments for interactive mode[/dim]")
             raise click.Abort()
 
         if not skill_name and not copy_all:
-            console.print("[red]❌ Specify --skill <name> or --all[/red]")
+            console.print("[red]Error:[/red] specify --skill <name> or --all")
             raise click.Abort()
 
         # Get skills to copy
@@ -231,16 +326,30 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool, use_global: Optional[
                 skills = [s for s in get_all_skills() if agent in s.get("agents", [])]
 
             if not skills:
-                console.print(f"[yellow]No skills found compatible with {agent}[/yellow]")
+                console.print(f"[dim]No skills found compatible with {agent}[/dim]")
                 return
         else:
             skill = get_skill(skill_name)
             if not skill:
-                console.print(f"[red]❌ Skill not found: {skill_name}[/red]")
-                raise click.Abort()
+                # Feature 2: fuzzy fallback when exact name not found
+                matches = _fuzzy_match_skills(skill_name, get_all_skills())
+                if not matches:
+                    console.print(f"[red]Error:[/red] skill not found: {skill_name}")
+                    raise click.Abort()
+                elif len(matches) == 1:
+                    console.print(f"[dim]Using '{matches[0]['name']}' (matched '{skill_name}')[/dim]")
+                    skill = matches[0]
+                    skill_name = skill["name"]
+                else:
+                    console.print(f"[dim]{len(matches)} skills match '{skill_name}':[/dim]")
+                    for i, m in enumerate(matches, 1):
+                        console.print(f"  [dim]{i}[/dim]  {m['name']}")
+                    idx_choice = Prompt.ask("Select", choices=[str(i) for i in range(1, len(matches) + 1)])
+                    skill = matches[int(idx_choice) - 1]
+                    skill_name = skill["name"]
 
             if agent != "universal" and agent not in skill.get("agents", []):
-                console.print(f"[yellow]⚠️  Skill '{skill_name}' doesn't list '{agent}' as a supported agent.[/yellow]")
+                console.print(f"[yellow]Warning:[/yellow] '{skill_name}' doesn't list '{agent}' as a supported agent.")
                 if not click.confirm("Copy anyway?"):
                     raise click.Abort()
 
@@ -254,9 +363,9 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool, use_global: Optional[
 
                 if len(skills) > 1:
                     deps = [s["name"] for s in skills if s["name"] != skill_name]
-                    console.print(f"[cyan]📦 Detailed dependencies: {', '.join(deps)}[/cyan]")
+                    console.print(f"[dim]+ dependencies: {', '.join(deps)}[/dim]")
             except ValueError as e:
-                console.print(f"[red]❌ {e}[/red]")
+                console.print(f"[red]Error:[/red] {e}")
                 raise click.Abort()
 
     # Get supported scopes for this agent
@@ -264,7 +373,7 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool, use_global: Optional[
 
     # Guard against degenerate adapter config
     if not scopes["local"] and not scopes["global"]:
-        console.print(f"[red]❌ Agent '{agent}' has no supported scopes configured.[/red]")
+        console.print(f"[red]Error:[/red] agent '{agent}' has no supported scopes configured.")
         raise click.Abort()
 
     # Narrow preview to only the chosen scope when a flag was passed
@@ -272,10 +381,10 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool, use_global: Optional[
     show_global = scopes["global"] and not use_local
 
     # Show dry run preview for available options
-    console.print(f"\n[bold]📦 Preview: Copying {len(skills)} skill(s) to {agent}[/bold]\n")
+    console.print(f"\n[bold]Preview[/bold]  [dim]{len(skills)} skill(s) → {agent}[/dim]\n")
 
     # Build preview table
-    table = Table(show_header=True, header_style="bold", show_lines=True)
+    table = Table(show_header=True, header_style="bold", show_lines=False)
     table.add_column("Skill")
     table.add_column("Type", style="dim")
     if show_local:
@@ -310,14 +419,12 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool, use_global: Optional[
         if show_local and local_adapter:
             target = local_adapter.get_target_path(skill)
             exists = target.exists()
-            status = "[yellow](exists)[/yellow]" if exists else ""
-            row.append(f"{target} {status}")
+            row.append(f"{target} [yellow](exists)[/yellow]" if exists else str(target))
 
         if show_global and global_adapter:
             target = global_adapter.get_target_path(skill)
             exists = target.exists()
-            status = "[yellow](exists)[/yellow]" if exists else ""
-            row.append(f"{target} {status}")
+            row.append(f"{target} [yellow](exists)[/yellow]" if exists else str(target))
 
         table.add_row(*row)
 
@@ -327,13 +434,13 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool, use_global: Optional[
     # Resolve scope: flag > auto (single option) > prompt
     if use_global:
         if not scopes["global"]:
-            console.print(f"[red]❌ Agent '{agent}' does not support global scope[/red]")
+            console.print(f"[red]Error:[/red] agent '{agent}' does not support global scope")
             raise click.Abort()
         scope_resolved = True
         scope_name = "global"
     elif use_local:
         if not scopes["local"]:
-            console.print(f"[red]❌ Agent '{agent}' does not support local scope[/red]")
+            console.print(f"[red]Error:[/red] agent '{agent}' does not support local scope")
             raise click.Abort()
         use_global = False
         scope_resolved = True
@@ -351,12 +458,12 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool, use_global: Optional[
 
     if not scope_resolved:
         # Ask user to choose scope with numbered options
-        console.print("[bold]Choose destination:[/bold]")
-        console.print("  [dim]0[/dim] Cancel")
+        console.print("[bold]Destination[/bold]")
+        console.print("  [dim]0[/dim]  cancel")
         if scopes["global"]:
-            console.print("  [green]1[/green] Global (user home directory)")
+            console.print("  [dim]1[/dim]  global  [dim](user home)[/dim]")
         if scopes["local"]:
-            console.print("  [cyan]2[/cyan] Local (project directory)")
+            console.print("  [dim]2[/dim]  local   [dim](project)[/dim]")
 
         valid_choices = ["0"]
         if scopes["global"]:
@@ -367,13 +474,13 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool, use_global: Optional[
         default = "1" if scopes["global"] else "2"
 
         choice_num = Prompt.ask(
-            "Enter choice",
+            "Scope",
             choices=valid_choices,
             default=default
         )
 
         if choice_num == "0":
-            console.print("[yellow]Cancelled.[/yellow]")
+            console.print("[dim]Cancelled.[/dim]")
             raise click.Abort()
         elif choice_num == "1":
             use_global = True
@@ -391,8 +498,28 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool, use_global: Optional[
     if not adapter and agent != "universal":
         adapter = get_adapter(agent, use_global=use_global, project_root=project_root)
 
+    # Feature 5: upfront conflict scan — decide strategy before copying begins
+    conflicts = []
+    for s in skills:
+        tp = universal_adapter.get_target_path(s)
+        if tp and tp.exists():
+            conflicts.append(s["name"])
+
+    conflict_strategy = None  # None = ask per skill
+    if overwrite:
+        conflict_strategy = "overwrite"
+    elif conflicts:
+        console.print(f"\n[yellow]Warning:[/yellow] {len(conflicts)} skill(s) already installed: {', '.join(conflicts)}")
+        console.print("[dim]1 skip all  2 overwrite all  3 ask per skill[/dim]")
+        strategy_choice = Prompt.ask("Strategy", choices=["1", "2", "3"], default="1")
+        if strategy_choice == "1":
+            conflict_strategy = "skip"
+        elif strategy_choice == "2":
+            conflict_strategy = "overwrite"
+        # else conflict_strategy stays None (ask per skill)
+
     # Copy skills
-    console.print(f"\n[bold]Copying to {scope_name} (Universal Source of Truth)...[/bold]\n")
+    console.print(f"\n[dim]Copying to {scope_name}...[/dim]\n")
 
     success_count = 0
     skip_count = 0
@@ -406,36 +533,40 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool, use_global: Optional[
             result = universal_adapter.copy_skill(skill)
 
             if result["status"] == "conflict":
-                if overwrite:
+                if conflict_strategy == "overwrite":
                     choice = "overwrite"
+                elif conflict_strategy == "skip":
+                    console.print(f"  [dim]–[/dim] {skill['name']} [dim]skipped[/dim]")
+                    skip_count += 1
+                    continue
                 else:
-                    console.print(f"  [yellow]⚠️  '{skill['name']}' already exists in USoT[/yellow]")
+                    # Per-skill prompt (conflict_strategy is None)
+                    console.print(f"  [yellow]–[/yellow] '{skill['name']}' already exists")
                     choice = Prompt.ask(
-                        "    What would you like to do?",
+                        "    use existing / overwrite / rename / skip",
                         choices=["use existing", "overwrite", "rename", "skip"],
                         default="use existing"
                     )
 
                 if choice == "skip":
-                    console.print(f"  [yellow]○[/yellow] {skill['name']} skipped")
+                    console.print(f"  [dim]–[/dim] {skill['name']} [dim]skipped[/dim]")
                     skip_count += 1
                     continue
                 elif choice == "overwrite":
                     result = universal_adapter.copy_skill(skill, force=True)
                     if result["status"] != "copied":
-                        console.print(f"  [red]✗[/red] Failed to overwrite: {result.get('error', 'Unknown')}")
+                        console.print(f"  [red]✗[/red] {skill['name']} [dim]overwrite failed: {result.get('error', 'unknown')}[/dim]")
                         fail_count += 1
                         continue
                 elif choice == "rename":
-                    new_name = Prompt.ask("    Enter new name")
+                    new_name = Prompt.ask("    new name")
                     name_to_use = new_name
                     result = universal_adapter.copy_skill(skill, new_name=new_name)
                     if result["status"] != "copied":
-                        console.print(f"  [red]✗[/red] Failed to copy with new name: {result.get('error', 'Unknown')}")
+                        console.print(f"  [red]✗[/red] {skill['name']} [dim]rename failed: {result.get('error', 'unknown')}[/dim]")
                         fail_count += 1
                         continue
-                else: # "use existing"
-                    # result["target"] already contains the existing path
+                else:  # "use existing"
                     pass
 
             u_path = Path(result["target"]) # Universal path
@@ -461,23 +592,25 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool, use_global: Optional[
 
             # Print success
             if agent == "universal":
-                console.print(f"  [green]✓[/green] {skill['name']} → USoT ({u_path})")
+                console.print(f"  [green]✓[/green] {skill['name']} [dim]→ {u_path}[/dim]")
             elif deploy_mode == "copy":
-                console.print(f"  [green]✓[/green] {skill['name']} → USoT + copied for {agent} [dim](symlinks unavailable on this OS)[/dim]")
+                console.print(f"  [green]✓[/green] {skill['name']} → {agent} [dim](copied, symlinks unavailable)[/dim]")
             else:
-                console.print(f"  [green]✓[/green] {skill['name']} → USoT and symlinked for {agent}")
+                console.print(f"  [green]✓[/green] {skill['name']} → {agent}")
             success_count += 1
 
         except OSError as e:
-            console.print(f"  [red]✗[/red] {skill['name']}: {e}")
+            console.print(f"  [red]✗[/red] {skill['name']} [dim]{e}[/dim]")
             fail_count += 1
 
     # Summary
     console.print()
-    parts = [f"{success_count} copied/symlinked", f"{skip_count} skipped"]
+    parts = [f"{success_count} copied"]
+    if skip_count:
+        parts.append(f"{skip_count} skipped")
     if fail_count:
-        parts.append(f"[red]{fail_count} failed[/red]")
-    console.print(f"[green]Done![/green] {', '.join(parts)}.")
+        parts.append(f"{fail_count} failed")
+    console.print("[dim]" + " · ".join(parts) + "[/dim]")
 
     if success_count > 0:
-        console.print("\n[bold yellow]💡 Tip:[/bold yellow] Keep these skills up to date by running [cyan]ask update[/cyan] periodically.")
+        console.print("[dim]Tip: run ask update to keep skills current[/dim]")

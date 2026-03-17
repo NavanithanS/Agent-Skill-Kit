@@ -72,6 +72,7 @@ Thumbs.db
 
 # Project specific
 .agent/
+.agents/
 .gemini/
 .claude/
 .cursor/

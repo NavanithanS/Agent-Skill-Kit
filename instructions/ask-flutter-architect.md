@@ -1,0 +1,1 @@
+../.agents/skills/ask-flutter-architect/SKILL.md

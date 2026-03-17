@@ -54,32 +54,32 @@ def remove(agent: str, skill_name: str, yes: bool):
                     })
     
     if not targets_found:
-        console.print(f"[yellow]Skill '{skill_name}' not found in any checked agents.[/yellow]")
+        console.print(f"[dim]'{skill_name}' not found in any checked agents.[/dim]")
         return
-    
+
     # 2. Show Summary
     console.print(f"\n[bold]Found '{skill_name}' in:[/bold]")
     for target in targets_found:
-        console.print(f"  - [cyan]{target['agent']}[/cyan] ({target['scope']}): [dim]{target['path']}[/dim]")
+        console.print(f"  [dim]{target['agent']}[/dim] ({target['scope']})  {target['path']}")
     console.print()
-    
+
     # 3. Confirm
     if not yes:
-        if not Confirm.ask("Are you sure you want to [red]permanently remove[/red] these files?"):
-            console.print("Cancelled.")
+        if not Confirm.ask("Permanently remove these files?"):
+            console.print("[dim]Cancelled.[/dim]")
             raise click.Abort()
-    
+
     # 4. Delete
     success_count = 0
     for target in targets_found:
         result = target['adapter'].remove_skill({"name": skill_name})
-        
+
         if result["status"] == "removed":
-            console.print(f"  [green]✓[/green] Removed from {target['agent']} ({target['scope']})")
+            console.print(f"  [green]✓[/green] {target['agent']} [dim]({target['scope']})[/dim]")
             success_count += 1
         elif result["status"] == "not_found":
-            console.print(f"  [yellow]?[/yellow] {target['agent']} ({target['scope']}): Already gone?")
+            console.print(f"  [dim]–[/dim] {target['agent']} [dim]({target['scope']}) already gone[/dim]")
         else:
-            console.print(f"  [red]✗[/red] Failed to remove from {target['agent']}: {result.get('error')}")
-            
-    console.print(f"\n[green]Done![/green] Removed {success_count} file(s).")
+            console.print(f"  [red]✗[/red] {target['agent']} [dim]{result.get('error')}[/dim]")
+
+    console.print(f"\n[dim]{success_count} removed[/dim]")

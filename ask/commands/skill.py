@@ -37,11 +37,11 @@ def lint(strict: bool, skill_name: str):
     try:
         from ask.utils.token_analyzer import lint_skill, analyze_skill
     except ImportError:
-        console.print("[yellow]⚠️ tiktoken not installed. Run: pip install tiktoken[/yellow]")
+        console.print("[yellow]Warning:[/yellow] tiktoken not installed. Run: pip install tiktoken")
         return
-    
+
     skills_dir = get_skills_dir()
-    
+
     if skill_name:
         # Find specific skill
         skill_path = None
@@ -49,9 +49,9 @@ def lint(strict: bool, skill_name: str):
             if skill_md.parent.name == skill_name:
                 skill_path = skill_md
                 break
-        
+
         if not skill_path:
-            console.print(f"[red]Skill not found: {skill_name}[/red]")
+            console.print(f"[red]Error:[/red] skill not found: {skill_name}")
             raise SystemExit(1)
         
         passed, messages = lint_skill(skill_path, strict=strict)
@@ -62,7 +62,7 @@ def lint(strict: bool, skill_name: str):
             raise SystemExit(1)
     else:
         # Lint all skills
-        console.print("[bold cyan]🔍 Linting all skills...[/bold cyan]\n")
+        console.print("[dim]Linting all skills...[/dim]\n")
         
         all_passed = True
         total = 0
@@ -75,23 +75,23 @@ def lint(strict: bool, skill_name: str):
             if not passed:
                 all_passed = False
                 failed += 1
-                console.print(f"[red]✗ {skill_md.parent.name}[/red]")
+                console.print(f"  [red]✗[/red] {skill_md.parent.name}")
                 for msg in messages:
-                    console.print(f"  {msg}")
+                    console.print(f"    [dim]{msg}[/dim]")
             else:
                 # Only show passing if verbose or has warnings
                 analysis = analyze_skill(skill_md)
                 if analysis.get("issues") or analysis.get("status") == "warning":
-                    console.print(f"[yellow]⚠ {skill_md.parent.name}[/yellow]")
+                    console.print(f"  [yellow]–[/yellow] {skill_md.parent.name}")
                     for msg in messages:
-                        console.print(f"  {msg}")
-        
-        console.print(f"\n[bold]Results: {total - failed}/{total} passed[/bold]")
-        
+                        console.print(f"    [dim]{msg}[/dim]")
+
+        console.print(f"\n[dim]{total - failed}/{total} passed[/dim]")
+
         if not all_passed:
             raise SystemExit(1)
         else:
-            console.print("[green]✅ All skills passed![/green]")
+            console.print("[green]✓[/green] All skills passed.")
 
 
 @skill.command()
@@ -110,12 +110,12 @@ def profile(as_json: bool):
     try:
         from ask.utils.token_analyzer import generate_report
     except ImportError:
-        console.print("[yellow]⚠️ tiktoken not installed. Run: pip install tiktoken[/yellow]")
+        console.print("[yellow]Warning:[/yellow] tiktoken not installed. Run: pip install tiktoken")
         return
-    
+
     skills_dir = get_skills_dir()
-    
-    console.print("[bold cyan]📊 Token Usage Report[/bold cyan]\n")
+
+    console.print("[bold]Token Usage Report[/bold]\n")
     
     report, summary = generate_report(skills_dir)
     
@@ -124,7 +124,7 @@ def profile(as_json: bool):
         console.print(json.dumps(summary, indent=2, default=str))
     else:
         # Rich table output
-        table = Table(title="Skill Token Analysis", show_header=True, header_style="bold")
+        table = Table(title="Skill Token Analysis", show_header=True, header_style="bold", box=None)
         table.add_column("Category", style="dim", width=10)
         table.add_column("Skill", style="cyan", width=32)
         table.add_column("Tokens", justify="right", width=8)
@@ -132,18 +132,18 @@ def profile(as_json: bool):
         
         for r in summary["results"]:
             status_style = {"ok": "green", "warning": "yellow", "error": "red"}[r["status"]]
-            status_icon = {"ok": "✅", "warning": "⚠️", "error": "🔴"}[r["status"]]
+            status_mark = {"ok": "✓", "warning": "–", "error": "✗"}[r["status"]]
             table.add_row(
                 r["category"],
                 r["name"],
                 str(r["tokens"]),
-                f"[{status_style}]{status_icon}[/{status_style}]"
+                f"[{status_style}]{status_mark}[/{status_style}]"
             )
-        
+
         console.print(table)
         console.print()
-        console.print(f"[bold]Total:[/bold] {summary['total_skills']} skills | {summary['total_tokens']} tokens | Avg: {summary['average_tokens']}")
-        console.print(f"[green]✅ OK: {summary['ok_count']}[/green] | [yellow]⚠️ Warning: {summary['warning_count']}[/yellow] | [red]🔴 Error: {summary['error_count']}[/red]")
+        console.print(f"[dim]{summary['total_skills']} skills · {summary['total_tokens']} tokens · avg {summary['average_tokens']}[/dim]")
+        console.print(f"[dim][green]✓[/green] {summary['ok_count']} ok  [yellow]–[/yellow] {summary['warning_count']} warning  [red]✗[/red] {summary['error_count']} error[/dim]")
 
 
 @skill.command()
@@ -164,7 +164,7 @@ def compile(output: str):
     skills = get_all_skills()
     
     if not skills:
-        console.print("[yellow]No skills found.[/yellow]")
+        console.print("[dim]No skills found.[/dim]")
         return
     
     manifest = {
@@ -194,4 +194,4 @@ def compile(output: str):
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(manifest, f, indent=2)
     
-    console.print(f"[green]✅ Compiled {len(skills)} skills to {output_path}[/green]")
+    console.print(f"[green]✓[/green] Compiled {len(skills)} skills [dim]→ {output_path}[/dim]")

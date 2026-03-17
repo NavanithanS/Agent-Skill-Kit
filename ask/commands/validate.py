@@ -15,12 +15,12 @@ def validate(ctx, skill):
     if skill:
         skills = [get_skill(skill)]
         if not skills[0]:
-            console.print(f"[red]Skill '{skill}' not found.[/red]")
+            console.print(f"[red]Error:[/red] skill '{skill}' not found.")
             return
     else:
         skills = get_all_skills()
 
-    console.print(f"Validating {len(skills)} skills...\n")
+    console.print(f"[dim]Validating {len(skills)} skills...[/dim]\n")
     
     issues = 0
     passed = 0
@@ -60,16 +60,16 @@ def validate(ctx, skill):
         # Report
         if errors:
             issues += 1
-            console.print(f"[bold red]❌ {skill_name}[/bold red]")
+            console.print(f"  [red]✗[/red] {skill_name}")
             for err in errors:
-                console.print(f"  - {err}")
+                console.print(f"    [dim]{err}[/dim]")
         else:
             passed += 1
             if ctx.obj.get('verbose'):
-                console.print(f"[green]✓ {skill_name}[/green]")
+                console.print(f"  [green]✓[/green] {skill_name}")
 
     # Check for circular dependencies globally
-    console.print("\n[bold]Validating dependency chains...[/bold]")
+    console.print("\n[dim]Validating dependency chains...[/dim]")
     all_skills_map = {s["name"]: s for s in get_all_skills()}
 
     dep_issues = 0
@@ -80,12 +80,12 @@ def validate(ctx, skill):
         except ValueError as e:
             dep_issues += 1
             issues += 1
-            console.print(f"  [red]Circular Dependency:[/red] {e}")
+            console.print(f"  [red]✗[/red] circular dependency: [dim]{e}[/dim]")
 
     if dep_issues == 0:
-        console.print("[green]✓ All dependency chains OK.[/green]")
+        console.print("  [green]✓[/green] dependency chains OK")
 
-    console.print(f"\n[bold]Result:[/bold] {passed} passed, {issues} failed.")
+    console.print(f"\n[dim]{passed} passed · {issues} failed[/dim]")
 
     if issues > 0:
         raise click.Abort()

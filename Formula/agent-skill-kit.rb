@@ -1,7 +1,7 @@
 class AgentSkillKit < Formula
   desc "CLI package manager for AI agent skills — deploy to Claude, Gemini, Codex, Cursor, and more"
   homepage "https://navanithans.github.io/Agent-Skill-Kit/"
-  url "https://pypi.io/packages/source/a/agent-skill-kit/agent_skill_kit-0.6.0.tar.gz"
+  url "https://pypi.io/packages/source/a/agent-skill-kit/agent_skill_kit-0.7.0.tar.gz"
   sha256 "4b8020b370d59bdd9e71888c00947518bcb7b44fb5c3a9d0a49fbd9c9ee021a9"
   license "MIT"
 
