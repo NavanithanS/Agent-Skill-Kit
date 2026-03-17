@@ -266,19 +266,7 @@
       <!-- Output -->
       <div class="p-6 bg-gray-50/80 dark:bg-zinc-950/50">
         <div class="flex items-center justify-between mb-3">
-          <div class="flex items-center gap-3">
-            <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Generated command</span>
-            <div class="flex items-center gap-1 bg-gray-100 dark:bg-zinc-800 rounded-md p-0.5">
-              <button id="platform-unix" onclick="setPlatform('unix')"
-                      class="px-2 py-0.5 text-xs font-medium rounded transition-colors bg-white dark:bg-zinc-700 text-gray-800 dark:text-zinc-100 shadow-sm">
-                Mac / Linux
-              </button>
-              <button id="platform-win" onclick="setPlatform('win')"
-                      class="px-2 py-0.5 text-xs font-medium rounded transition-colors text-gray-500 dark:text-zinc-400 hover:text-gray-700 dark:hover:text-zinc-200">
-                Windows
-              </button>
-            </div>
-          </div>
+          <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Generated command</span>
           <button id="copy-all-btn" onclick="copyAllCommands()" style="display:none"
                   class="px-3 py-1 text-xs font-medium bg-black text-white rounded-lg hover:bg-gray-800 transition-colors flex items-center gap-1.5">
             <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -359,7 +347,7 @@
 <!-- ====== FOOTER ====== -->
 <footer class="border-t border-gray-100 dark:border-zinc-800 bg-white dark:bg-zinc-950 py-8 px-4">
   <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-    <p class="text-sm text-gray-400">Generated 2026-03-14 · 38 skills</p>
+    <p class="text-sm text-gray-400">Generated 2026-03-17 · 38 skills</p>
     <a href="https://github.com/navanithans/Agent-Skill-Kit" target="_blank"
        class="text-sm text-gray-400 hover:text-gray-700 transition-colors">
       Agent Skill Kit on GitHub ↗
@@ -380,8 +368,7 @@ const state = {
     selectedSkills: [],
     selectedAgent: null,
     scope: 'global',
-    action: 'copy',
-    platform: 'unix'
+    action: 'copy'
   },
   browser: {
     activeCat: 'all',
@@ -597,7 +584,7 @@ function setScope(scope) {
 }
 
 function renderOutput() {
-  const { selectedSkills, selectedAgent, scope, action, platform } = state.builder;
+  const { selectedSkills, selectedAgent, scope, action } = state.builder;
   const placeholder = document.getElementById('cmd-placeholder');
   const cmdLines    = document.getElementById('cmd-lines');
   const copyAllBtn  = document.getElementById('copy-all-btn');
@@ -619,9 +606,6 @@ function renderOutput() {
   let cmd;
   if (action === 'purge') {
     cmd = `ask purge ${selectedAgent}`;
-  } else if (platform === 'win' && selectedSkills.length > 1) {
-    const list = selectedSkills.map(s => `"${s}"`).join(',');
-    cmd = `foreach ($skill in @(${list})) { ask copy ${selectedAgent} --skill $skill --${scope} }`;
   } else {
     cmd = selectedSkills.map(skill => `ask copy ${selectedAgent} --skill ${skill} --${scope}`).join(' && ');
   }
@@ -640,26 +624,11 @@ function copyText(text, btn) {
   });
 }
 
-function setPlatform(p) {
-  state.builder.platform = p;
-  const active   = 'px-2 py-0.5 text-xs font-medium rounded transition-colors bg-white dark:bg-zinc-700 text-gray-800 dark:text-zinc-100 shadow-sm';
-  const inactive = 'px-2 py-0.5 text-xs font-medium rounded transition-colors text-gray-500 dark:text-zinc-400 hover:text-gray-700 dark:hover:text-zinc-200';
-  document.getElementById('platform-unix').className = p === 'unix' ? active : inactive;
-  document.getElementById('platform-win').className  = p === 'win'  ? active : inactive;
-  renderOutput();
-}
-
 function copyAllCommands() {
-  const { selectedSkills, selectedAgent, scope, action, platform } = state.builder;
-  let all;
-  if (action === 'purge') {
-    all = `ask purge ${selectedAgent}`;
-  } else if (platform === 'win' && selectedSkills.length > 1) {
-    const list = selectedSkills.map(s => `"${s}"`).join(',');
-    all = `foreach ($skill in @(${list})) { ask copy ${selectedAgent} --skill $skill --${scope} }`;
-  } else {
-    all = selectedSkills.map(s => `ask copy ${selectedAgent} --skill ${s} --${scope}`).join(' && ');
-  }
+  const { selectedSkills, selectedAgent, scope, action } = state.builder;
+  const all = action === 'purge'
+    ? `ask purge ${selectedAgent}`
+    : selectedSkills.map(s => `ask copy ${selectedAgent} --skill ${s} --${scope}`).join(' && ');
   const btn = document.getElementById('copy-all-btn');
   navigator.clipboard.writeText(all).then(() => {
     const orig = btn.textContent;
