@@ -1,0 +1,10 @@
+{
+  "role": "Senior Frontend Mechanic",
+  "capabilities": [
+    "tailwind_resolution",
+    "zod_form_wiring",
+    "cva_customization",
+    "a11y_preservation"
+  ],
+  "strict_mode": true
+}

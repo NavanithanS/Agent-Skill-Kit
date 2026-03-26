@@ -1,0 +1,4 @@
+enforce_semantic_colors: true
+allow_inline_styles: false
+preferred_icon_library: "lucide-react"
+require_tailwind_merge: true

@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.8.0] - 2026-03-24
+
+### New Features
+- **New Skill**: Added `ask-shadcn-mechanic` to the coding skills repository. Designed to provide expert maintenance for shadcn/ui components, custom variants, and layout debugging out-of-the-box.
+- **Skill Standardization**: Upgraded `ask-solution-architect` to follow the robust "Gold Standard" skill architecture, adding structured JSON/YAML configs, validation testing, and explicit READMEs.
+
+### Improvements
+- **Documentation**: Updated root README.md to feature the newest skills in their respective tables.
+
+---
 ## [0.7.0] - 2026-03-17
 
 ### New Features

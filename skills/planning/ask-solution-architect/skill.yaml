@@ -1,0 +1,7 @@
+name: ask-solution-architect
+version: 1.0.0
+description: >
+  Master Ideation and Strategic Architecture skill.
+  Executes professional, multi-perspective ideation sessions utilizing SCAMPER, Six Hats, and Design Thinking.
+tags: [planning, architecture, ideation, strategy]
+agents: [antigravity, codex, claude]

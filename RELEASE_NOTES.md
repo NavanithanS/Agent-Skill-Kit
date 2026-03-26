@@ -1,5 +1,16 @@
 # 🚀 Agent Skill Kit Releases
 
+## v0.8.0
+**Date**: March 24, 2026
+**Theme**: The Ideation & UI Mechanic Update
+
+### 🛠️ New Skills
+- **`ask-shadcn-mechanic`**: An expert maintenance skill for shadcn/ui. Built to strictly enforce layout components out-of-the-box, handle component customizations safely with CVA, resolve Tailwind CSS styling conflicts, and debug complex Dark Mode/Form validation issues smoothly without breaking UI/UX design integrity.
+
+### 📐 Skill Standardizations
+- **`ask-solution-architect`**: Fully revamped to match the robust "Gold Standard" architecture required by `ask-skill-creator`. Added configuration files for multi-framework ideations (SCAMPER, Six Hats, Design Thinking), scripts for intent parsing, and verified QA test scenarios.
+
+---
 ## v0.7.0
 **Date**: March 17, 2026
 **Theme**: Smarter `ask copy` + Terminal UI Polish

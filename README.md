@@ -261,6 +261,7 @@ ASK comes with a curated collection of skills to boost your AI agent's capabilit
 | **[brainstorm](skills/planning/ask-brainstorm/README.md)** | Guidelines for exploring user intent and requirements | • Defining user intent<br>• Gathering requirements<br>• Exploring design options |
 | **[project-memory](skills/planning/ask-project-memory/README.md)** | Maintains a 'Project Brain' of decisions | • Avoiding re-discussions<br>• Checking past decisions<br>• Recording new choices |
 | **[buildmaster](skills/planning/ask-buildmaster/README.md)** | Smart Epic Orchestration Agent | • Epic discovery & scoping<br>• Ticket decomposition<br>• Execution tracking & handoff |
+| **[solution-architect](skills/planning/ask-solution-architect/README.md)** | Master Ideation and Strategic Architecture | • Multi-perspective ideation<br>• Designing robust systems<br>• Structured output via frameworks |
 
 ### Coding Skills
 
@@ -286,6 +287,7 @@ ASK comes with a curated collection of skills to boost your AI agent's capabilit
 | **[db-migration-assistant](skills/coding/ask-db-migration-assistant/README.md)** | Ensures safe database schema updates | • Drafting migrations<br>• Creating rollback scripts<br>• Preventing data loss |
 | **[readme-gardener](skills/coding/ask-readme-gardener/README.md)** | Keeps documentation in sync with code | • Updating API docs<br>• Documenting new features<br>• Maintaining README accuracy |
 | **[shadcn-architect](skills/coding/ask-shadcn-architect/README.md)** | Enforces shadcn/ui patterns and consistency | • Preventing style bloat<br>• Enforcing import rules<br>• Promoting accessibility |
+| **[shadcn-mechanic](skills/coding/ask-shadcn-mechanic/README.md)** | Expert maintenance for shadcn/ui components | • Customizing variants (CVA)<br>• Debugging form validation<br>• Fixing Tailwind layout limits |
 | **[security-sentinel](skills/coding/ask-security-sentinel/README.md)** | Pre-flight security checker for secrets/vulns | • Blocking commits with secrets<br>• Detecting SQL injection<br>• Flagging unsafe Blade usage |
 | **[nextjs-architect](skills/coding/ask-nextjs-architect/README.md)** | Expert scaffolding for Next.js 14+ (App Router) | • Server Components<br>• Server Actions<br>• Metadata API |
 | **[fastapi-architect](skills/coding/ask-fastapi-architect/README.md)** | Expert scaffolding for FastAPI projects | • Pydantic V2<br>• Async SQLAlchemy<br>• Dep Injection |

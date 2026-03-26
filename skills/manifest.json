@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "generated": "2026-03-17T15:27:46.744533",
+  "generated": "2026-03-19T16:45:47.280194",
   "skills": [
     {
       "name": "ask-add-agent",
@@ -591,6 +591,29 @@
       "path": "coding/ask-shadcn-architect"
     },
     {
+      "name": "ask-shadcn-mechanic",
+      "description": "Expert maintenance skill for shadcn/ui. Handles component customization, responsive layout debugging, and Form/Zod wiring while strictly enforcing UI/UX design integrity.",
+      "category": "coding",
+      "agents": [
+        "gemini",
+        "claude",
+        "cursor",
+        "antigravity",
+        "codex"
+      ],
+      "version": "1.0.0",
+      "triggers": [
+        "fix layout",
+        "add variant",
+        "debug tailwind",
+        "update shadcn",
+        "dark mode bug",
+        "fix form validation",
+        "responsive shadcn issue"
+      ],
+      "path": "coding/ask-shadcn-mechanic"
+    },
+    {
       "name": "ask-skill-capture",
       "description": "Meta-skill. Analyzes the current session's lessons and saves them as a permanent reusable skill.",
       "category": "tooling",
@@ -639,6 +662,19 @@
       "version": "2.1.0",
       "triggers": [],
       "path": "tooling/ask-smart-booking-test"
+    },
+    {
+      "name": "ask-solution-architect",
+      "description": "Master Ideation and Strategic Architecture skill. Executes professional, multi-perspective ideation sessions utilizing SCAMPER, Six Hats, and Design Thinking.\n",
+      "category": "planning",
+      "agents": [
+        "antigravity",
+        "codex",
+        "claude"
+      ],
+      "version": "1.0.0",
+      "triggers": [],
+      "path": "planning/ask-solution-architect"
     },
     {
       "name": "ask-system-architect-prime",

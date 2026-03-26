@@ -1,0 +1,10 @@
+name: ask-shadcn-mechanic
+version: 1.0.0
+description: Expert maintenance skill for shadcn/ui. Handles component customization, responsive layout debugging, and Form/Zod wiring while strictly enforcing UI/UX design integrity.
+category: coding
+agents:
+  - gemini
+  - claude
+  - cursor
+  - antigravity
+  - codex

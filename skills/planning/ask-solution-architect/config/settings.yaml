@@ -1,0 +1,7 @@
+enforce_markdown_tables: true
+frameworks_available:
+  - SCAMPER
+  - SIX_HATS
+  - DESIGN_THINKING
+require_intent_diagnostic: true
+max_loaded_protocols: 1
