@@ -1,5 +1,16 @@
 # 🚀 Agent Skill Kit Releases
 
+## v0.8.1
+**Date**: April 11, 2026
+**Theme**: Repository Strategy & Branch Safety
+
+### 📖 Core Documentation & Guidelines
+- Added **`AGENTS.md`**: Defines project structure, coding style, agent conventions, and PR guidelines.
+- Added **`GEMINI.md`**: Explains the "Define Once, Deploy Anywhere" philosophy, adapter layer details, and the safe copy protocol.
+
+### 🛡️ Safety Enhancements
+- **`ask-commit-assistance` (v1.2.0)**: Agents now enforce a strict branch check that halts pre-commit processing if your current branch contains 'release'.
+
 ## v0.8.0
 **Date**: March 24, 2026
 **Theme**: The Ideation & UI Mechanic Update

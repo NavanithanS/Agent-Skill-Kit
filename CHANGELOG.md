@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.8.1] - 2026-04-11
+
+### New Features
+- **Documentation**: Added `AGENTS.md` and `GEMINI.md` to establish formal repository guidelines, architectural decisions, and project context.
+- **`ask-commit-assistance`**: Updated (v1.2.0) to strictly check for release branches before allowing commit assistance workflows, halting if on a release branch.
+
 ## [0.8.0] - 2026-03-24
 
 ### New Features
