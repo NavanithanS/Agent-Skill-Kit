@@ -117,7 +117,7 @@ No more memorizing flags for common workflows.
 
 ### 🌐 GitHub Pages Docs Site
 
-Agent Skill Kit now has a live docs site at **https://navanithans.github.io/Agent-Skill-Kit/**
+Agent Skill Kit now has a live docs site at **https://navanithans.github.io/Agent-Skill-Kit/docs/**
 
 **Command Builder** — point-and-click command generation:
 - Select one or more skills (with search + category filter)

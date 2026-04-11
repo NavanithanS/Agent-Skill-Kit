@@ -2,7 +2,7 @@ class AgentSkillKit < Formula
   include Language::Python::Virtualenv
 
   desc "CLI package manager for AI agent skills — deploy skills to Claude, Gemini, Codex, Cursor, and more"
-  homepage "https://navanithans.github.io/Agent-Skill-Kit/"
+  homepage "https://navanithans.github.io/Agent-Skill-Kit/docs/"
   url "https://files.pythonhosted.org/packages/source/a/agent-skill-kit/agent_skill_kit-0.8.1.tar.gz"
   sha256 "FILL_IN_AFTER_PYPI_PUBLISH"
   license "MIT"

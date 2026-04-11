@@ -37,7 +37,7 @@
 
 ### 🚀 New Features
 - **`ask wizard`**: Interactive guided workflow — choose copy, purge, sync, or update from a numbered-step UI. Multi-selects skills and agents, prompts for scope, and executes the selected action.
-- **GitHub Pages docs site**: New site at `https://navanithans.github.io/Agent-Skill-Kit/` featuring:
+- **GitHub Pages docs site**: New site at `https://navanithans.github.io/Agent-Skill-Kit/docs/` featuring:
   - **Command Builder**: Interactive wizard for generating `ask copy` and `ask purge` commands with live output, multi-skill selection, agent compatibility filtering, dark mode, and one-click copy.
   - **Skill Browser**: Searchable, filterable table of all 38 skills with category badges, agent tags, and "+ Select" integration with the builder.
 - **`scripts/generate_site.py`**: Static site generator — reads `skills/manifest.json` and outputs `docs/index.html` with full dark mode (shadcn/ui zinc palette).

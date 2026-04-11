@@ -4,7 +4,7 @@
 
 **Centralized skills repository and CLI toolkit for AI agents (Gemini, Claude, Codex, Cursor, Antigravity).**
 
-> **📖 Docs & Command Builder → [navanithans.github.io/Agent-Skill-Kit](https://navanithans.github.io/Agent-Skill-Kit/)**
+> **📖 Docs & Command Builder → [navanithans.github.io/Agent-Skill-Kit/docs/](https://navanithans.github.io/Agent-Skill-Kit/docs/)**
 > Browse all 38 skills, generate `ask copy` / `ask purge` commands visually, with dark mode support.
 
 ---
@@ -43,7 +43,7 @@ Managing instructions for multiple AI agents is tedious. You often have to:
 
 - **Multi-Agent Support**: Native support for Gemini, Claude Code, OpenAI Codex, Antigravity, and Cursor.
 - **Interactive Wizard**: `ask wizard` guides you through copy, purge, sync, and update with a step-by-step UI.
-- **Docs Site**: Command Builder + Skill Browser at [navanithans.github.io/Agent-Skill-Kit](https://navanithans.github.io/Agent-Skill-Kit/).
+- **Docs Site**: Command Builder + Skill Browser at [navanithans.github.io/Agent-Skill-Kit/docs/](https://navanithans.github.io/Agent-Skill-Kit/docs/).
 - **Skill Dependencies**: Automatically resolves and installs dependent skills.
 - **Universal Source of Truth**: Skills stored in `.agents/skills/` and symlinked to each agent — update once, propagate everywhere.
 - **Dynamic Discovery**: Automatically discovers available agents in the `agents/` directory.
@@ -441,7 +441,7 @@ ask copy antigravity --skill ask-system-architect-prime
 ask wizard
 
 # Or use the docs site Command Builder — no terminal needed
-# → https://navanithans.github.io/Agent-Skill-Kit/
+# → https://navanithans.github.io/Agent-Skill-Kit/docs/
 
 # View all available skills
 ask list
