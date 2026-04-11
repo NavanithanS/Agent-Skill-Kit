@@ -21,6 +21,7 @@ A skill focused on impact analysis, breaking change detection, and strategic dat
 - If optimizing → Verify "Before vs After" performance and correctness.
 - If accessing database → Check for missing indexes or potential N+1 issues.
 - If breaking change is unavoidable → Propose a migration path or versioned API.
+- If finalizing a system deployment → You MUST execute live automated validations (Syntax & Terminal Routing).
 </heuristics>
 
 ## Purpose
@@ -39,8 +40,11 @@ Apply this skill when:
 
 1. **Impact Analysis**: Identify downstream effects of every code change.
 2. **Regression Prevention**: Validate that existing features remain functional.
-3. **Intelligent Optimization**: Focus on high-impact areas without introducing side effects.
-4. **Strategic Data Access**: Prioritize efficient query design and database best practices.
+3. **Automated Validation**: Before clearing any code for production, you must explicitly run backend checks:
+    - **Syntax & Core Framework Validation**: Run strict framework linting using the CLI (e.g. `php -l path/to/file.php` or `npm run lint`).
+    - **Web Routing & Status Code Validation**: Spin up terminal clients to internally ping root routes directly from the framework engine to confirm HTTP 200 statuses and ensure global middlewares didn't crash the stack (e.g. for Laravel: `php artisan tinker --execute="echo app()->handle(Illuminate\Http\Request::create('/', 'GET'))->getStatusCode();"`).
+4. **Intelligent Optimization**: Focus on high-impact areas without introducing side effects.
+5. **Strategic Data Access**: Prioritize efficient query design and database best practices.
 
 ## Examples
 
@@ -66,6 +70,6 @@ def get_user_data(user_id):
 
 ## Best Practices
 
-- **Comprehensive Verification**: Use automated tests and manual verification for all affected paths.
+- **Comprehensive Verification**: Use automated tests and manual verification for all affected paths. Provide explicit terminal readout blocks proving execution paths.
 - **Maintain Stability**: Treat the current stable state as sacred; change it only with full awareness.
 - **Database Strategy**: Avoid expensive table scans; leverage existing architecture or propose minimal, high-impact improvements.
