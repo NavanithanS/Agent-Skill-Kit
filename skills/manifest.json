@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "generated": "2026-03-26T14:27:24.491910",
+  "generated": "2026-04-11T04:15:16.802550",
   "skills": [
     {
       "name": "ask-add-agent",
@@ -141,7 +141,7 @@
         "claude",
         "codex"
       ],
-      "version": "1.1.0",
+      "version": "1.2.0",
       "triggers": [
         "review my changes",
         "help commit",
