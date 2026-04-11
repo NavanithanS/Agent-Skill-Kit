@@ -1,1 +1,0 @@
-../.agents/skills/ask-laravel-architect/SKILL.md

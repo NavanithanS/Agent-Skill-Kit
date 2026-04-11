@@ -1,1 +1,0 @@
-../.agents/skills/ask-skill-capture/SKILL.md

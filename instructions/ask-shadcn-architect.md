@@ -1,1 +1,0 @@
-../.agents/skills/ask-shadcn-architect/SKILL.md

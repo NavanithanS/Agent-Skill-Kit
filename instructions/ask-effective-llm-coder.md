@@ -1,1 +1,0 @@
-../.agents/skills/ask-effective-llm-coder/SKILL.md

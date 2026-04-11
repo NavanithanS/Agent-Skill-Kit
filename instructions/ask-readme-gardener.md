@@ -1,1 +1,0 @@
-../.agents/skills/ask-readme-gardener/SKILL.md

@@ -1,1 +1,0 @@
-../.agents/skills/ask-laravel-mechanic/SKILL.md

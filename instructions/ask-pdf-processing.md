@@ -1,1 +1,0 @@
-../.agents/skills/ask-pdf-processing/SKILL.md

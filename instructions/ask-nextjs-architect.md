@@ -1,1 +1,0 @@
-../.agents/skills/ask-nextjs-architect/SKILL.md

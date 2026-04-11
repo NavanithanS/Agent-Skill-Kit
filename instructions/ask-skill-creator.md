@@ -1,1 +1,0 @@
-../.agents/skills/ask-skill-creator/SKILL.md

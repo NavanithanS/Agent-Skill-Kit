@@ -1,1 +1,0 @@
-../.agents/skills/ask-parallel-auditor/SKILL.md

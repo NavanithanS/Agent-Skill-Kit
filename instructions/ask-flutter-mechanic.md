@@ -1,1 +1,0 @@
-../.agents/skills/ask-flutter-mechanic/SKILL.md

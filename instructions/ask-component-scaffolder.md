@@ -1,1 +1,0 @@
-../.agents/skills/ask-component-scaffolder/SKILL.md

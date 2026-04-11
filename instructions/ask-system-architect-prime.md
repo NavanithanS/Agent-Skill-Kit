@@ -1,1 +1,0 @@
-../.agents/skills/ask-system-architect-prime/SKILL.md

@@ -1,1 +1,0 @@
-../.agents/skills/ask-unit-test-generation/SKILL.md

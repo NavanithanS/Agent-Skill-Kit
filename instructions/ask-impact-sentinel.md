@@ -1,1 +1,0 @@
-../.agents/skills/ask-impact-sentinel/SKILL.md

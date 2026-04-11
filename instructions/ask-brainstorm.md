@@ -1,1 +1,0 @@
-../.agents/skills/ask-brainstorm/SKILL.md

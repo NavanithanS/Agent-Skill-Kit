@@ -1,1 +1,0 @@
-../.agents/skills/ask-bug-finder/SKILL.md

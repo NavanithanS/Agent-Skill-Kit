@@ -1,1 +1,0 @@
-../.agents/skills/ask-owasp-security-review/SKILL.md

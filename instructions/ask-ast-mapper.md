@@ -1,1 +1,0 @@
-../.agents/skills/ask-ast-mapper/SKILL.md

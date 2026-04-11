@@ -1,1 +1,0 @@
-../.agents/skills/ask-db-migration-assistant/SKILL.md

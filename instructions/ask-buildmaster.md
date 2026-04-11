@@ -1,1 +1,0 @@
-../.agents/skills/ask-buildmaster/SKILL.md

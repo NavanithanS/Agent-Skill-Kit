@@ -1,1 +1,0 @@
-../.agents/skills/ask-code-reviewer/SKILL.md

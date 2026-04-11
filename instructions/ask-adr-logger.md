@@ -1,1 +1,0 @@
-../.agents/skills/ask-adr-logger/SKILL.md
