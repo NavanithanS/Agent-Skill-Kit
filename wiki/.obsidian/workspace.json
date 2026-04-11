@@ -1,0 +1,196 @@
+{
+  "main": {
+    "id": "7e4829e67515c1c1",
+    "type": "split",
+    "children": [
+      {
+        "id": "43242921bc174eeb",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "71f0d1f9d8bf2d7c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "skills-catalog.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "skills-catalog"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "e9744d2e7027c66f",
+    "type": "split",
+    "children": [
+      {
+        "id": "4cae21759f890182",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "cc0f276d94246838",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "736d9b30c05ce5da",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "bf330cdcf6bd1dbd",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "07d01d0ca5a3c47d",
+    "type": "split",
+    "children": [
+      {
+        "id": "c3376dd978404269",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "86f76b307f630ea7",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "skills-catalog.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for skills-catalog"
+            }
+          },
+          {
+            "id": "d839bfd5cc865f24",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "skills-catalog.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from skills-catalog"
+            }
+          },
+          {
+            "id": "e38d3b14e492631f",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "fd7ce1ab17b17314",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "28fdea288d000ebb",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "skills-catalog.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of skills-catalog"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "71f0d1f9d8bf2d7c",
+  "lastOpenFiles": [
+    "concepts/adapter-pattern.md",
+    "skills-catalog.md",
+    "SCHEMA.md",
+    "overview.md",
+    "log.md",
+    "index.md",
+    "entities/skill.md"
+  ]
+}
