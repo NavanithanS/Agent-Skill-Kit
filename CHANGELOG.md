@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.9.0] - 2026-05-24
+
+### New Features
+- **Remote Skill Registries**: Added `ask install <url>` to support cloning and parsing remote Git-backed skill repositories.
+- **Interactive Diff Viewer**: Added a `[v]iew diff` option during conflict resolution in `ask copy`, `ask update`, and `ask install`.
+
+### Improvements
+- **Skill Parsing**: Hardened `skill_registry.py` to seamlessly parse skills inside flat, single-level directories (common in remote git repositories).
+- **Skill Linting Constraints**: Token footprints of `ask-commit-assistance`, `ask-impact-sentinel`, and `ask-shadcn-mechanic` have been reduced to pass the stricter `ask skill lint` limits.
+
 ## [0.8.1] - 2026-04-11
 
 ### New Features

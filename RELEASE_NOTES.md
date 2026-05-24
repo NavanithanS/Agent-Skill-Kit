@@ -1,5 +1,19 @@
 # 🚀 Agent Skill Kit Releases
 
+## v0.9.0
+**Date**: May 24, 2026
+**Theme**: Remote Registries & Diff Viewer
+
+### 🌐 Remote Skill Registries
+- **`ask install <url>`**: You can now directly install skills from any remote Git repository! The system will clone, parse, and safely integrate third-party skills into your Universal Source of Truth.
+
+### 🔍 Interactive Conflict Diffing
+- Ever wondered what changed before overwriting a skill? When conflicts occur during `ask copy`, `ask update`, or `ask install`, you can now select `[v]iew diff` to see a rich inline diff of the changes before deciding to overwrite or skip.
+
+### 🛠️ Infrastructure Hardening
+- **Smart Skill Parsing**: The skill registry now effortlessly handles 1-level deep flat skill directories alongside standard 2-level category directories.
+- **Strict Token Linting**: Core skills (`ask-commit-assistance`, `ask-impact-sentinel`, `ask-shadcn-mechanic`) have been rigorously refactored to consume a smaller context footprint.
+
 ## v0.8.1
 **Date**: April 11, 2026
 **Theme**: Repository Strategy & Branch Safety

@@ -9,19 +9,17 @@
 
 ---
 
-## 🚀 What's New in v0.8.1
+## 🚀 What's New in v0.9.0
 
-### 📖 Centralized Repository Guidelines
-Introduced `AGENTS.md` and `GEMINI.md` to govern agent behaviors. They map out our internal architecture — highlighting the CLI, Registry layer, and cross-agent compatibility — establishing a true "Define Once, Deploy Anywhere" protocol.
+### 🌐 Remote Skill Registries
+You can now directly install third-party skills via Git! Simply run `ask install <url>` and the system will clone, parse, and install skills from remote repositories directly into your Universal Source of Truth.
 
-### 🛡️ Branch Safety Checks
-The `ask-commit-assistance` skill now safeguards against accidental commits to production by pausing operations when a `release` branch is detected.
+### 🔍 Interactive Diff Viewer
+When encountering file conflicts during `ask copy`, `ask update`, or `ask install`, you can now hit `[v]iew diff` to see a rich visual diff of what exactly has changed before confirming overwrites.
 
-### 🧩 Previous Highlights (v0.7.0/v0.8.0)
-- **Fuzzy Skill Name Matching**: `--skill` now resolves partial names (e.g., `fastapi-arch` → `ask-fastapi-architect`).
-- **Project Stack Detection**: Interactive copying auto-detects your Laravel, Vue, Next.js, FastAPI stacks and surfaces the correct skills instantly.
-- **shadcn/ui Mechanics**: Shipped `ask-shadcn-mechanic` for resolving complex layout limits and Tailwind issues.
-- **Interactive UI Polish**: Terminal commands modernized with cleaner formatting and upfront conflict scanning.
+### 🧩 Previous Highlights (v0.8.1)
+- **Branch Safety**: `ask-commit-assistance` prevents accidental commits to release branches.
+- **Centralized Registry Docs**: Added formal guidelines for adapter layers and safe copy protocol.
 
 ---
 
