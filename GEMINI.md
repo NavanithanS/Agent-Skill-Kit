@@ -29,6 +29,7 @@ pip install -e ".[dev]"
 
 ### Key Commands
 - **Interactive Wizard:** `ask wizard` (Recommended for most tasks)
+- **Install Remote Skills:** `ask install <url>`
 - **Deploy Skills:** `ask copy [agent] --skill [name]`
 - **Sync All Agents:** `ask sync all`
 - **Update Skills:** `ask update`

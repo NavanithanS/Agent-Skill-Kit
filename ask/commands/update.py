@@ -155,6 +155,23 @@ def update(yes: bool):
         try:
             # A. Backup
             if target_path.exists():
+                if not yes:
+                    while True:
+                        console.print(f"  [yellow]?[/yellow] Update {skill_name}?")
+                        choice = Prompt.ask(
+                            "    overwrite / skip / view diff",
+                            choices=["overwrite", "skip", "view diff", "v", "o", "s"],
+                            default="overwrite"
+                        )
+                        if choice in ["view diff", "v"]:
+                            from ask.utils.diff import show_diff
+                            new_content = adapter.transform(skill)
+                            show_diff(target_path, new_content)
+                        else:
+                            break
+                    if choice in ["skip", "s"]:
+                        console.print(f"  [dim]–[/dim] {skill_name} [dim]skipped[/dim]")
+                        continue
                 # Overwrite existing backup if any
                 shutil.copy2(target_path, backup_path)
             

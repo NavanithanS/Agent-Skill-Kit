@@ -24,6 +24,9 @@ pytest tests/ --cov=ask --cov-report=xml
 # Validate skill library
 ask validate
 
+# Install remote skills
+ask install <url>
+
 # Lint skills for token limits
 ask skill lint
 

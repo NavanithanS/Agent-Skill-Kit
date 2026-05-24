@@ -11,6 +11,10 @@
 ### 🛡️ Safety Enhancements
 - **`ask-commit-assistance` (v1.2.0)**: Agents now enforce a strict branch check that halts pre-commit processing if your current branch contains 'release'.
 
+### 🧠 LLM-Maintained Wiki
+- **Internal Knowledge Compounding**: Formalized the `wiki/` structure. New agents now inherit the project's cumulative history, architectural decisions, and release protocols directly from the repository, ensuring consistency across sessions.
+- **`release-protocol.md`**: New wiki-mapped concept that ensures version synchronization across all endpoints (Homebrew, PyPI, CLI) is never missed.
+
 ## v0.8.0
 **Date**: March 24, 2026
 **Theme**: The Ideation & UI Mechanic Update

@@ -542,11 +542,18 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool, use_global: Optional[
                 else:
                     # Per-skill prompt (conflict_strategy is None)
                     console.print(f"  [yellow]–[/yellow] '{skill['name']}' already exists")
-                    choice = Prompt.ask(
-                        "    use existing / overwrite / rename / skip",
-                        choices=["use existing", "overwrite", "rename", "skip"],
-                        default="use existing"
-                    )
+                    while True:
+                        choice = Prompt.ask(
+                            "    use existing / overwrite / rename / skip / view diff",
+                            choices=["use existing", "overwrite", "rename", "skip", "view diff", "v"],
+                            default="use existing"
+                        )
+                        if choice in ["view diff", "v"]:
+                            from ask.utils.diff import show_diff
+                            new_content = universal_adapter.transform(skill)
+                            show_diff(Path(result["target"]), new_content)
+                        else:
+                            break
 
                 if choice == "skip":
                     console.print(f"  [dim]–[/dim] {skill['name']} [dim]skipped[/dim]")

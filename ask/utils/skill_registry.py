@@ -29,76 +29,78 @@ def _parse_skill_md_frontmatter(skill_md_path: Path) -> Optional[Dict]:
     except Exception:
         return None
 
-def get_all_skills() -> List[Dict]:
+def get_all_skills(base_path: Optional[Path] = None) -> List[Dict]:
     """
-    Discover and parse all skills in the skills directory.
+    Discover and parse all skills in the given directory (defaults to local skills directory).
     
     Returns a list of skill dictionaries with their metadata.
     """
-    skills_dir = get_skills_dir()
+    skills_dir = base_path if base_path is not None else get_skills_dir()
     skills = []
     
     if not skills_dir.exists():
         return skills
     
-    # Walk through category directories
+    # Walk through category directories or skill directories
     for category_dir in skills_dir.iterdir():
         if not category_dir.is_dir() or category_dir.name.startswith("."):
             continue
-        
-        # Walk through skill directories in each category
-        try:
-            # Safely iterate
-            for skill_dir in category_dir.iterdir():
-                try:
-                    if not skill_dir.is_dir() or skill_dir.name.startswith("."):
-                        continue
-                except (PermissionError, OSError):
-                    continue
-                
-                skill_yaml = skill_dir / "skill.yaml"
-                if skill_yaml.exists():
+            
+        def _parse_and_add(s_dir):
+            try:
+                skill_yaml = s_dir / "skill.yaml"
+                if not skill_yaml.exists():
+                    return
+                skill = parse_skill(skill_yaml)
+                if skill:
+                    skill["_path"] = str(s_dir)
+                    # Detect instruction file (prefer SKILL.md)
+                    skill_md = s_dir / "SKILL.md"
+                    readme_md = s_dir / "README.md"
+                    if skill_md.exists():
+                        skill["_instruction_file"] = str(skill_md)
+                        frontmatter = _parse_skill_md_frontmatter(skill_md)
+                        if frontmatter:
+                            if "triggers" in frontmatter:
+                                skill["triggers"] = frontmatter["triggers"]
+                            if "description" in frontmatter and not skill.get("description"):
+                                skill["description"] = frontmatter["description"]
+                    elif readme_md.exists():
+                        skill["_instruction_file"] = str(readme_md)
+                        
+                    # Detect sidecars
+                    ref_md = s_dir / "reference.md"
+                    if ref_md.exists():
+                        skill["_reference"] = str(ref_md)
+                        
+                    ex_md = s_dir / "examples.md"
+                    if ex_md.exists():
+                        skill["_examples"] = str(ex_md)
+                        
+                    # Detect scripts
+                    scripts_dir = s_dir / "scripts"
+                    if scripts_dir.exists() and scripts_dir.is_dir():
+                        skill["_scripts"] = str(scripts_dir)
+                        
+                    skills.append(skill)
+            except Exception:
+                pass
+
+        if (category_dir / "skill.yaml").exists():
+            # This directory is a skill itself
+            _parse_and_add(category_dir)
+        else:
+            # Assume it is a category directory containing skills
+            try:
+                for skill_dir in category_dir.iterdir():
                     try:
-                        skill = parse_skill(skill_yaml)
-                        if skill:
-                            skill["_path"] = str(skill_dir)
-                            
-                            # Detect instruction file (prefer SKILL.md)
-                            skill_md = skill_dir / "SKILL.md"
-                            readme_md = skill_dir / "README.md"
-                            if skill_md.exists():
-                                skill["_instruction_file"] = str(skill_md)
-                                # Parse SKILL.md frontmatter for triggers
-                                frontmatter = _parse_skill_md_frontmatter(skill_md)
-                                if frontmatter:
-                                    # Merge frontmatter into skill (frontmatter takes precedence)
-                                    if "triggers" in frontmatter:
-                                        skill["triggers"] = frontmatter["triggers"]
-                                    if "description" in frontmatter and not skill.get("description"):
-                                        skill["description"] = frontmatter["description"]
-                            elif readme_md.exists():
-                                skill["_instruction_file"] = str(readme_md)
-                                
-                            # Detect sidecars
-                            ref_md = skill_dir / "reference.md"
-                            if ref_md.exists():
-                                skill["_reference"] = str(ref_md)
-                                
-                            ex_md = skill_dir / "examples.md"
-                            if ex_md.exists():
-                                skill["_examples"] = str(ex_md)
-                                
-                            # Detect scripts
-                            scripts_dir = skill_dir / "scripts"
-                            if scripts_dir.exists() and scripts_dir.is_dir():
-                                skill["_scripts"] = str(scripts_dir)
-                                
-                            skills.append(skill)
-                    except Exception:
-                        # Skip malformed skills
-                        pass
-        except (PermissionError, OSError):
-            continue
+                        if not skill_dir.is_dir() or skill_dir.name.startswith("."):
+                            continue
+                        _parse_and_add(skill_dir)
+                    except (PermissionError, OSError):
+                        continue
+            except (PermissionError, OSError):
+                continue
     
     return skills
 
