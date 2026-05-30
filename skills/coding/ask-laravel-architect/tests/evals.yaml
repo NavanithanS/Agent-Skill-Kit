@@ -1,0 +1,9 @@
+# Trigger eval cases for `ask test` (Layer 1, offline collision audit).
+#
+# `should_fire`: paraphrased user prompts this skill should own. Write them the
+# way a real user would phrase the request — do NOT just echo the skill's
+# trigger phrases, or the audit measures nothing.
+should_fire:
+  - "set up a new laravel api with mongodb models"
+  - "scaffold laravel endpoints and migrations for a fresh project"
+  - "start a laravel backend with softdeletes and api resources"

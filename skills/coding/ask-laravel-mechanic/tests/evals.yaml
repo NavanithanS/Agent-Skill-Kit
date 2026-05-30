@@ -1,0 +1,5 @@
+# Trigger eval cases for `ask test` (Layer 1, offline collision audit).
+should_fire:
+  - "my laravel app throws a 500, debug the eloquent query"
+  - "fix a broken laravel migration without losing data"
+  - "laravel mongo connection keeps dropping, help me troubleshoot"

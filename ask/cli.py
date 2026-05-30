@@ -4,7 +4,8 @@ import click
 from rich.console import Console
 
 from ask import __version__
-from ask.commands import create, copy, sync, update, list_skills, add_agent, remove, validate, skill, purge, rules, wizard, install
+from ask.commands import create, copy, sync, update, list_skills, add_agent, remove, validate, skill, purge, rules, wizard, install, test
+from ask.commands import mcp_cmd
 from ask.utils.logging import setup_logging
 from ask.utils.config import load_config
 
@@ -40,6 +41,8 @@ main.add_command(purge.purge)
 main.add_command(rules.rules)
 main.add_command(wizard.wizard)
 main.add_command(install.install)
+main.add_command(test.test)
+main.add_command(mcp_cmd.mcp)
 
 
 if __name__ == "__main__":

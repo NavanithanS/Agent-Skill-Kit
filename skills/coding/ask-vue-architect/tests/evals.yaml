@@ -1,0 +1,5 @@
+# Trigger eval cases for `ask test` (Layer 1, offline collision audit).
+should_fire:
+  - "create a new vue 3 page with the composition api"
+  - "scaffold an inertia vue component with typescript"
+  - "start a fresh vue feature in my laravel inertia stack"

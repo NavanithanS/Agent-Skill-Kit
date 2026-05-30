@@ -32,6 +32,12 @@ ask skill lint
 
 # Compile skill manifest
 ask skill compile
+
+# Audit skills for trigger collisions (offline; --strict for CI)
+ask test
+
+# Run ASK as a read-only MCP server (optional [mcp] extra)
+ask mcp serve
 ```
 
 ## Architecture
@@ -74,6 +80,8 @@ triggers: ["phrase 1", "phrase 2"]
 - `ask/utils/filesystem.py` — Dynamic adapter loading, safe file I/O
 - `agents/base.py` — `BaseAdapter` abstract class with safe copy protocol (conflict detection, backup)
 - `ask/utils/token_analyzer.py` — Token counting via tiktoken; enforces per-skill-type limits
+- `ask/utils/eval/trigger_scorer.py` — Offline TF-IDF trigger/collision audit behind `ask test` (see `wiki/concepts/eval-harness.md`)
+- `ask/utils/provider.py` + `ask/mcp_server.py` — Read-only skill provider and MCP server behind `ask mcp serve` (see `wiki/concepts/mcp-server.md`)
 - `ask/utils/validators.py` — Validates skill names (kebab-case, 2–50 chars), categories, versions
 - `~/.askconfig.yaml` — Optional user config for defaults (not in repo)
 

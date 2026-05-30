@@ -48,6 +48,8 @@ Managing instructions for multiple AI agents is tedious. You often have to:
 - **Safe Copy**: Never overwrites silently. Prompts to use existing, overwrite, rename, or skip on conflict.
 - **Local & Global**: Choose between Project-Local (per-repo) or Global (user-wide) deployment.
 - **Skill Linting**: Token analysis and schema validation with `ask skill lint`.
+- **Trigger/Collision Audit**: `ask test` flags skills that compete for the same prompts before they confuse your agent.
+- **MCP Server**: `ask mcp serve` exposes your library so agents can discover and pull skills at runtime.
 - **Manifest Generation**: Auto-generate `manifest.json` for skill routing.
 - **Extensible**: Add support for any new AI agent in seconds via `ask add-agent`.
 - **LLM Wiki Integration**: Dedicated `wiki/` directory and `llm-wiki.md` pattern which enables your AI agents to build and maintain a persistent, compounding knowledge base.
@@ -218,6 +220,60 @@ ask skill profile
 # Generate manifest.json for routing
 ask skill compile
 ```
+
+### 11. Evaluate Skills (`ask test`)
+
+Validation checks that a skill is well-formed; `ask test` checks that skills don't **fight each other** for the same prompts — the silent killer of a growing library.
+
+```bash
+# Offline trigger/collision audit (no API key, CI-friendly)
+ask test
+
+# Audit a single skill
+ask test ask-laravel-architect
+
+# Fail the build on collisions/misses (opt-in CI gate)
+ask test --strict
+
+# Machine-readable output
+ask test --json
+```
+
+Each skill declares paraphrased user prompts in `tests/evals.yaml`:
+
+```yaml
+should_fire:
+  - "set up a new laravel api with mongodb models"
+```
+
+The audit ranks each prompt against the whole library (TF-IDF) and flags **collisions** — similar skills competing for the same prompt. It's a fast *lexical pre-screen*, not a model of how an agent semantically routes; live-model behavioral evals (`ask test --behavior`) are planned.
+
+### 12. Run as an MCP Server (`ask mcp`)
+
+Expose your skill library to any MCP-capable agent so it can **discover and pull skills at runtime** — no pre-deployment required. Read-only by design (it never writes to your filesystem).
+
+```bash
+# Start the server (stdio)
+ask mcp serve
+
+# Inspect the exposed tools without starting a server
+ask mcp tools
+
+# Dry-run a search to preview what an agent would see
+ask mcp probe "scaffold a fastapi service with async db"
+```
+
+Tools exposed: `list_skills`, `search_skills`, `get_skill`. Example client config:
+
+```json
+{
+  "mcpServers": {
+    "agent-skill-kit": { "command": "ask", "args": ["mcp", "serve"] }
+  }
+}
+```
+
+Install the optional dependency with `pip install "agent-skill-kit[mcp]"`.
 
 ## 🎯 Supported Agents
 

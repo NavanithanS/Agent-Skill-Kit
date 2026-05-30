@@ -1,0 +1,5 @@
+# Trigger eval cases for `ask test` (Layer 1, offline collision audit).
+should_fire:
+  - "vue page does a full reload instead of spa navigation"
+  - "fix reactivity not updating in my vue component"
+  - "inertia props are stale after navigating, how do i fix it"

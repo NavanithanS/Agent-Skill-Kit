@@ -37,6 +37,8 @@ pip install -e ".[dev]"
 - **Validate Library:** `ask validate`
 - **Lint Skills (Tokens):** `ask skill lint`
 - **Compile Manifest:** `ask skill compile`
+- **Evaluate Skills (Trigger Audit):** `ask test` (offline collision audit; `--strict` for CI)
+- **Run MCP Server:** `ask mcp serve` (read-only; agents discover skills at runtime)
 - **Add New Agent:** `ask add-agent`
 
 ### Testing

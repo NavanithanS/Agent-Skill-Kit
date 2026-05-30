@@ -11,6 +11,8 @@
 - `pip install -e .[dev]` adds test-only dependencies such as `pytest` and `pytest-cov`.
 - `ask list` shows available skills and is useful for validating metadata while iterating.
 - `ask validate` checks the skill library for missing metadata, dependency issues, and other structural problems.
+- `ask test` runs the offline trigger/collision audit over each skill's `tests/evals.yaml`; add `--strict` for a CI gate.
+- `ask mcp serve` runs ASK as a read-only MCP server (optional `[mcp]` extra) so agents can discover skills at runtime.
 - `python -m pytest` runs the full test suite from `tests/`.
 
 ## Coding Style & Naming Conventions

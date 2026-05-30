@@ -38,7 +38,7 @@ skills/coding/ask-code-reviewer/
 ├── skill.yaml     # Metadata: name, version, agents, depends_on
 ├── SKILL.md       # Instructions with YAML frontmatter
 ├── scripts/       # Optional helper scripts
-└── tests/         # Optional tests
+└── tests/         # Optional tests; tests/evals.yaml drives `ask test` (trigger audit)
 ```
 
 ## Key Data Flow
