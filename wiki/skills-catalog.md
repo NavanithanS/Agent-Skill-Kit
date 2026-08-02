@@ -2,15 +2,15 @@
 title: Skills Catalog
 type: overview
 tags: [skills, catalog, library]
-updated: 2026-04-06
+updated: 2026-08-02
 sources: 1
 ---
 
 # Skills Catalog
 
-All skills in `skills/` as of 2026-04-06.
+All skills in `skills/` as of 2026-08-02. Total: **42** skills across 4 categories.
 
-## coding/ (25 skills)
+## coding/ (26 skills)
 
 | Skill | Description |
 |---|---|
@@ -52,7 +52,7 @@ All skills in `skills/` as of 2026-04-06.
 | ask-project-memory | Maintains a Project Brain with architecture decisions |
 | ask-solution-architect | Senior solution architecture guidance |
 
-## tooling/ (11 skills)
+## tooling/ (10 skills)
 
 | Skill | Description |
 |---|---|
@@ -65,5 +65,10 @@ All skills in `skills/` as of 2026-04-06.
 | ask-skill-creator | Teaches agents how to create new ASK skills |
 | ask-smart-booking-test | Autonomous end-to-end booking flow testing |
 | ask-system-architect-prime | Repo audits, complexity analysis, refactoring recommendations |
-| ask-parallel-auditor | Orchestrator for parallel multi-chunk repo audits |
 | ask-wiki-init | Scaffolds the LLM Wiki pattern into any project |
+
+## workflows/ (1 skill)
+
+| Skill | Description |
+|---|---|
+| skill-creator | Reference workflow for skill creation (Gold Standard template) |

@@ -26,4 +26,16 @@ Whenever you prepare a new release (e.g. bumping `0.8.0` to `0.8.1`), you **MUST
 6. **`RELEASE_NOTES.md`**
    - Add a new `## vX.Y.Z` section highlighting themes and key updates.
 
+7. **`skills/manifest.json`**
+   - Regenerate via `ask skill compile` to pick up any new or changed skills.
+
+8. **`README.md`**
+   - Update total skill counts and any newly added skill entries in the skill tables.
+
 Always use a global workspace search (e.g., `grep_search` for the old version number) to confirm you haven't missed any hardcoded instances!
+
+## Related
+
+- [Overview](../overview.md) — current version and CLI commands
+- [Skill entity](../entities/skill.md) — skill lifecycle includes version bumping
+- [Skills catalog](../skills-catalog.md) — verify skill count after adding new skills

@@ -1,3 +1,11 @@
+---
+title: Skill Eval Harness
+type: concept
+tags: [eval, testing, triggers, collisions, tfidf]
+updated: 2026-05-30
+sources: 3
+---
+
 # Concept: Skill Eval Harness (`ask test`)
 
 A two-layer system for verifying that skills actually *work* — not just that
@@ -55,3 +63,9 @@ scoring output against assertions. Provider is **Anthropic-first via a pluggable
 - `ask/commands/test.py` — `ask test` command (table + `--json` + `--strict`)
 - `tests/test_trigger_scorer.py` — unit tests
 - Demo evals live in the laravel/vue architect+mechanic pairs.
+
+## Related
+
+- [MCP Server](mcp-server.md) — reuses the same TF-IDF index for `search_skills`
+- [Skill entity](../entities/skill.md) — `tests/evals.yaml` is part of the Gold Standard skill structure
+- [Skills catalog](../skills-catalog.md) — full list of skills that the harness audits

@@ -2,7 +2,7 @@
 title: Adapter Pattern
 type: concept
 tags: [adapter, architecture, agents, copy]
-updated: 2026-04-06
+updated: 2026-08-02
 sources: 3
 ---
 
@@ -34,16 +34,28 @@ def transform(self, skill: Dict) -> str:
     """Convert skill dict → agent-native string content."""
 ```
 
-Optional override:
+Optional overrides:
 
 ```python
 def install_resources(self, skill, target_dir, dry_run, force) -> Dict:
     """Copy scripts, reference files, etc. alongside the main skill file."""
+
+def install(self, skill) -> Dict:
+    """Thin wrapper that delegates to copy_skill(). Override for custom install flows."""
+
+def remove_skill(self, skill, name=None) -> Dict:
+    """Remove a skill directory or file. Returns {status, target}."""
 ```
 
 ## Dynamic Loading
 
-Adapters are discovered at runtime via `importlib` in `ask/utils/filesystem.py`. The filesystem scanner looks for `agents/*/adapter.py` files and imports them. This means **adding a new agent requires no changes to core code** — just drop in a new directory with `adapter.py`.
+Adapters are discovered at runtime via `importlib` in `ask/utils/filesystem.py`. The `get_adapter()` function:
+1. Imports `agents.<name>.adapter` dynamically.
+2. Constructs the class name from the agent name (e.g., `gemini` → `GeminiAdapter`).
+3. Uses `inspect.signature` to check whether the adapter accepts `project_root`.
+4. Instantiates and returns the adapter.
+
+This means **adding a new agent requires no changes to core code** — just drop in a new directory with `adapter.py`.
 
 ## Safe Copy Protocol (from BaseAdapter)
 
@@ -58,12 +70,34 @@ Adapters are discovered at runtime via `importlib` in `ask/utils/filesystem.py`.
 
 The `dry_run=True` path returns `would_conflict: bool` without touching disk.
 
+## Sidecar Resources
+
+`install_resources()` copies auxiliary files and directories alongside `SKILL.md`. The Antigravity adapter (the most feature-complete implementation) copies these sidecar resources:
+
+```python
+["scripts", "reference", "images", "assets", "examples.md",
+ "reference.md", "config", "resources", "references", "examples"]
+```
+
+> **v0.9.1 fix:** Previously, sidecar resources were always copied with `force=True`, violating the Safe Copy protocol. This was corrected so that `install_resources` now respects the caller's `force` parameter.
+
+## Legacy Path Migration
+
+The `AntigravityAdapter` performs automatic one-time migration on initialization:
+
+| Scope | Legacy path | New path |
+|---|---|---|
+| Local | `.agent/skills/` | `.agents/skills/` |
+| Global | `~/.gemini/antigravity/skills/` | `~/.gemini/config/skills/` |
+
+Migration uses `shutil.move()` and only triggers if the legacy path exists and the new path does not, preventing data loss.
+
 ## Version Parsing
 
 `BaseAdapter._parse_skill_version(skill_file)` reads the `version:` field from SKILL.md frontmatter. Returns `"0.0.0"` if missing or unparseable. Used by `list_installed_skills()`.
 
 ## Adding a New Adapter
 
-Run `ask add-agent` — this scaffolds the directory and adapter stub. Then implement the three methods above.
+Run `ask add-agent` — this scaffolds the directory and adapter stub. Then implement `get_target_path()` and `transform()`.
 
-See [ask-add-agent skill](../entities/skill-add-agent.md) for the guided workflow.
+See the [ask-add-agent skill](../../skills/tooling/ask-add-agent/) for the guided workflow.

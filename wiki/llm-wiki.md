@@ -1,8 +1,16 @@
-# LLM Wiki
+---
+title: LLM Wiki
+type: concept
+tags: [wiki, llm, patterns, knowledge-base]
+updated: 2026-08-02
+sources: 1
+---
 
-A pattern for building personal knowledge bases using LLMs.
+# LLM Wiki Pattern
 
-This is an idea file, it is designed to be copy pasted to your own LLM Agent (e.g. OpenAI Codex, Claude Code, OpenCode / Pi, or etc.). Its goal is to communicate the high level idea, but your agent will build out the specifics in collaboration with you.
+A pattern for building personal knowledge bases using LLMs. This is the foundational philosophy behind ASK's `wiki/` directory.
+
+This document outlines the high-level idea of an LLM-maintained knowledge base. ASK implements this pattern through its `SCHEMA.md`, `log.md`, and structured concept/entity pages.
 
 ## The core idea
 

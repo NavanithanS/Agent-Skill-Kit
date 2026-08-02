@@ -33,3 +33,20 @@ Created `ask-wiki-init` (tooling) to scaffold the LLM Wiki pattern and `ask-hold
 ## [2026-08-02] update | v0.9.1 Release: Database Indexing & Safe Copy Fix
 
 Bumped version to 0.9.1. Enhanced `ask-impact-sentinel` with a mandatory Database Indexing Review protocol to systematically audit query paths and suggest migration scripts. Fixed a hardcoded `force=True` parameter in `ask copy` that violated the Safe Copy protocol when installing sidecar resources (`config/`, `scripts/`, etc.). Introduced a legacy path migration script for `AntigravityAdapter` to move old `.agent` installations to `.agents`.
+
+## [2026-08-02] lint | Full wiki sync audit
+
+Comprehensive lint pass auditing all wiki pages against codebase state at v0.9.1. Corrections:
+
+- **skills-catalog.md**: Fixed coding count 25→26 (missing `ask-flutter-architect`). Removed duplicate `ask-parallel-auditor` row. Fixed tooling count 11→10. Added missing `workflows/` category with `skill-creator`. Updated date.
+- **overview.md**: Rewrote to reflect v0.9.1 — added all 15 CLI commands, USoT mention, `workflows/` category, Antigravity local/global paths, accurate skill counts (42 total).
+- **concepts/adapter-pattern.md**: Documented v0.9.1 sidecar resource expansion (10 resource types), legacy path migration (`.agent`→`.agents`, `~/.gemini/antigravity`→`~/.gemini/config`), `remove_skill()` and `install()` methods, dynamic loader `inspect.signature` detail, fixed broken link to non-existent `entities/skill-add-agent.md`.
+- **entities/skill.md**: Added `workflows/` to category table, `evals.yaml` to Gold Standard structure, `config/` and `resources/` directories, `ask install` to lifecycle, updated date.
+- **concepts/release-protocol.md**: Added `manifest.json` and `README.md` to version bump checklist.
+- **[NEW] concepts/usot-pattern.md**: Created concept page for USoT + symlink architecture — the core pattern since v0.5.0 that was entirely undocumented.
+- **index.md**: Added `usot-pattern.md` entry, updated skill count references, added missing `llm-wiki.md` link, and significantly expanded the context descriptions for all listed files.
+- **llm-wiki.md**: Added missing YAML frontmatter and contextualized introduction per schema.
+- **SCHEMA.md**: Removed reference to non-existent `decisions/` directory in directory layout.
+
+Sources: agents/base.py, agents/antigravity/adapter.py, ask/commands/copy.py, ask/utils/filesystem.py, ask/cli.py, skills/** directory listing, CHANGELOG.md, pyproject.toml.
+

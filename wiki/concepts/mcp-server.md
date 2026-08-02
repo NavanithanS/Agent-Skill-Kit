@@ -1,3 +1,11 @@
+---
+title: MCP Server
+type: concept
+tags: [mcp, server, discovery, search, provider]
+updated: 2026-05-30
+sources: 3
+---
+
 # Concept: MCP Server (`ask mcp serve`)
 
 Exposes the ASK skill library to any MCP-capable agent so it can **discover and
@@ -58,3 +66,9 @@ Both features lean on the same routing index — Layer 1 of [the eval
 harness](eval-harness.md) scores `should_fire` prompts against it; the MCP
 server's `search_skills` ranks live queries against it. Hardening that index
 improves both at once.
+
+## Related
+
+- [Eval Harness](eval-harness.md) — shares the TF-IDF index with `search_skills`
+- [Skill entity](../entities/skill.md) — what `get_skill` returns
+- [Overview](../overview.md) — `ask mcp serve|tools|probe` in the CLI commands table

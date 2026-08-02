@@ -15,8 +15,7 @@ wiki/
 ├── log.md              # Append-only chronological record
 ├── overview.md         # High-level project orientation
 ├── concepts/           # How things work (patterns, mechanisms)
-├── entities/           # What things are (skills, adapters, agents)
-└── decisions/          # Architectural decisions and trade-offs
+└── entities/           # What things are (skills, adapters, agents)
 ```
 
 ## Page Frontmatter

@@ -2,7 +2,7 @@
 title: Skill
 type: entity
 tags: [skill, library, yaml, SKILL.md, frontmatter]
-updated: 2026-04-06
+updated: 2026-08-02
 sources: 4
 ---
 
@@ -17,7 +17,10 @@ skills/<category>/<skill-name>/
 ├── skill.yaml     # Machine-readable metadata
 ├── SKILL.md       # Human+LLM instruction file
 ├── scripts/       # Helper scripts (required for validation gate)
-└── tests/         # Tests (required for validation gate)
+├── tests/         # Tests (required for validation gate)
+│   └── evals.yaml # Trigger audit prompts for `ask test`
+├── config/        # Optional sidecar configuration
+└── resources/     # Optional reference materials
 ```
 
 ## skill.yaml Fields
@@ -54,14 +57,15 @@ triggers: ["review my code", "check this PR"]
 | `coding/` | Language/framework-specific dev skills |
 | `planning/` | Architecture, ADRs, project management |
 | `tooling/` | Meta-skills (skill creation, context, auditing) |
-| `workflows/` | Multi-step process skills |
+| `workflows/` | Multi-step process skills and reference templates |
 
 ## Lifecycle
 
 1. **Author** — create skill dir, write `skill.yaml` + `SKILL.md`.
 2. **Validate** — `ask validate` checks structure; `ask skill lint` checks token limits.
-3. **Deploy** — `ask copy <skill>` deploys to an agent via the appropriate adapter.
-4. **Update** — bump `version` in `skill.yaml`; `ask copy` detects version delta.
+3. **Eval** — `ask test` audits trigger collisions via `tests/evals.yaml`.
+4. **Deploy** — `ask copy <skill>` deploys locally; `ask install <url>` fetches from remote registries.
+5. **Update** — bump `version` in `skill.yaml`; `ask copy` detects version delta.
 
 ## Dependency Resolution
 
