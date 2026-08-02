@@ -1,6 +1,6 @@
 # 🚀 Agent Skill Kit Releases
 
-## v0.9.0
+## v0.9.1
 **Date**: May 24, 2026
 **Theme**: Remote Registries & Diff Viewer
 
