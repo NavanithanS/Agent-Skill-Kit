@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "generated": "2026-05-30T05:45:14.202590",
+  "generated": "2026-08-02T04:33:22.726754",
   "skills": [
     {
       "name": "ask-add-agent",
@@ -141,7 +141,7 @@
         "claude",
         "codex"
       ],
-      "version": "1.2.0",
+      "version": "1.3.0",
       "triggers": [
         "review my changes",
         "help commit",
@@ -372,7 +372,7 @@
     },
     {
       "name": "ask-impact-sentinel",
-      "description": "Guidelines for impact analysis, breaking change detection, and strategic database design.",
+      "description": "Guidelines for impact analysis, breaking change detection, strategic database design, and comprehensive database indexing review.",
       "category": "coding",
       "agents": [
         "codex",
@@ -380,7 +380,7 @@
         "claude",
         "antigravity"
       ],
-      "version": "1.0.0",
+      "version": "1.0.1",
       "triggers": [],
       "path": "coding/ask-impact-sentinel"
     },
@@ -773,7 +773,7 @@
     },
     {
       "name": "ask-wiki-init",
-      "description": "Scaffolds the LLM Wiki pattern into any project — a persistent, compounding knowledge base maintained by AI agents.",
+      "description": "Scaffolds the LLM Wiki pattern into any project \u2014 a persistent, compounding knowledge base maintained by AI agents.",
       "category": "tooling",
       "agents": [
         "gemini",
