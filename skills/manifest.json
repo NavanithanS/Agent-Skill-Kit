@@ -348,6 +348,29 @@
       "path": "coding/ask-flutter-mechanic"
     },
     {
+      "name": "ask-hold-code",
+      "description": "Planning-mode lock that prevents code generation until the user explicitly approves implementation.",
+      "category": "planning",
+      "agents": [
+        "gemini",
+        "claude",
+        "cursor",
+        "antigravity",
+        "codex"
+      ],
+      "version": "1.0.0",
+      "triggers": [
+        "hold code",
+        "don't code yet",
+        "planning only",
+        "no implementation",
+        "just brainstorm",
+        "design phase only",
+        "hold off on coding"
+      ],
+      "path": "planning/ask-hold-code"
+    },
+    {
       "name": "ask-impact-sentinel",
       "description": "Guidelines for impact analysis, breaking change detection, and strategic database design.",
       "category": "coding",
@@ -747,6 +770,29 @@
         "trace vue data flow"
       ],
       "path": "coding/ask-vue-mechanic"
+    },
+    {
+      "name": "ask-wiki-init",
+      "description": "Scaffolds the LLM Wiki pattern into any project — a persistent, compounding knowledge base maintained by AI agents.",
+      "category": "tooling",
+      "agents": [
+        "gemini",
+        "claude",
+        "cursor",
+        "antigravity",
+        "codex"
+      ],
+      "version": "1.0.0",
+      "triggers": [
+        "init wiki",
+        "setup wiki",
+        "create wiki",
+        "install llm wiki",
+        "setup knowledge base",
+        "bootstrap wiki",
+        "add wiki to project"
+      ],
+      "path": "tooling/ask-wiki-init"
     }
   ]
 }

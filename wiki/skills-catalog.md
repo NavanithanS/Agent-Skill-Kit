@@ -41,17 +41,18 @@ All skills in `skills/` as of 2026-04-06.
 | ask-vue-architect | Vue 3 scaffolding for Laravel Inertia and Nuxt/Vite stacks |
 | ask-vue-mechanic | Vue 3 maintenance — navigation reloads, prop mismatches |
 
-## planning/ (5 skills)
+## planning/ (6 skills)
 
 | Skill | Description |
 |---|---|
 | ask-adr-logger | Records Architectural Decision Records automatically |
 | ask-brainstorm | Explores intent, requirements, and design before implementation |
 | ask-buildmaster | Epic orchestration — PM + Tech Lead + Delivery Manager |
+| ask-hold-code | Planning-mode lock preventing code generation until approved |
 | ask-project-memory | Maintains a Project Brain with architecture decisions |
 | ask-solution-architect | Senior solution architecture guidance |
 
-## tooling/ (10 skills)
+## tooling/ (11 skills)
 
 | Skill | Description |
 |---|---|
@@ -65,3 +66,4 @@ All skills in `skills/` as of 2026-04-06.
 | ask-smart-booking-test | Autonomous end-to-end booking flow testing |
 | ask-system-architect-prime | Repo audits, complexity analysis, refactoring recommendations |
 | ask-parallel-auditor | Orchestrator for parallel multi-chunk repo audits |
+| ask-wiki-init | Scaffolds the LLM Wiki pattern into any project |

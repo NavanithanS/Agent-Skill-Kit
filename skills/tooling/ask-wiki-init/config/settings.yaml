@@ -1,0 +1,6 @@
+target_configs:
+  - CLAUDE.md
+  - AGENTS.md
+  - GEMINI.md
+  - .cursorrules
+  - .github/copilot-instructions.md

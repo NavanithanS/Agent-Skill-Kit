@@ -25,3 +25,11 @@ Built the offline half of the skill eval harness. New `ask/utils/eval/` package 
 ## [2026-05-30] update | Added `ask mcp serve` (MCP server, provider model)
 
 Exposed the skill library to MCP-capable agents so they can discover/pull skills at runtime. Read-only *provider, not installer* design — no filesystem mutation. New `ask/utils/provider.py` (pure, testable: `list_skills_payload`/`search_skills_payload`/`get_skill_payload`), `ask/mcp_server.py` (thin FastMCP wrapper, `mcp` as optional `[mcp]` extra), and `ask/commands/mcp_cmd.py` (`ask mcp serve` / `tools` / `probe`). `search_skills` reuses the `ask test` TF-IDF index so search and trigger audit agree on skill topics. 8 new tests; suite 37→45. See `concepts/mcp-server.md`.
+
+## [2026-07-15] update | Added `ask-wiki-init` and `ask-hold-code` skills
+
+Created `ask-wiki-init` (tooling) to scaffold the LLM Wiki pattern and `ask-hold-code` (planning) to enforce a planning-mode lock. Refactored both to strictly follow the Gold Standard architecture from `ask-skill-creator` (extracted config, added identity/persona). Updated `README.md` to reflect 42 total skills.
+
+## [2026-08-02] update | v0.9.1 Release: Database Indexing & Safe Copy Fix
+
+Bumped version to 0.9.1. Enhanced `ask-impact-sentinel` with a mandatory Database Indexing Review protocol to systematically audit query paths and suggest migration scripts. Fixed a hardcoded `force=True` parameter in `ask copy` that violated the Safe Copy protocol when installing sidecar resources (`config/`, `scripts/`, etc.). Introduced a legacy path migration script for `AntigravityAdapter` to move old `.agent` installations to `.agents`.

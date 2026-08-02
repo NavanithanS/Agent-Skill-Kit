@@ -11,18 +11,29 @@ class AntigravityAdapter(BaseAdapter):
     """Adapter for Antigravity skill format.
     
     Paths (from https://antigravity.google/docs/skills):
-    - Local (project): .agent/skills/<skill-name>/SKILL.md
-    - Global (user):   ~/.gemini/antigravity/skills/<skill-name>/SKILL.md
+    - Local (project): .agents/skills/<skill-name>/SKILL.md
+    - Global (user):   ~/.gemini/config/skills/<skill-name>/SKILL.md
     """
     
     def __init__(self, use_global: bool = False, project_root: Path = None):
+        import shutil
         if use_global:
-            # Global: ~/.gemini/antigravity/skills/
-            self.target_dir = Path.home() / ".gemini" / "antigravity" / "skills"
+            # Global: ~/.gemini/config/skills/
+            self.target_dir = Path.home() / ".gemini" / "config" / "skills"
+            legacy_dir = Path.home() / ".gemini" / "antigravity" / "skills"
+            if legacy_dir.exists() and not self.target_dir.exists():
+                # Migrate legacy global skills to the new config path
+                self.target_dir.parent.mkdir(parents=True, exist_ok=True)
+                shutil.move(str(legacy_dir), str(self.target_dir))
         else:
             from ask.utils.filesystem import get_safe_cwd
             self.project_root = project_root or get_safe_cwd()
-            self.target_dir = self.project_root / ".agent" / "skills"
+            self.target_dir = self.project_root / ".agents" / "skills"
+            legacy_dir = self.project_root / ".agent" / "skills"
+            if legacy_dir.exists() and not self.target_dir.exists():
+                # Migrate legacy local skills to the new .agents path
+                self.target_dir.parent.mkdir(parents=True, exist_ok=True)
+                shutil.move(str(legacy_dir), str(self.target_dir))
     
     def get_target_path(self, skill: Dict, name: str = None) -> Path:
         """Get the target path for a skill."""
@@ -62,7 +73,7 @@ description: {description}
             
         skill_path = Path(skill_path_str)
         conflicts = []
-        resources_to_copy = ["scripts", "reference", "images", "assets", "examples.md", "reference.md"]
+        resources_to_copy = ["scripts", "reference", "images", "assets", "examples.md", "reference.md", "config", "resources", "references", "examples"]
         
         # Check conflicts
         for resource in resources_to_copy:

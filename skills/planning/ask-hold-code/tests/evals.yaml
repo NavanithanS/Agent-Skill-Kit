@@ -1,0 +1,10 @@
+# Trigger eval cases for `ask test` (Layer 1, offline collision audit).
+#
+# `should_fire`: paraphrased user prompts this skill should own. Write them the
+# way a real user would phrase the request — do NOT just echo the skill's
+# trigger phrases, or the audit measures nothing.
+should_fire:
+  - "hold off on coding, I'm still in the planning phase"
+  - "don't write any code yet, just help me think through the design"
+  - "planning only mode please, no implementation until I say so"
+  - "I need to brainstorm without you generating any code files"

@@ -1,0 +1,10 @@
+name: ask-hold-code
+version: 1.0.0
+description: Planning-mode lock that prevents code generation until the user explicitly approves implementation.
+category: planning
+agents:
+  - gemini
+  - claude
+  - cursor
+  - antigravity
+  - codex

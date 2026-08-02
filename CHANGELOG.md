@@ -1,5 +1,22 @@
 # Changelog
 
+## [Unreleased]
+
+## [0.9.1] - 2026-08-02
+
+### New Features
+- **New Skill**: Added `ask-wiki-init` (tooling) to automatically scaffold the LLM Wiki pattern and compounding knowledge base into any project.
+- **New Skill**: Added `ask-hold-code` (planning) to enforce a strict planning-mode lock, preventing premature code generation before design approval.
+- **`ask-impact-sentinel`**: Added a mandatory Database Indexing Review protocol. It now systematically audits unindexed queries and generates migration scripts.
+
+### Improvements
+- **`ask-commit-assistance`**: Updated (v1.3.0) to automate documentation audits. It will now automatically update `AGENTS.md` and `wiki/` documentation when scanning unstaged changes.
+- **Skill Adapters**: Expanded sidecar resources payload to automatically copy `config`, `resources`, `references`, and `examples` directories alongside `SKILL.md`.
+
+### Bug Fixes
+- **`ask copy`**: Fixed a bug where sidecar resources (scripts, config) were forcefully overwritten ignoring the user's overwrite preference.
+- **`AntigravityAdapter`**: Added an automatic legacy path migration (`.agent` -> `.agents` and `~/.gemini/antigravity` -> `~/.gemini/config`) to prevent data loss on older installations.
+
 ## [0.9.0] - 2026-05-24
 
 ### New Features

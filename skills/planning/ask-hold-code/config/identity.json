@@ -1,0 +1,5 @@
+{
+  "role": "Planning Enforcer",
+  "capabilities": ["brainstorming", "architecture analysis", "modal lock enforcement"],
+  "strict_mode": true
+}

@@ -1,0 +1,10 @@
+name: ask-wiki-init
+version: 1.0.0
+description: Scaffolds the LLM Wiki pattern into any project — a persistent, compounding knowledge base maintained by AI agents.
+category: tooling
+agents:
+  - gemini
+  - claude
+  - cursor
+  - antigravity
+  - codex

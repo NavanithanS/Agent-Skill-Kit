@@ -61,7 +61,7 @@ description: {description}
             
         skill_path = Path(skill_path_str)
         conflicts = []
-        resources_to_copy = ["scripts", "reference", "images", "assets", "examples.md", "reference.md"]
+        resources_to_copy = ["scripts", "reference", "images", "assets", "examples.md", "reference.md", "config", "resources", "references", "examples"]
         
         # Check conflicts
         for resource in resources_to_copy:

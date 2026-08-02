@@ -1,0 +1,10 @@
+# Trigger eval cases for `ask test` (Layer 1, offline collision audit).
+#
+# `should_fire`: paraphrased user prompts this skill should own. Write them the
+# way a real user would phrase the request — do NOT just echo the skill's
+# trigger phrases, or the audit measures nothing.
+should_fire:
+  - "set up a wiki for this project so the agent can remember things across sessions"
+  - "I want a persistent knowledge base that compounds over time"
+  - "bootstrap the llm wiki pattern into my repo"
+  - "create a wiki directory so my AI agent maintains project knowledge"

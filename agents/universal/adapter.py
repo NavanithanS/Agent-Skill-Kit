@@ -59,7 +59,7 @@ class UniversalAdapter(BaseAdapter):
         # In universal adapter, resources go alongside SKILL.md
         # target_dir is .agents/skills/<skill-name>
         conflicts = []
-        resources_to_copy = ["scripts", "reference", "images", "assets", "examples.md", "reference.md"]
+        resources_to_copy = ["scripts", "reference", "images", "assets", "examples.md", "reference.md", "config", "resources", "references", "examples"]
         
         for resource in resources_to_copy:
             src = skill_path / resource

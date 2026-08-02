@@ -1,0 +1,5 @@
+{
+  "role": "Wiki Architect",
+  "capabilities": ["scaffolding", "domain detection", "agent config injection"],
+  "strict_mode": true
+}

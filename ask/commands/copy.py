@@ -596,6 +596,9 @@ def copy(ctx, agent: str, skill_name: str, copy_all: bool, use_global: Optional[
 
                 if not agent_target.exists():
                     deploy_mode = deploy_skill_link(u_path, agent_target)
+                
+                # Ensure sidecar resources (scripts, config) are copied to target agent
+                adapter.install_resources(skill, agent_target.parent, force=overwrite)
 
             # Print success
             if agent == "universal":

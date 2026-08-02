@@ -5,21 +5,26 @@
 **Centralized skills repository and CLI toolkit for AI agents (Gemini, Claude, Codex, Cursor, Antigravity).**
 
 > **📖 Docs & Command Builder → [navanithans.github.io/Agent-Skill-Kit/docs/](https://navanithans.github.io/Agent-Skill-Kit/docs/)**
-> Browse all 38 skills, generate `ask copy` / `ask purge` commands visually, with dark mode support.
+> Browse all 42 skills, generate `ask copy` / `ask purge` commands visually, with dark mode support.
 
 ---
 
-## 🚀 What's New in v0.9.0
+## 🚀 What's New in v0.9.1
 
-### 🌐 Remote Skill Registries
-You can now directly install third-party skills via Git! Simply run `ask install <url>` and the system will clone, parse, and install skills from remote repositories directly into your Universal Source of Truth.
+### 🆕 Two New Meta-Skills
+- **`ask-wiki-init`**: Instantly scaffolds a persistent LLM-maintained knowledge base (`wiki/`) into your projects.
+- **`ask-hold-code`**: Enforces a strict planning-mode lock that prevents your agent from writing code until you explicitly approve the design.
 
-### 🔍 Interactive Diff Viewer
-When encountering file conflicts during `ask copy`, `ask update`, or `ask install`, you can now hit `[v]iew diff` to see a rich visual diff of what exactly has changed before confirming overwrites.
+### 🧠 Database Indexing Review
+`ask-impact-sentinel` now includes a mandatory database indexing protocol. Whenever it reviews code that touches a database, it will automatically audit your query paths and generate missing index migration scripts.
 
-### 🧩 Previous Highlights (v0.8.1)
-- **Branch Safety**: `ask-commit-assistance` prevents accidental commits to release branches.
-- **Centralized Registry Docs**: Added formal guidelines for adapter layers and safe copy protocol.
+### 🛡️ Safe Copy Protocol Enforced
+Fixed a silent overwrite bug in `ask copy` where sidecar files (scripts, configs) were forcefully copied even if the user opted to skip or rename conflicts.
+
+### 🧩 Previous Highlights (v0.9.0)
+- **Remote Skill Registries**: Directly install third-party skills via Git with `ask install <url>`.
+- **Interactive Diff Viewer**: Hit `[v]iew diff` during conflict resolution to see exact changes.
+- **Branch Safety**: `ask-commit-assistance` strictly prevents accidental commits to release branches.
 
 ---
 
@@ -294,6 +299,7 @@ ASK comes with a curated collection of skills to boost your AI agent's capabilit
 | Skill | Description | Use Cases |
 |-------|-------------|-----------|
 | **[adr-logger](skills/planning/ask-adr-logger/README.md)** | Automates creation of Architectural Decision Records | • Recording tech decisions<br>• Documenting context & consequences<br>• Maintaining decision history |
+| **[hold-code](skills/planning/ask-hold-code/README.md)** | Enforces a strict planning-mode lock | • Reviewing design documents<br>• Waiting for explicit user approval<br>• Preventing premature code generation |
 | **[brainstorm](skills/planning/ask-brainstorm/README.md)** | Guidelines for exploring user intent and requirements | • Defining user intent<br>• Gathering requirements<br>• Exploring design options |
 | **[project-memory](skills/planning/ask-project-memory/README.md)** | Maintains a 'Project Brain' of decisions | • Avoiding re-discussions<br>• Checking past decisions<br>• Recording new choices |
 | **[buildmaster](skills/planning/ask-buildmaster/README.md)** | Smart Epic Orchestration Agent | • Epic discovery & scoping<br>• Ticket decomposition<br>• Execution tracking & handoff |
@@ -333,6 +339,21 @@ ASK comes with a curated collection of skills to boost your AI agent's capabilit
 ---
 
 ### Tooling Skills (Meta-Skills)
+
+#### 📚 ask-wiki-init
+**Description**: Scaffolds the LLM Wiki pattern into any project — a persistent, compounding knowledge base maintained by AI agents.
+
+**How to Use**:
+```bash
+ask copy antigravity --skill ask-wiki-init
+```
+
+**Use Cases**:
+- Bootstrapping a `wiki/` directory to track project decisions.
+- Establishing an agent-managed knowledge base.
+- Defining LLM schema rules and source of truth protocols.
+
+---
 
 #### 🧹 ask-context-janitor
 **Description**: Aggressive token optimizer and context summarizer for reducing large text files, logs, or agent outputs.
