@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agent-skill-kit"
-version = "0.9.1"
+version = "0.10.0"
 description = "CLI to write an agent skill once and deploy it to Claude Code, Codex, Gemini CLI, Cursor and Antigravity"
 readme = "README.md"
 license = "MIT"

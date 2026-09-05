@@ -2,6 +2,33 @@
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-09-05
+
+### New Features
+- **Documentation Site SEO**: Added `_config.yml`, enabling `jekyll-sitemap` so the site publishes a real `sitemap.xml` (previously 404). Sets explicit `url`/`baseurl` — required, since GitHub Pages had been auto-deriving `baseurl` and omitting it strips the `/Agent-Skill-Kit` prefix from every canonical URL.
+- **Per-Skill Page Metadata**: New `scripts/add_skill_frontmatter.py` gives every skill README a unique `title` and `description` sourced from `skill.yaml`. Previously all ~400 published pages shared one meta description.
+- **Skill Library Hub**: `scripts/generate_site.py` now generates `skills/README.md`, a crawlable index linking every skill page, plus a synced skill table in the root `README.md` between `<!-- SKILLS:START -->` / `<!-- SKILLS:END -->` markers.
+- **Crawlable Docs Page**: The generated docs page gained canonical, Open Graph and Twitter tags plus a server-rendered skill index — from 162 to ~880 crawlable words with 42 real internal links.
+- **LICENSE**: Added the MIT `LICENSE` file. The license was declared in `pyproject.toml` but absent from the repo, so GitHub reported the project as unlicensed.
+- **Package URLs**: Added `[project.urls]` (Homepage, Documentation, Repository, Changelog, Issues) so the PyPI page links back to the docs and repo.
+- **`CITATION.cff`**: Added machine-readable authorship metadata.
+
+### Improvements
+- **CI**: `ci.yml` now gates on `add_skill_frontmatter.py --check`, so a new skill cannot ship a page without search metadata. `docs.yml` runs the script itself before building.
+- **README**: Restructured the opening to lead with what the tool does; release notes moved to this changelog.
+- **`AGENTS.md`**: Documented the generated files that must not be hand-edited, and the publishing constraints.
+- **Wiki**: Added `wiki/concepts/site-and-seo.md`; corrected `skills-catalog.md`, which had recorded `workflows/` as holding a skill.
+- **`ask-wiki-init`**: Switched from Obsidian `[[wikilinks]]` to standard relative markdown links, matching the convention in `wiki/SCHEMA.md`.
+
+### Bug Fixes
+- **`ask --version`**: `ask/__init__.py` assigned a hardcoded string inside a `try`/`except PackageNotFoundError` that could never fire, leaving the imported `version()` unused. It now reads the installed distribution version, so `--version` can no longer drift from `pyproject.toml`.
+- **Documentation commands**: Corrected `ask copy` examples that used a non-existent `--agent` flag. The agent is positional: `ask copy claude --skill <name>`.
+- **`RELEASE_NOTES.md`**: The `v0.9.1` entry contained v0.9.0's content and date (May 24, 2026). Corrected both entries.
+- **Category validation**: Removed `skills/workflows/skill-creator/`, which had no `skill.yaml` or `SKILL.md`, was never registered, and sat in a category `validate_category()` rejects. It duplicated `tooling/ask-skill-creator`. `CLAUDE.md` and `GEMINI.md` no longer list `workflows/` as a category.
+
+### Notes
+- No CLI commands, flags, or skill formats changed. Upgrading is safe and requires no migration.
+
 ## [0.9.1] - 2026-08-02
 
 ### New Features

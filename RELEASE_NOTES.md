@@ -1,6 +1,56 @@
 # 🚀 Agent Skill Kit Releases
 
+## v0.10.0
+**Date**: September 5, 2026
+**Theme**: Making the Library Findable
+
+This release contains no CLI changes. It fixes something quieter and more
+damaging: the project was **invisible to search engines**. A live audit found
+zero pages indexed by Google for either the repository or the documentation
+site — so nobody could find ASK unless they already knew its name.
+
+### 🔍 The Site Is Now Crawlable
+- **`sitemap.xml` exists.** There was no `_config.yml` at all, so GitHub Pages published every markdown file in the repo with no sitemap and no site metadata. Adding one enables `jekyll-sitemap` and excludes the ~275 pages that should never have been public — agent instruction files, test fixtures, and internal notes.
+- **Every skill page is now distinct.** All ~400 published pages previously shared a single meta description. `scripts/add_skill_frontmatter.py` gives each skill a unique title and description from its `skill.yaml`, and CI now fails if a new skill ships without them.
+- **The docs page went from 162 to ~880 crawlable words**, with canonical/Open Graph/Twitter tags and 42 real internal links. Its skill list was previously built entirely in JavaScript, so crawlers saw almost nothing.
+- **New skill library hub** at `/skills/`, generated from the manifest, linking every skill page.
+
+### 📦 Packaging & Provenance
+- **`LICENSE` added.** MIT was declared in `pyproject.toml` but the file was missing, so GitHub reported the project as unlicensed — which quietly blocks adoption and directory listings.
+- **PyPI now links home.** `[project.urls]` adds Homepage, Documentation, Repository, Changelog and Issues. The PyPI page previously linked nowhere at all.
+- **`CITATION.cff`** for machine-readable authorship.
+
+### 🐛 Fixes Worth Knowing
+- **`ask --version` could silently drift.** `ask/__init__.py` hardcoded the version inside a `try`/`except` that could never trigger, leaving the real metadata lookup unused. It now reports the installed version.
+- **Documented `ask copy` examples were wrong** — they used a `--agent` flag that does not exist. The correct form is `ask copy claude --skill <name>`.
+- **Removed `skills/workflows/skill-creator/`** — unregistered, in a category the validator rejects, and superseded by `tooling/ask-skill-creator`.
+
+### ⬆️ Upgrading
+Nothing to migrate. No commands, flags, or skill formats changed.
+
+```bash
+pip install --upgrade agent-skill-kit
+```
+
 ## v0.9.1
+**Date**: August 2, 2026
+**Theme**: Knowledge Bases & Safe Copy
+
+> **Corrected:** this entry previously carried v0.9.0's content and date
+> (May 24, 2026 — Remote Registries & Diff Viewer). See v0.9.0 below.
+
+### 🧠 Two New Meta-Skills
+- **`ask-wiki-init`**: Scaffolds a persistent, LLM-maintained knowledge base (`wiki/`) into any project.
+- **`ask-hold-code`**: Enforces a planning-mode lock that prevents an agent from writing code until you approve the design.
+
+### 🗄️ Database Indexing Review
+- **`ask-impact-sentinel`** gained a mandatory indexing protocol: when it reviews code touching a database, it audits query paths and generates missing index migrations.
+
+### 🛡️ Safe Copy Protocol Enforced
+- Fixed a silent overwrite in `ask copy` where sidecar files (scripts, configs) were force-copied even when you chose to skip or rename on conflict.
+- **`AntigravityAdapter`**: automatic legacy path migration (`.agent` → `.agents`, `~/.gemini/antigravity` → `~/.gemini/config`) to prevent data loss on older installs.
+
+## v0.9.0
 **Date**: May 24, 2026
 **Theme**: Remote Registries & Diff Viewer
 

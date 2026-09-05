@@ -8,7 +8,7 @@ sources: 5
 
 # Agent Skill Kit (ASK)
 
-**ASK** is a CLI tool (`ask`) that acts as a package manager for AI agent skills. It manages a central library of reusable skill definitions and deploys them to multiple AI agents in their native formats. Current version: **v0.9.1**.
+**ASK** is a CLI tool (`ask`) that acts as a package manager for AI agent skills. It manages a central library of reusable skill definitions and deploys them to multiple AI agents in their native formats. Current version: **v0.10.0**.
 
 ## Core Metaphor
 

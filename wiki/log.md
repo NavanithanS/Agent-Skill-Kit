@@ -87,3 +87,18 @@ Verification: `ask validate` 42/42 · `pytest` 47/47 · `python -m build` OK · 
 Not done (requires owner action): Search Console verification, GitHub topics/description, social preview image, PyPI release.
 
 Sources: _config.yml, scripts/generate_site.py, scripts/add_skill_frontmatter.py, ask/utils/skill_registry.py, agents/*/adapter.py, .github/workflows/{docs,ci,release}.yml, pyproject.toml, live Google SERPs.
+
+## [2026-09-05] update | v0.10.0 Release: Making the Library Findable
+
+Version bumped 0.9.1 → 0.10.0. Chosen over a patch bump because the release adds a subsystem (Jekyll/SEO site generation, front-matter tooling, a CI gate) rather than fixing behaviour; PyPI versions cannot be reused, so under-numbering is the harder error to undo. No CLI commands, flags or skill formats changed — upgrading needs no migration.
+
+Files bumped: `pyproject.toml`, `CITATION.cff`, `agent-skill-kit.rb` (url + version + test assertion), `Formula/agent-skill-kit.rb`, `wiki/overview.md`, `wiki/index.md`. Written: `CHANGELOG.md` [0.10.0], `RELEASE_NOTES.md` v0.10.0, `TWEET.md`.
+
+Two pre-existing defects fixed as part of the release:
+
+- **`ask/__init__.py` version drift.** The file assigned a hardcoded `__version__` *inside* a `try:` / `except PackageNotFoundError:` block — the literal can never raise, so the branch was dead and the imported `version()` was unused. `ask --version` was therefore a hand-synced string, exactly the drift the release protocol was written to police. Now reads `importlib.metadata.version("agent-skill-kit")`; verified reporting `0.10.0` after `pip install -e .`. `__author__` also corrected from `"Nava"` to `"Navanithan S"` for consistency with `CITATION.cff` and `pyproject.toml`.
+- **`RELEASE_NOTES.md` was off by one release.** Its `## v0.9.1` section carried v0.9.0's content and date (May 24, 2026 — Remote Registries & Diff Viewer), while `CHANGELOG.md` correctly dated 0.9.1 to 2026-08-02. Renamed that section to v0.9.0 and wrote a correct v0.9.1 entry from the changelog, with a `> **Corrected:**` note. Heading sequence now matches CHANGELOG with no duplicates or gaps.
+
+`concepts/release-protocol.md` updated from what following it actually revealed: `ask/__init__.py` no longer needs a manual bump (with a warning not to reintroduce the hardcode), `CITATION.cff`, `TWEET.md` and the two wiki version references added to the checklist, the README skill table marked generated, a note that hits in CHANGELOG/RELEASE_NOTES/log are history and must not be rewritten, and a Publishing section recording that `release.yml` automates PyPI + the Homebrew tap on `release: published` — so a release is tagged, never `twine`d by hand.
+
+Sources: pyproject.toml, ask/__init__.py, ask/cli.py, agent-skill-kit.rb, Formula/agent-skill-kit.rb, CHANGELOG.md, RELEASE_NOTES.md, .github/workflows/release.yml, skills/manifest.json.

@@ -9,8 +9,16 @@ Whenever you prepare a new release (e.g. bumping `0.8.0` to `0.8.1`), you **MUST
 1. **`pyproject.toml`**
    - Update `version = "X.Y.Z"` under `[project]`.
 
-2. **`ask/__init__.py`**
-   - Update `__version__ = "X.Y.Z"`.
+2. **`ask/__init__.py`** — *no longer needs a manual bump.*
+   - As of v0.10.0 this reads the installed distribution version via
+     `importlib.metadata.version("agent-skill-kit")`, so `ask --version` follows
+     `pyproject.toml` automatically. Do **not** reintroduce a hardcoded
+     `__version__`; that was the drift bug this protocol existed to work around.
+   - After bumping, run `pip install -e .` so the local metadata refreshes, then
+     confirm with `ask --version`.
+
+2b. **`CITATION.cff`**
+   - Update `version: X.Y.Z`.
 
 3. **`agent-skill-kit.rb`** (Root Homebrew Tap Formula)
    - Update `url "https://files.pythonhosted.org/packages/source/a/agent-skill-kit/agent_skill_kit-X.Y.Z.tar.gz"`.
@@ -30,9 +38,23 @@ Whenever you prepare a new release (e.g. bumping `0.8.0` to `0.8.1`), you **MUST
    - Regenerate via `ask skill compile` to pick up any new or changed skills.
 
 8. **`README.md`**
-   - Update total skill counts and any newly added skill entries in the skill tables.
+   - The skill table is generated between `<!-- SKILLS:START -->` / `<!-- SKILLS:END -->`.
+     Run `python3 scripts/generate_site.py` rather than editing it by hand.
 
-Always use a global workspace search (e.g., `grep_search` for the old version number) to confirm you haven't missed any hardcoded instances!
+9. **`TWEET.md`**
+   - Rewrite for the new release; it still holds the previous version's copy.
+
+10. **Wiki version references**
+   - `wiki/overview.md` ("Current version: **vX.Y.Z**") and the `overview.md`
+     line in `wiki/index.md` both name the version.
+
+Always use a global workspace search (e.g., `grep_search` for the old version number) to confirm you haven't missed any hardcoded instances. Expect legitimate hits in `CHANGELOG.md`, `RELEASE_NOTES.md`, `wiki/log.md` and any `> **vX.Y.Z** fix:` notes — those are history and must not be rewritten.
+
+## Publishing
+
+Releases are automated: `.github/workflows/release.yml` fires on `release: published`, builds, uploads to PyPI with `secrets.PYPI_API_TOKEN`, then pushes the updated formula to the `NavanithanS/homebrew-Agent-Skill-Kit` tap. So publishing means **tag and create a GitHub Release** — do not run `twine` by hand.
+
+A PyPI version can never be reused, so verify `ask --version`, `python -m build`, and the full test suite *before* creating the release.
 
 ## Related
 

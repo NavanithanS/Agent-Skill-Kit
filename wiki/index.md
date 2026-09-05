@@ -4,7 +4,7 @@ Content catalog for the Agent Skill Kit wiki. Updated on every page addition or 
 
 ## Overview
 
-- [overview.md](overview.md) — **High-level project orientation**. Provides a comprehensive introduction to ASK (v0.9.1), including its core "package manager" metaphor, the 6 supported AI agent targets (Claude, Gemini, Cursor, Codex, Antigravity, Universal), all 15 CLI commands and their purposes, the core data flow, the safe copy protocol, and a summary of the 42 currently available skills.
+- [overview.md](overview.md) — **High-level project orientation**. Provides a comprehensive introduction to ASK (v0.10.0), including its core "package manager" metaphor, the 6 supported AI agent targets (Claude, Gemini, Cursor, Codex, Antigravity, Universal), all 15 CLI commands and their purposes, the core data flow, the safe copy protocol, and a summary of the 42 currently available skills.
 
 ## Concepts
 

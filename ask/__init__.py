@@ -3,7 +3,11 @@
 from importlib.metadata import version, PackageNotFoundError
 
 try:
-    __version__ = "0.9.1"
+    # Read the installed distribution's version rather than hardcoding it, so
+    # `ask --version` can never drift from pyproject.toml.
+    __version__ = version("agent-skill-kit")
 except PackageNotFoundError:
+    # Running from a source checkout without an install.
     __version__ = "unknown"
-__author__ = "Nava"
+
+__author__ = "Navanithan S"
