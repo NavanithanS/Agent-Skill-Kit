@@ -45,17 +45,17 @@ sources:
 Body conventions:
 - Lead with a one-paragraph summary (used in index.md).
 - Use `##` sections for subsections.
-- Cross-references use `[[folder/page]]` wiki-link syntax (Obsidian-compatible).
+- Cross-references use standard relative markdown links `[folder/page](folder/page.md)`.
 - Code blocks for schema snippets, field names, or config examples.
 - Mark uncertainty: use "unclear", "TBD", or "investigate" rather than stating guesses as facts.
 - Mark surprising or non-obvious information with **Note:** or **Gotcha:**.
-- **Every page MUST end with a `## See also` section** containing wiki-links to related pages. This creates an interconnected knowledge graph.
+- **Every page MUST end with a `## See also` section** containing standard markdown links to related pages. This creates an interconnected knowledge graph.
 
 ## Conventions
 
 - **index.md** — must be formatted as markdown tables: `| Page | Summary |`, grouped by category. Update on every ingest or page creation.
 - **log.md** — append only. Entry format: `## [YYYY-MM-DD] <action> | <subject>`. Actions: `ingest`, `query`, `update`, `lint`, `bootstrap`.
-- **Cross-references** — always use relative markdown links or `[[wikilinks]]`. When adding a concept, link back from related pages.
+- **Cross-references** — always use standard relative markdown links. When adding a concept, link back from related pages.
 - **Contradictions** — when new info conflicts with a page, mark the old claim with `> **Superseded:** ...` and add the updated claim below.
 - **Orphans** — every page must be linked from index.md. Run a lint check if unsure.
 - **See also** — every content page must end with `## See also` containing links to related pages.
@@ -83,7 +83,7 @@ Body conventions:
 4. Append a `query` entry to `log.md`.
 
 ### Lint pass
-Check for: orphan pages, stale claims, missing cross-references, broken `[[wikilinks]]`, concepts mentioned but lacking their own page, pages missing `## See also`, missing or outdated frontmatter.
+Check for: orphan pages, stale claims, missing cross-references, broken markdown links, concepts mentioned but lacking their own page, pages missing `## See also`, missing or outdated frontmatter.
 
 ## Domain Conventions — {{PROJECT_NAME}}
 

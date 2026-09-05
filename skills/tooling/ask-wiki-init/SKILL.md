@@ -48,7 +48,7 @@ To bypass LLM output limits and force massive, deep documentation generation, yo
    - **Integrations** (1-3 pages): external APIs, payment gateways, third-party services.
    Complex projects should target the upper range (12-15 pages). Simple projects may use 7-10.
 3. **Sequential Execution**: You MUST IMMEDIATELY proceed to generate the pages listed in `INGESTION_PLAN.md` **one by one** using separate consecutive tool calls. Do NOT stop and wait for the user. After generating a page, update `INGESTION_PLAN.md` to check it off. You must autonomously loop through the entire plan until every page is checked off.
-   - **Every page** MUST end with a `## See also` section containing wiki-links to related pages.
+   - **Every page** MUST end with a `## See also` section containing standard relative markdown links to related pages.
    - **Architecture pages** SHOULD include ASCII layered diagrams where the system has distinct layers (frontend → bridge → backend → database).
 4. **Write `overview.md`**: This page MUST follow a strict structure:
    - `## What it is` — one-paragraph project description.
