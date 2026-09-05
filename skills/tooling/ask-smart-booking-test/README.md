@@ -42,7 +42,7 @@ Because step 1 precedes step 2, the test adapts to the codebase instead of assum
 ## Install
 
 ```bash
-ask copy ask-smart-booking-test --agent claude
+ask copy claude --skill ask-smart-booking-test
 ```
 
 Supported agents: Claude Code, Codex, Gemini CLI, Cursor, Antigravity.

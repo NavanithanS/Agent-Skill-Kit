@@ -101,7 +101,7 @@ def generate_skill_index(skills: list) -> str:
         f"{len(agents)} agents with a single command:",
         "",
         "```bash",
-        "ask copy <skill-name> --agent claude",
+        "ask copy claude --skill <skill-name>",
         "```",
         "",
         "Prefer a UI? Use the "
@@ -123,7 +123,7 @@ def generate_skill_index(skills: list) -> str:
             lines.append(
                 f"### [{name}]({category}/{name}/)\n\n"
                 f"{skill.get('description', '').strip()}\n\n"
-                f"```bash\nask copy {name} --agent claude\n```\n"
+                f"```bash\nask copy claude --skill {name}\n```\n"
             )
 
     lines += [

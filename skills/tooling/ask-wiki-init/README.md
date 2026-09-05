@@ -40,7 +40,7 @@ The value is in the write path, not the read path. A wiki that agents only read 
 ## Install
 
 ```bash
-ask copy ask-wiki-init --agent claude
+ask copy claude --skill ask-wiki-init
 ```
 
 Supported agents: Claude Code, Codex, Gemini CLI, Cursor, Antigravity.

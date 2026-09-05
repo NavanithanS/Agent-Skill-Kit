@@ -42,7 +42,7 @@ The lock lifts only on an explicit approval from you — for example "approved",
 ## Install
 
 ```bash
-ask copy ask-hold-code --agent claude
+ask copy claude --skill ask-hold-code
 ```
 
 Supported agents: Claude Code, Codex, Gemini CLI, Cursor, Antigravity.

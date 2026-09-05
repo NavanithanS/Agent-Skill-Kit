@@ -49,7 +49,7 @@ Each finding is reported with:
 ## Install
 
 ```bash
-ask copy ask-owasp-security-review --agent claude
+ask copy claude --skill ask-owasp-security-review
 ```
 
 Supported agents: Claude Code, Codex, Gemini CLI, Cursor, Antigravity.

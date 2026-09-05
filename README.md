@@ -8,7 +8,7 @@ Agent Skill Kit is a command-line package manager for AI agent skills. You defin
 
 ```bash
 brew tap NavanithanS/Agent-Skill-Kit && brew install agent-skill-kit
-ask copy ask-unit-test-generation --agent claude
+ask copy claude --skill ask-unit-test-generation
 ```
 
 ![Agent Skill Kit Banner](https://raw.githubusercontent.com/NavanithanS/Agent-Skill-Kit/master/assets/banner.png)
