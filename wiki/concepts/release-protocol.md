@@ -20,6 +20,21 @@ Whenever you prepare a new release (e.g. bumping `0.8.0` to `0.8.1`), you **MUST
 2b. **`CITATION.cff`**
    - Update `version: X.Y.Z`.
 
+> ⚠️ **`sha256` is not optional and is easy to miss.** Both formulae pin the
+> sdist checksum. Bumping the version and URL without it produces a formula
+> that fails at install with a checksum mismatch. `scripts/update_homebrew.py`
+> normally computes it — but that runs in the `homebrew-update` CI job, which
+> has failed silently in the past. When bumping by hand:
+>
+> ```bash
+> curl -s https://pypi.org/pypi/agent-skill-kit/X.Y.Z/json \
+>   | python3 -c "import json,sys;print([u['digests']['sha256'] for u in json.load(sys.stdin)['urls'] if u['packagetype']=='sdist'][0])"
+> ```
+>
+> The release is not done until the **tap repo** shows the new version —
+> check `raw.githubusercontent.com/NavanithanS/homebrew-Agent-Skill-Kit/master/agent-skill-kit.rb`,
+> not just the copies in this repo.
+
 3. **`agent-skill-kit.rb`** (Root Homebrew Tap Formula)
    - Update `url "https://files.pythonhosted.org/packages/source/a/agent-skill-kit/agent_skill_kit-X.Y.Z.tar.gz"`.
    - Update `version "X.Y.Z"`.
@@ -53,6 +68,10 @@ Always use a global workspace search (e.g., `grep_search` for the old version nu
 ## Publishing
 
 Releases are automated: `.github/workflows/release.yml` fires on `release: published`, builds, uploads to PyPI with `secrets.PYPI_API_TOKEN`, then pushes the updated formula to the `NavanithanS/homebrew-Agent-Skill-Kit` tap. So publishing means **tag and create a GitHub Release** — do not run `twine` by hand.
+
+**Always check both jobs.** The two are independent: `pypi-publish` can succeed while `homebrew-update` fails, leaving PyPI current and Homebrew stale. That happened silently for several releases — at v0.10.0 the tap was still serving **0.8.1** because `secrets.TAP_GITHUB_TOKEN` (a PAT, set 2026-02-07) had expired, failing checkout with `Bad credentials`. Since the README recommends Homebrew as the primary install, a silent failure here ships an old version to new users.
+
+`TAP_GITHUB_TOKEN` needs `Contents: Read and write` on the tap repo. PATs expire — when the job fails with `Bad credentials`, regenerate it rather than debugging the workflow.
 
 A PyPI version can never be reused, so verify `ask --version`, `python -m build`, and the full test suite *before* creating the release.
 
