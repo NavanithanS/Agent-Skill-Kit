@@ -133,3 +133,42 @@ Fixing only the first left the second violated, which is why the earlier fix app
 Diagnostic note: the first fix was pushed and verified as *deployed* (Pages API build status + `Last-Modified` matching the build) before concluding it was ineffective, rather than assuming a propagation delay. That distinction is what isolated the second cause.
 
 Sources: _config.yml, jekyll-readme-index documented defaults, GitHub Pages builds API, live sitemap.xml.
+
+## [2026-09-05] update | Search Console verified, sitemap accepted — Day-0 baseline recorded
+
+The technical SEO track from the discoverability audit is complete and verified against the live site.
+
+Verified live:
+- `/skills/<category>/<skill>/` returns 200 (clean directory URLs, `jekyll-readme-index` working with front matter)
+- `sitemap.xml` returns 200 `application/xml`, well-formed `urlset`, 50 entries, 0 duplicates, all correctly prefixed, 0 `README.html` entries
+- Per-page `<title>` and `<meta description>` unique per skill; titles no longer duplicate the product name
+- `CLAUDE.md`, `AGENTS.md`, `TWEET.md` and duplicate `SKILL` pages all 404 as intended
+- Search Console ownership verified via HTML file at the property root; sitemap submitted and accepted
+
+Two false alarms worth recording, both caused by a **leading slash** against a path-scoped property (`https://navanithans.github.io/Agent-Skill-Kit/`), which resolves to the host root — a path this project does not control and which 404s:
+
+- HTML verification file reported "not found in the required location" when it was live and byte-correct. Actual cause was a race: the file went live at 01:46:55 GMT and Verify was clicked at 01:47:54, inside GitHub's `max-age=600` CDN window, so Google's fetcher saw a cached 404. Retrying after propagation succeeded.
+- Sitemap reported "Couldn't fetch" when submitted as `/sitemap.xml`. Resubmitting as `sitemap.xml` (no leading slash) succeeded.
+
+**Rule for this property: never use a leading slash in Search Console inputs.** The field is already prefixed with the property URL.
+
+Day-0 baseline (2026-09-05, for measuring the 30/60/90 targets):
+
+| Metric | Value |
+|---|---|
+| Google pages indexed | 0 |
+| Sitemap URLs submitted | 50 |
+| GitHub stars / forks | 1 / 1 |
+| GitHub topics | 11 (added same day) |
+| GitHub traffic, 14d | 8 views / 7 uniques |
+| License detected | MIT (was: none) |
+
+**Phase 1 of the audit is complete as of this date.** Repository description rewritten (was the keyword-free tagline "Create once. Share across agents"), `homepageUrl` repointed from `/docs/` to the root landing page, MIT `LICENSE` detected, and 11 topics added: `agent-skills`, `ai-agents`, `claude-code`, `cli`, `codex`, `cursor`, `developer-tools`, `gemini-cli`, `mcp`, `python`, `skill-management`.
+
+Topics matter disproportionately here because Search Console cannot cover `github.com` — the repository can only be reached by crawlers through inbound links, and GitHub topic hubs are the most heavily crawled source available. `topic:agent-skills` alone indexes over 21,000 repositories.
+
+Gotcha for future runs: `gh api -f 'names[]=...'` must be **single-quoted** in zsh, which otherwise treats `[]` as a glob and fails with `no matches found` before `gh` is invoked. The `--input -` heredoc form avoids the problem entirely and is preferred.
+
+Remaining from the audit: Phase 6 (directory and awesome-list submissions, now unblocked by the license), the differentiator content of Phase 5, and the Day-30 gate that decides the naming question (T-2.4).
+
+Sources: live navanithans.github.io responses, Google Search Console, GitHub repo + traffic APIs.
