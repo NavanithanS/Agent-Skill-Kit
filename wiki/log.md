@@ -102,3 +102,17 @@ Two pre-existing defects fixed as part of the release:
 `concepts/release-protocol.md` updated from what following it actually revealed: `ask/__init__.py` no longer needs a manual bump (with a warning not to reintroduce the hardcode), `CITATION.cff`, `TWEET.md` and the two wiki version references added to the checklist, the README skill table marked generated, a note that hits in CHANGELOG/RELEASE_NOTES/log are history and must not be rewritten, and a Publishing section recording that `release.yml` automates PyPI + the Homebrew tap on `release: published` — so a release is tagged, never `twine`d by hand.
 
 Sources: pyproject.toml, ask/__init__.py, ask/cli.py, agent-skill-kit.rb, Formula/agent-skill-kit.rb, CHANGELOG.md, RELEASE_NOTES.md, .github/workflows/release.yml, skills/manifest.json.
+
+## [2026-09-05] update | Fix: `plugins:` in _config.yml dropped GitHub Pages defaults
+
+The v0.10.0 `_config.yml` listed only `jekyll-sitemap` and `jekyll-seo-tag` under `plugins:`. On GitHub Pages that key **replaces** the default plugin set rather than extending it, so `jekyll-readme-index` was silently dropped and `README.md` stopped rendering as each directory's `index.html`.
+
+Live effect: `/skills/<category>/<skill>/` returned 404 while `/skills/<category>/<skill>/README.html` returned 200 — breaking roughly 127 internal links across the README skill table, the generated `skills/README.md` hub, and the docs static index. `jekyll-titles-from-headings` and `jekyll-relative-links` were dropped the same way.
+
+The failure was not obvious because the parts that were checked all passed: `sitemap.xml` returned 200, canonicals carried the correct `/Agent-Skill-Kit` prefix, and the excluded junk pages 404'd as intended. The tell was the sitemap listing `.../README.html` rather than the clean directory URL.
+
+Fix: `_config.yml` now lists all nine GitHub Pages defaults alongside the two opt-ins, with a warning comment. `concepts/site-and-seo.md` gained a section documenting the replace-not-extend semantics.
+
+Root cause of the miss: the config could not be validated locally (no Jekyll toolchain), and the post-deploy verification checked sitemap/canonical/exclusions but never asserted that a generated internal link actually resolved. Link resolution is now part of the documented verification step.
+
+Sources: _config.yml, live navanithans.github.io/Agent-Skill-Kit responses, sitemap.xml.

@@ -16,12 +16,25 @@ lang: en_US
 # Removing it revokes verification.
 google_site_verification: "Rfmf9zkKXT4LZoUsDXeP_uAZSkYLVptJF85hHCptfic"
 
-# Both plugins are on the GitHub Pages allowlist. jekyll-seo-tag already ran
-# before this file existed; jekyll-sitemap is the addition that creates
-# /sitemap.xml.
+# WARNING: this key REPLACES GitHub Pages' default plugin set, it does not
+# extend it. Listing only the two plugins we wanted silently dropped
+# jekyll-readme-index, so README.md stopped serving as each directory's
+# index and every /skills/<cat>/<name>/ URL 404'd. Every default below must
+# stay listed; add new plugins alongside them, never instead of them.
 plugins:
-  - jekyll-sitemap
-  - jekyll-seo-tag
+  # --- GitHub Pages defaults (always on when `plugins:` is absent) ---
+  - jekyll-coffeescript
+  - jekyll-default-layout
+  - jekyll-gist
+  - jekyll-github-metadata
+  - jekyll-optional-front-matter   # renders .md files that have no front matter
+  - jekyll-paginate
+  - jekyll-readme-index            # README.md -> directory index; load-bearing
+  - jekyll-relative-links          # rewrites .md links to their .html targets
+  - jekyll-titles-from-headings    # derives <title> from the first H1
+  # --- Opt-in additions ---
+  - jekyll-seo-tag                 # canonical, OG, JSON-LD, verification meta
+  - jekyll-sitemap                 # /sitemap.xml (not a Pages default)
 
 exclude:
   # --- Agent instruction files: not public documentation ---

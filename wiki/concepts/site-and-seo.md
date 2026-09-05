@@ -52,6 +52,24 @@ reads badly as a landing page.
 > **When adding a new per-skill directory type, add it to `exclude:` in
 > `_config.yml`** or it will publish as an orphan page.
 
+## `plugins:` replaces the defaults — it does not extend them
+
+This bit us once and will again. GitHub Pages enables a default plugin set when
+no `plugins:` key exists. **Declaring the key discards that set entirely.**
+
+An earlier revision listed only `jekyll-sitemap` and `jekyll-seo-tag`. The
+sitemap appeared and canonicals looked right, so it seemed fine — but
+`jekyll-readme-index` had been silently dropped, so `README.md` stopped
+rendering as each directory's `index.html`. Every `/skills/<cat>/<name>/` URL
+began 404ing, breaking ~127 internal links, while `README.html` served fine.
+The sitemap even advertised the `README.html` form, which is how it was caught.
+
+`jekyll-titles-from-headings` is dropped the same way — that plugin is why skill
+pages had sensible `<title>`s before any front matter existed.
+
+**Every default must stay listed in `_config.yml`.** Add new plugins alongside
+them, never instead of them.
+
 ## Two settings that are load-bearing
 
 - **`url` + `baseurl`** — before `_config.yml` existed, Pages auto-derived
@@ -103,14 +121,30 @@ Settings → Pages for a build-failure banner, then:
 
 ```bash
 B=https://navanithans.github.io/Agent-Skill-Kit
-curl -s -o /dev/null -w "%{http_code}\n" $B/sitemap.xml    # 200
-curl -s $B/sitemap.xml | grep -c "<loc>"                   # ~45, not ~400
+
+# 1. Sitemap exists and is scoped
+curl -s -o /dev/null -w "sitemap %{http_code}\n" $B/sitemap.xml   # 200
+curl -s $B/sitemap.xml | grep -c "<loc>"                          # ~45, not ~400
+
+# 2. A generated internal link actually RESOLVES.  Do not skip this: the
+#    checks above all passed while every one of these 404'd.
+curl -s -o /dev/null -w "skill page %{http_code}\n" \
+  $B/skills/coding/ask-unit-test-generation/                      # 200, NOT 404
+curl -s -o /dev/null -w "hub        %{http_code}\n" $B/skills/    # 200
+
+# 3. The sitemap must advertise the directory URL, not README.html —
+#    a README.html entry means jekyll-readme-index was dropped.
+curl -s $B/sitemap.xml | grep -c "README.html"                    # 0
+
+# 4. Canonical carries the baseurl, duplicates and junk stay excluded
 curl -s $B/skills/coding/ask-unit-test-generation/ | grep canonical
-curl -s -o /dev/null -w "%{http_code}\n" $B/skills/coding/ask-unit-test-generation/SKILL  # 404
+curl -s -o /dev/null -w "SKILL dup  %{http_code}\n" \
+  $B/skills/coding/ask-unit-test-generation/SKILL                 # 404
 ```
 
-If `sitemap.xml` 404s, remove the `plugins:` key first — legacy Pages loads
-both allowlisted plugins from its default set regardless.
+If `sitemap.xml` 404s, `jekyll-sitemap` is missing from `plugins:` — it is an
+opt-in, **not** a Pages default, so it must be listed explicitly alongside every
+default (see the plugin section above).
 
 ## Known limitation: robots.txt
 
