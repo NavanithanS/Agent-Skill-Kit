@@ -172,3 +172,21 @@ Gotcha for future runs: `gh api -f 'names[]=...'` must be **single-quoted** in z
 Remaining from the audit: Phase 6 (directory and awesome-list submissions, now unblocked by the license), the differentiator content of Phase 5, and the Day-30 gate that decides the naming question (T-2.4).
 
 Sources: live navanithans.github.io responses, Google Search Console, GitHub repo + traffic APIs.
+
+## [2026-09-05] update | Homebrew release path repaired
+
+The `homebrew-update` job had failed silently since **2026-04-11** (last successful tap commit: v0.8.1), so `brew install agent-skill-kit` served **0.8.1** while PyPI served 0.10.0 — through three releases, with the README advertising Homebrew as the recommended install.
+
+Three distinct defects, only the first of which produced an error message:
+
+1. **Expired credential.** `secrets.TAP_GITHUB_TOKEN` (a PAT set 2026-02-07) failed tap checkout with `Bad credentials`. Owner action; not yet resolved.
+2. **Checksum sourced from the wrong artifact.** `update_homebrew.py` hashed a locally rebuilt `dist/` tarball, but `homebrew-update` runs `python -m build` in a *separate job* from the one that uploaded to PyPI. Python sdists embed mtimes, so the two tarballs can differ byte-for-byte and the formula would pin a hash Homebrew can never match. Now reads the sdist digest from the PyPI JSON API (with retries for CDN lag), which is authoritative because that is the file Homebrew downloads. The rebuild step was removed from `release.yml`; a local `dist/` is now only cross-checked and reported, never authoritative.
+3. **Unbounded regexes.** `re.sub(r'url\s+"[^"]+"', …)` and the `sha256` equivalent had no `count=1`, so they rewrote *every* match. Harmless against the tap's current resource-free formula, but verified destructive against a formula with `resource` blocks: all 7 distinct hashes collapsed to one. Now `re.subn(..., count=1)`, and a zero-replacement result exits non-zero rather than pushing an unchanged formula — the silent no-op that let the tap sit at 0.8.1.
+
+Tap manually brought to 0.10.0 (commit `7e917775`) after verifying the formula hash against the actual downloaded tarball.
+
+**Separate discovery — the documented install path is broken for all new users.** Current Homebrew refuses third-party taps until explicitly trusted: `Refusing to load formula … from untrusted tap`. The README now leads with PyPI, documents the required `brew trust` step, and warns about `PATH` shadowing (a conda/virtualenv `pip` install masks the Homebrew binary, which produced a false-positive `ask --version` of 0.10.0 while brew actually had 0.1.5 installed).
+
+Verification note: `ask --version` is not sufficient to test a Homebrew install. Use `type -a ask` and the explicit `/opt/homebrew/bin/ask`.
+
+Sources: .github/workflows/release.yml, scripts/update_homebrew.py, tap repo commit history, PyPI JSON API, live brew behaviour.

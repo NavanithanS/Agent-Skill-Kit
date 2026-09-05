@@ -100,16 +100,28 @@ All skills, with a link to each one's reference page. Full index: **[browse the 
 
 ## 📦 Installation
 
-### Homebrew (Recommended for Mac/Linux)
-```bash
-brew tap NavanithanS/Agent-Skill-Kit
-brew install agent-skill-kit
-```
-
-### From PyPI
+### From PyPI (recommended)
 ```bash
 pip install agent-skill-kit
 ```
+
+### Homebrew (macOS / Linux)
+```bash
+brew tap NavanithanS/Agent-Skill-Kit
+brew trust navanithans/agent-skill-kit
+brew install agent-skill-kit
+```
+
+> **The `brew trust` step is required.** Current Homebrew refuses to load
+> formulae from third-party taps until you explicitly trust them, failing with
+> *"Refusing to load formula … from untrusted tap"*. Review the
+> [formula](https://github.com/NavanithanS/homebrew-Agent-Skill-Kit/blob/master/agent-skill-kit.rb)
+> before trusting it, as you should with any third-party tap.
+
+If `ask --version` reports an unexpected version after installing, another copy
+is shadowing it on your `PATH` (a `pip`-installed one in an active virtualenv or
+conda environment is the usual cause). Check with `type -a ask`, and run
+`/opt/homebrew/bin/ask --version` to test the Homebrew install specifically.
 
 ### From Source (Development)
 ```bash

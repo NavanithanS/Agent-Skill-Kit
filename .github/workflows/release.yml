@@ -55,11 +55,10 @@ jobs:
         with:
           python-version: "3.12"
           
-      - name: Install build tools
-        run: pip install build
-
-      - name: Build package (for checksum)
-        run: python -m build
+      # No local build needed: update_homebrew.py reads the sdist checksum
+      # from the PyPI API. Rebuilding here produced a *different* tarball from
+      # the one pypi-publish uploaded (sdists embed mtimes), which is how the
+      # formula ended up pinning a hash Homebrew could never match.
 
       - name: Checkout Tap Repository
         uses: actions/checkout@v4

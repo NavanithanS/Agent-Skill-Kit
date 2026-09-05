@@ -2,9 +2,13 @@
 import os
 import sys
 import re
+import json
+import time
 import hashlib
 import argparse
 import subprocess
+import urllib.error
+import urllib.request
 from pathlib import Path
 
 # Configuration
@@ -31,6 +35,37 @@ def calculate_sha256(file_path):
             sha256_hash.update(byte_block)
     return sha256_hash.hexdigest()
 
+
+def fetch_pypi_sha256(version, retries=6, delay=10):
+    """Return the sha256 of the sdist PyPI actually published.
+
+    Homebrew downloads the artifact from PyPI, so the formula must pin *that*
+    file's hash. Hashing a local `python -m build` is not equivalent: the
+    release workflow rebuilds in a separate job from the one that uploaded,
+    and sdists embed mtimes, so the two tarballs can differ byte-for-byte and
+    the formula would fail installation with a checksum mismatch.
+
+    PyPI's CDN can lag a few seconds behind the upload, hence the retries.
+    """
+    url = f"https://pypi.org/pypi/agent-skill-kit/{version}/json"
+    last_error = None
+    for attempt in range(1, retries + 1):
+        try:
+            with urllib.request.urlopen(url, timeout=30) as response:
+                data = json.load(response)
+            for entry in data.get("urls", []):
+                if entry.get("packagetype") == "sdist":
+                    return entry["digests"]["sha256"]
+            last_error = f"no sdist listed for {version}"
+        except (urllib.error.URLError, json.JSONDecodeError, KeyError) as exc:
+            last_error = exc
+        if attempt < retries:
+            print(f"  PyPI not ready ({last_error}); retrying in {delay}s "
+                  f"[{attempt}/{retries}]")
+            time.sleep(delay)
+    print(f"Error: could not read sdist sha256 from PyPI for {version}: {last_error}")
+    sys.exit(1)
+
 def update_formula(tap_path, version, sha256, dry_run=False):
     """Update the Homebrew formula with new version and checksum"""
     formula_path = tap_path / "Formula" / "agent-skill-kit.rb"
@@ -51,10 +86,17 @@ def update_formula(tap_path, version, sha256, dry_run=False):
     # Update URL
     # Assuming standard PyPI URL format
     new_url = f"https://pypi.io/packages/source/a/agent-skill-kit/agent_skill_kit-{version}.tar.gz"
-    content = re.sub(r'url\s+"[^"]+"', f'url "{new_url}"', content)
+    content, n_url = re.subn(r'url\s+"[^"]+"', f'url "{new_url}"', content, count=1)
     
     # Update SHA256
-    content = re.sub(r'sha256\s+"[^"]+"', f'sha256 "{sha256}"', content)
+    content, n_sha = re.subn(r'sha256\s+"[^"]+"', f'sha256 "{sha256}"', content, count=1)
+
+    # Fail loudly rather than pushing an unchanged formula: a silent no-op here
+    # is exactly how the tap sat at 0.8.1 for three releases.
+    if not n_url or not n_sha:
+        print(f"Error: formula did not match expected shape "
+              f"(url replaced: {bool(n_url)}, sha256 replaced: {bool(n_sha)})")
+        sys.exit(1)
     
     if dry_run:
         print("\n--- Dry Run: Formula Content ---")
@@ -92,16 +134,18 @@ def main():
     version = get_version()
     print(f"Detected version: {version}")
     
-    tarball_name = f"agent_skill_kit-{version}.tar.gz"
-    tarball_path = DIST_DIR / tarball_name
-    
-    if not tarball_path.exists():
-        print(f"Error: Dist file not found at {tarball_path}")
-        print("Did you run 'python -m build'?")
-        sys.exit(1)
-        
-    sha256 = calculate_sha256(tarball_path)
-    print(f"SHA256: {sha256}")
+    sha256 = fetch_pypi_sha256(version)
+    print(f"SHA256 (from PyPI): {sha256}")
+
+    # Cross-check against a local build when one happens to be present. A
+    # mismatch is informational, not fatal — PyPI is authoritative because
+    # that is the artifact Homebrew downloads.
+    tarball_path = DIST_DIR / f"agent_skill_kit-{version}.tar.gz"
+    if tarball_path.exists():
+        local = calculate_sha256(tarball_path)
+        if local != sha256:
+            print(f"Note: local dist hash differs ({local[:12]}…); "
+                  f"using the published PyPI artifact.")
     
     if not args.tap.exists():
         print(f"Error: Tap repository not found at {args.tap}")
