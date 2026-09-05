@@ -1,4 +1,5 @@
 ---
+title: Solution Architect — Agent Skill Kit
 name: ask-solution-architect
 description: Master Ideation and Strategic Architecture skill. Executes professional, multi-perspective ideation sessions utilizing SCAMPER, Six Hats, and Design Thinking.
 ---

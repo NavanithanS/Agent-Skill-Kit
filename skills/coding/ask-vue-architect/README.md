@@ -1,3 +1,8 @@
+---
+title: Vue Architect — Agent Skill Kit
+description: Expert scaffolding for Vue 3. Specialized for Laravel Inertia stacks, but supports Nuxt/Vite. Enforces Composition API & TypeScript.
+---
+
 # Vue Architect
 
 Expert scaffolding for Vue 3. Specialized for Laravel Inertia stacks, but supports Nuxt/Vite. Enforces Composition API & TypeScript.

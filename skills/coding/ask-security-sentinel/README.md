@@ -1,4 +1,5 @@
 ---
+title: Security Sentinel — Agent Skill Kit
 name: ask-security-sentinel
 description: Pre-flight security checker. Scans for exposed secrets and vulnerable patterns.
 ---

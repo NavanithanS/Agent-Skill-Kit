@@ -1,3 +1,8 @@
+---
+title: PDF Processing — Agent Skill Kit
+description: PDF text extraction, form filling, and merging using pypdf and pdfplumber. For Codex, Gemini CLI, Claude Code, Antigravity and Cursor.
+---
+
 # PDF Processing
 
 A skill for handling PDF text extraction, form filling, and merging operations using `pypdf` and `pdfplumber`.

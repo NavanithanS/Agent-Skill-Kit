@@ -1,11 +1,12 @@
 ---
+title: Shadcn/UI Architect — Agent Skill Kit
 name: ask-shadcn-architect
 description: Strictly enforces shadcn/ui patterns, imports, and CLI usage when creating or modifying React UI components.
-globs: 
-  - "components/ui/**/*.tsx"
-  - "components/ui/**/*.ts"
-  - "tailwind.config.js"
-  - "lib/utils.ts"
+globs:
+- components/ui/**/*.tsx
+- components/ui/**/*.ts
+- tailwind.config.js
+- lib/utils.ts
 ---
 
 # Shadcn/UI Architect

@@ -3,8 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agent Skill Kit — CLI package manager for AI agent skills</title>
-  <meta name="description" content="A package manager for AI agent skills. One library. Every agent.">
+  <title>Skill browser &amp; command builder — Agent Skill Kit</title>
+  <meta name="description" content="Browse all 42 Agent Skill Kit skills and generate ask copy / ask purge commands for Claude Code, Codex, Gemini CLI, Cursor and Antigravity.">
+  <link rel="canonical" href="https://navanithans.github.io/Agent-Skill-Kit/docs/">
+  <meta name="google-site-verification" content="Rfmf9zkKXT4LZoUsDXeP_uAZSkYLVptJF85hHCptfic">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Agent Skill Kit">
+  <meta property="og:title" content="Skill browser &amp; command builder — Agent Skill Kit">
+  <meta property="og:description" content="Browse 42 agent skills and build ask commands for five coding agents.">
+  <meta property="og:url" content="https://navanithans.github.io/Agent-Skill-Kit/docs/">
+  <meta property="og:image" content="https://raw.githubusercontent.com/NavanithanS/Agent-Skill-Kit/master/assets/banner.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Skill browser &amp; command builder — Agent Skill Kit">
+  <meta name="twitter:description" content="Browse 42 agent skills and build ask commands for five coding agents.">
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/NavanithanS/Agent-Skill-Kit/master/assets/banner.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config = { darkMode: 'class' }</script>
   <style>
@@ -344,14 +356,73 @@
   </div>
 </section>
 
+<!-- ====== STATIC INDEX ======
+     Rendered server-side as real anchors. The interactive browser above is
+     built by JS from the SKILLS array, which crawlers may never execute; this
+     block is what makes the library crawlable and gives every per-skill
+     Jekyll page an internal link. Do not replace it with JS rendering. -->
+<section id="all-skills" class="py-14 px-4 border-t border-gray-100 dark:border-zinc-800 dark:bg-zinc-950">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-xl font-bold text-gray-900 dark:text-zinc-50 mb-2">All 42 skills</h2>
+    <p class="text-sm text-gray-500 dark:text-zinc-400 mb-6">
+      Every skill in the library, with a direct link to its reference page. Each installs to
+      Claude Code, Codex, Gemini CLI, Cursor or Antigravity with a single <code>ask copy</code> command.
+    </p>
+    <h3 class="text-sm font-bold uppercase tracking-wide text-gray-500 dark:text-zinc-400 mt-6 mb-2">Coding (26)</h3><ul class="divide-y divide-gray-100 dark:divide-zinc-800"><li class="py-1.5"><a href="../skills/coding/ask-bug-finder/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-bug-finder</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Best practices for systematic bug hunting and debugging</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-code-reviewer/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-code-reviewer</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— An AI code reviewer that provides constructive feedback on code changes.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-commit-assistance/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-commit-assistance</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Assist with code review and staging. NEVER automatically commits.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-component-scaffolder/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-component-scaffolder</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Standardizes UI component creation by generating a consistent folder structure and files.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-conceptual-integrity-sentinel/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-conceptual-integrity-sentinel</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Principal-level engineering agent that audits repositories for architectural drift, bloated abstractions, and &quot;dead code.&quot;</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-db-migration-assistant/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-db-migration-assistant</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Ensures safe database schema updates by requiring migration and rollback scripts before execution.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-docker-expert/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-docker-expert</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Expert guidance on Docker, Docker Compose, and container optimization. Focuses on multi-stage builds and security.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-effective-llm-coder/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-effective-llm-coder</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Guides the agent in effective LLM-assisted coding using best practices for declarative workflows, simplicity, tenacity, and iterative refinement.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-explaining-code/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-explaining-code</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Explains code using analogies, ASCII diagrams, and step-by-step walkthroughs</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-fastapi-architect/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-fastapi-architect</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Expert scaffolding for FastAPI projects. Enforces Pydantic V2, Async Database patterns, and Dependency Injection.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-flutter-architect/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-flutter-architect</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Senior Flutter skill using FVM. Enforces project-specific standards: Provider, Layer-First Architecture, Stream-based Services, and strict coding conventions.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-flutter-mechanic/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-flutter-mechanic</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Maintenance skill for Flutter projects using FVM. Handles clean builds, iOS/Android specific fixes, asset generation, and release protocols.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-impact-sentinel/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-impact-sentinel</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Guidelines for impact analysis, breaking change detection, strategic database design, and comprehensive database indexing review.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-laravel-architect/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-laravel-architect</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Senior scaffolding skill. Handles SQL vs Mongo (Jenssegers/Official), SoftDeletes, and strict API standards.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-laravel-mechanic/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-laravel-mechanic</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Senior maintenance skill. Enforces &quot;Zero Data Loss&quot; policies and handles Mongo/SQL debugging.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-nextjs-architect/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-nextjs-architect</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Expert scaffolding for Next.js 14+ (App Router). Enforces Server Components, Server Actions, and SEO best practices.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-owasp-security-review/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-owasp-security-review</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Conduct a thorough static security review of code, identifying vulnerabilities aligned with OWASP Top 10 risks, with severity ratings and remediation suggestions.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-python-refactor/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-python-refactor</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Best practices and guidelines for Python code refactoring</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-readme-gardener/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-readme-gardener</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Keeps documentation in sync with code by updating the README.md when features or APIs are added.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-refactoring-readability/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-refactoring-readability</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Refactor code to enhance readability, following principles like DRY, meaningful names, and modularization.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-security-sentinel/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-security-sentinel</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Pre-flight security checker. Scans for exposed secrets and vulnerable patterns properly.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-shadcn-architect/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-shadcn-architect</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Strictly enforces shadcn/ui patterns, imports, and CLI usage when creating or modifying React UI components.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-shadcn-mechanic/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-shadcn-mechanic</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Expert maintenance skill for shadcn/ui. Handles component customization, responsive layout debugging, and Form/Zod wiring while strictly enforcing UI/UX design integrity.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-unit-test-generation/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-unit-test-generation</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Automates creation of comprehensive unit tests for functions or classes, emphasizing coverage of edge cases and assertions.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-vue-architect/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-vue-architect</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Expert scaffolding for Vue 3. Specialized for Laravel Inertia stacks, but supports Nuxt/Vite. Enforces Composition API &amp; TypeScript.</span></li>
+<li class="py-1.5"><a href="../skills/coding/ask-vue-mechanic/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-vue-mechanic</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Expert maintenance skill for Vue 3 within Laravel Inertia. Fixes navigation reloads, prop mismatches, and reactivity issues.</span></li></ul>
+<h3 class="text-sm font-bold uppercase tracking-wide text-gray-500 dark:text-zinc-400 mt-6 mb-2">Planning (6)</h3><ul class="divide-y divide-gray-100 dark:divide-zinc-800"><li class="py-1.5"><a href="../skills/planning/ask-adr-logger/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-adr-logger</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Automatically records Architectural Decision Records (ADRs) when a significant technical decision is made.</span></li>
+<li class="py-1.5"><a href="../skills/planning/ask-brainstorm/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-brainstorm</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Explores user intent, requirements, and design before implementation. Required before any creative work.</span></li>
+<li class="py-1.5"><a href="../skills/planning/ask-buildmaster/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-buildmaster</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Smart Epic Orchestration Agent - Acts as PM + Tech Lead + Delivery Manager for epic planning, execution, and delivery.</span></li>
+<li class="py-1.5"><a href="../skills/planning/ask-hold-code/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-hold-code</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Planning-mode lock that prevents code generation until the user explicitly approves implementation.</span></li>
+<li class="py-1.5"><a href="../skills/planning/ask-project-memory/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-project-memory</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Maintains a &#x27;Project Brain&#x27; by recording architectural decisions and tech stack choices in a memory file.</span></li>
+<li class="py-1.5"><a href="../skills/planning/ask-solution-architect/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-solution-architect</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Master Ideation and Strategic Architecture skill. Executes professional, multi-perspective ideation sessions utilizing SCAMPER, Six Hats, and Design Thinking.
+</span></li></ul>
+<h3 class="text-sm font-bold uppercase tracking-wide text-gray-500 dark:text-zinc-400 mt-6 mb-2">Tooling (10)</h3><ul class="divide-y divide-gray-100 dark:divide-zinc-800"><li class="py-1.5"><a href="../skills/tooling/ask-add-agent/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-add-agent</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— How to add support for new AI code editors to Agent Skill Kit</span></li>
+<li class="py-1.5"><a href="../skills/tooling/ask-ast-mapper/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-ast-mapper</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Read-only subagent designed to generate lightweight AST (Abstract Syntax Tree) dependency maps.</span></li>
+<li class="py-1.5"><a href="../skills/tooling/ask-context-janitor/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-context-janitor</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Aggressive token optimizer and context summarizer for AI orchestrators</span></li>
+<li class="py-1.5"><a href="../skills/tooling/ask-parallel-auditor/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-parallel-auditor</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Orchestrator skill that splits a target repository into chunks and runs multiple audit subagents in parallel.</span></li>
+<li class="py-1.5"><a href="../skills/tooling/ask-pdf-processing/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-pdf-processing</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— PDF text extraction, form filling, and merging using pypdf and pdfplumber</span></li>
+<li class="py-1.5"><a href="../skills/tooling/ask-skill-capture/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-skill-capture</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Meta-skill. Analyzes the current session&#x27;s lessons and saves them as a permanent reusable skill.</span></li>
+<li class="py-1.5"><a href="../skills/tooling/ask-skill-creator/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-skill-creator</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Teaches AI agents how to create skills for Agent Skill Kit</span></li>
+<li class="py-1.5"><a href="../skills/tooling/ask-smart-booking-test/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-smart-booking-test</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— An advanced autonomous testing skill for verifying end-to-end booking flows. Specializes in Flights, Movies, and Tours with integrated Payment Gateway testing.</span></li>
+<li class="py-1.5"><a href="../skills/tooling/ask-system-architect-prime/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-system-architect-prime</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Principal Software Architect for repository audits, complexity analysis, and actionable refactoring recommendations</span></li>
+<li class="py-1.5"><a href="../skills/tooling/ask-wiki-init/" class="text-sm font-medium text-gray-900 dark:text-zinc-100 hover:underline">ask-wiki-init</a> <span class="text-sm text-gray-500 dark:text-zinc-400">— Scaffolds the LLM Wiki pattern into any project — a persistent, compounding knowledge base maintained by AI agents.</span></li></ul>
+  </div>
+</section>
+
 <!-- ====== FOOTER ====== -->
 <footer class="border-t border-gray-100 dark:border-zinc-800 bg-white dark:bg-zinc-950 py-8 px-4">
   <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-    <p class="text-sm text-gray-400">Generated 2026-08-02 · 42 skills</p>
-    <a href="https://github.com/navanithans/Agent-Skill-Kit" target="_blank"
-       class="text-sm text-gray-400 hover:text-gray-700 transition-colors">
-      Agent Skill Kit on GitHub ↗
-    </a>
+    <p class="text-sm text-gray-400">Generated 2026-09-05 · 42 skills</p>
+    <nav class="flex items-center gap-4 text-sm text-gray-400">
+      <a href="https://navanithans.github.io/Agent-Skill-Kit/" class="hover:text-gray-700 transition-colors">Documentation</a>
+      <a href="https://github.com/NavanithanS/Agent-Skill-Kit" class="hover:text-gray-700 transition-colors">GitHub&nbsp;↗</a>
+      <a href="https://pypi.org/project/agent-skill-kit/" class="hover:text-gray-700 transition-colors">PyPI&nbsp;↗</a>
+    </nav>
   </div>
 </footer>
 

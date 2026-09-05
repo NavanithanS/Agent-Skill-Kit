@@ -1,3 +1,8 @@
+---
+title: Skill Creator — Agent Skill Kit
+description: Teaches AI agents how to create skills for Agent Skill Kit. For Codex, Gemini CLI, Claude Code, Antigravity and Cursor.
+---
+
 # Skill Creator
 
 A meta-skill that teaches AI agents how to create skills for Agent Skill Kit.

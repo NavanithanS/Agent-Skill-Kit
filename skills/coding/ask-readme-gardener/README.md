@@ -1,4 +1,5 @@
 ---
+title: Readme Gardener — Agent Skill Kit
 name: ask-readme-gardener
 description: Keeps documentation in sync with code by updating the README.md when features or APIs are added.
 ---

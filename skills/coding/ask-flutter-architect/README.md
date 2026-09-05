@@ -1,3 +1,8 @@
+---
+title: Flutter Architect — Agent Skill Kit
+description: 'Senior Flutter skill using FVM. Enforces project-specific standards: Provider, Layer-First Architecture, Stream-based Services, and strict coding…'
+---
+
 # Flutter Architect
 
 Senior Flutter skill using FVM. Enforces project-specific standards: Provider, Layer-First Architecture, Stream-based Services, and strict coding conventions.

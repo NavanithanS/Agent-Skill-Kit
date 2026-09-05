@@ -1,4 +1,5 @@
 ---
+title: Component Scaffolder — Agent Skill Kit
 name: ask-component-scaffolder
 description: Standardizes UI component creation by generating a consistent folder structure and files.
 ---

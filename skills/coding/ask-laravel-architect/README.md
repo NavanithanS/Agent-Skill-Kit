@@ -1,3 +1,8 @@
+---
+title: Laravel Architect — Agent Skill Kit
+description: Senior scaffolding skill. Handles SQL vs Mongo (Jenssegers/Official), SoftDeletes, and strict API standards.
+---
+
 # Laravel Architect
 
 Senior scaffolding skill. Handles SQL vs Mongo (Jenssegers/Official), SoftDeletes, and strict API standards.

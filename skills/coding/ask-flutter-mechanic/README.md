@@ -1,3 +1,8 @@
+---
+title: Flutter Mechanic — Agent Skill Kit
+description: Maintenance skill for Flutter projects using FVM. Handles clean builds, iOS/Android specific fixes, asset generation, and release protocols.
+---
+
 # Flutter Mechanic
 
 Maintenance skill for Flutter projects using FVM. Handles clean builds, iOS/Android specific fixes, asset generation, and release protocols.

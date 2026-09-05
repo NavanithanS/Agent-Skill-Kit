@@ -1,3 +1,8 @@
+---
+title: Bug Finder — Agent Skill Kit
+description: Best practices for systematic bug hunting and debugging. For Codex, Gemini CLI, Claude Code, Antigravity and Cursor.
+---
+
 # Bug Finder
 
 Best practices for systematic bug hunting and debugging.

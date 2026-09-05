@@ -1,4 +1,5 @@
 ---
+title: Brainstorm — Agent Skill Kit
 name: ask-brainstorm
 description: Required before any creative work—including creating features, building components, adding functionality, or modifying behavior. This step explores user intent, requirements, and design before implementation.
 ---

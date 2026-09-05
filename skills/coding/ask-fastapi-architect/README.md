@@ -1,3 +1,8 @@
+---
+title: FastAPI Architect — Agent Skill Kit
+description: Expert scaffolding for FastAPI projects. Enforces Pydantic V2, Async Database patterns, and Dependency Injection.
+---
+
 # FastAPI Architect
 
 Expert scaffolding for Python FastAPI projects. Enforces the use of Pydantic V2, Async Database patterns, and Dependency Injection.

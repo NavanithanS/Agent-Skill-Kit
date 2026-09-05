@@ -1,3 +1,8 @@
+---
+title: Context Janitor — Agent Skill Kit
+description: Aggressive token optimizer and context summarizer for AI orchestrators. For Codex, Gemini CLI, Claude Code and Antigravity.
+---
+
 # ask-context-janitor
 
 Aggressive token optimizer and context summarizer designed for AI orchestrators dealing with massive log files, pull requests, or audit reports.

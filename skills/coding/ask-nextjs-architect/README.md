@@ -1,3 +1,8 @@
+---
+title: Next.js Architect — Agent Skill Kit
+description: Expert scaffolding for Next.js 14+ (App Router). Enforces Server Components, Server Actions, and SEO best practices.
+---
+
 # Next.js Architect
 
 Expert scaffolding for Next.js 14+ (App Router) projects. Enforces the use of Server Components, Server Actions, and strict TypeScript patterns.

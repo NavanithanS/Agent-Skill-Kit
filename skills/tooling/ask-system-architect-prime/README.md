@@ -1,3 +1,8 @@
+---
+title: System Architect Prime — Agent Skill Kit
+description: Principal Software Architect for repository audits, complexity analysis, and actionable refactoring recommendations
+---
+
 # System Architect Prime
 
 A comprehensive repository analysis tool that acts as a Principal Software Architect. It audits codebases for architectural integrity, cyclomatic complexity, security vulnerabilities, and test coverage gaps.

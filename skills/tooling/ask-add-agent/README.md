@@ -1,3 +1,8 @@
+---
+title: Add Agent — Agent Skill Kit
+description: How to add support for new AI code editors to Agent Skill Kit. For Codex, Gemini CLI, Claude Code, Antigravity and Cursor.
+---
+
 # Add Agent
 
 How to add support for new AI code editors to Agent Skill Kit.

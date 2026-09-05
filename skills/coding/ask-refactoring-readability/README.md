@@ -1,3 +1,8 @@
+---
+title: Refactoring for Readability — Agent Skill Kit
+description: Refactor code to enhance readability, following principles like DRY, meaningful names, and modularization.
+---
+
 # Refactoring for Readability
 
 A skill that improves code structure without altering behavior, prioritizing clarity and maintainability.

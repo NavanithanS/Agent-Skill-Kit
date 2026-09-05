@@ -1,3 +1,8 @@
+---
+title: Python Refactor — Agent Skill Kit
+description: Best practices and guidelines for Python code refactoring. For Codex, Gemini CLI, Claude Code, Antigravity and Cursor.
+---
+
 # Python Refactor
 
 Best practices and guidelines for Python code refactoring.

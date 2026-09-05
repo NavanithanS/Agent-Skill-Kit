@@ -1,3 +1,8 @@
+---
+title: Parallel Auditor — Agent Skill Kit
+description: Orchestrator skill that splits a target repository into chunks and runs multiple audit subagents in parallel.
+---
+
 # ask-parallel-auditor
 
 An orchestrator skill designed to bypass single-agent context limits by chunking repositories and spawning parallel subagents to conduct massive audits.

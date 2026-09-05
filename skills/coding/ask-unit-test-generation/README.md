@@ -1,3 +1,8 @@
+---
+title: Unit Test Generation — Agent Skill Kit
+description: Automates creation of comprehensive unit tests for functions or classes, emphasizing coverage of edge cases and assertions.
+---
+
 # Unit Test Generation
 
 A skill that automates the creation of comprehensive unit tests for functions or classes, emphasizing coverage of edge cases and assertions.

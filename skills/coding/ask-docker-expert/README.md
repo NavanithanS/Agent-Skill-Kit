@@ -1,3 +1,8 @@
+---
+title: Docker Expert — Agent Skill Kit
+description: Expert guidance on Docker, Docker Compose, and container optimization. Focuses on multi-stage builds and security.
+---
+
 # Docker Expert
 
 Expert guidance on Containerization, Dockerfiles, and Docker Compose. Enforces best practices for security, image size, and build speed.

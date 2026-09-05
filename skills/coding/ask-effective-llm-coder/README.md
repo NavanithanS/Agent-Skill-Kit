@@ -1,4 +1,5 @@
 ---
+title: Effective LLM Coder — Agent Skill Kit
 name: ask-effective-llm-coder
 description: Guides the agent in effective LLM-assisted coding using best practices for declarative workflows, simplicity, tenacity, and iterative refinement. Inspired by insights on modern agentic coding.
 ---

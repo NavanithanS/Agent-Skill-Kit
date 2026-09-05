@@ -1,4 +1,5 @@
 ---
+title: Project Memory — Agent Skill Kit
 name: ask-project-memory
 description: Maintains a 'Project Brain' by recording architectural decisions and tech stack choices in a memory file.
 ---
