@@ -1,0 +1,71 @@
+# GitHub Pages (legacy Jekyll) configuration.
+#
+# IMPORTANT: `url` and `baseurl` must stay set explicitly. Before this file
+# existed, Pages auto-derived baseurl and jekyll-seo-tag emitted correct
+# canonicals as a side effect. Removing either key strips the /Agent-Skill-Kit
+# prefix from every canonical URL and every sitemap entry.
+
+title: "Agent Skill Kit"
+description: "CLI package manager for AI agent skills — deploy one skill library to Claude Code, Codex, Gemini CLI, Cursor and Antigravity."
+url: "https://navanithans.github.io"
+baseurl: "/Agent-Skill-Kit"
+lang: en_US
+
+# Search Console ownership. jekyll-seo-tag renders this as
+# <meta name="google-site-verification" content="..."> in every page head.
+# Removing it revokes verification.
+google_site_verification: "Rfmf9zkKXT4LZoUsDXeP_uAZSkYLVptJF85hHCptfic"
+
+# Both plugins are on the GitHub Pages allowlist. jekyll-seo-tag already ran
+# before this file existed; jekyll-sitemap is the addition that creates
+# /sitemap.xml.
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+exclude:
+  # --- Agent instruction files: not public documentation ---
+  - AGENTS.md
+  - CLAUDE.md
+  - GEMINI.md
+  - TWEET.md
+  - PUBLISHING.md
+  - RELEASE_NOTES.md
+  - CITATION.cff
+
+  # --- Internal knowledge base ---
+  - wiki/
+
+  # --- Source, build and packaging ---
+  - ask/
+  - agents/
+  - scripts/
+  - tests/
+  - dist/
+  - package/
+  - tmp/
+  - Formula/
+  - requirements.txt
+  - pyproject.toml
+  - agent-skill-kit.rb
+
+  # --- Per-skill support files ---
+  # Every non-README markdown file inside a skill directory. Without these,
+  # test fixtures and prompt fragments publish as orphan pages sharing one
+  # meta description.
+  - "skills/*/*/tests"
+  - "skills/*/*/scripts"
+  - "skills/*/*/assets"
+  - "skills/*/*/resources"
+  - "skills/*/*/reference"
+  - "skills/*/*/references"
+  - "skills/workflows/skill-creator/workflow.md"
+
+  # --- Duplicate of each skill's README.md ---
+  # SKILL.md renders at /skills/<cat>/<skill>/SKILL, competing with the
+  # directory index generated from README.md. README wins: cleaner URL,
+  # human prose, and it is the page that actually got indexed.
+  - "skills/*/*/SKILL.md"
+
+# NOT excluded, deliberately: README.md, CONTRIBUTING.md, CHANGELOG.md,
+# docs/ (the generated command-builder SPA), skills/*/*/README.md, assets/.
