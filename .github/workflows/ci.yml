@@ -29,3 +29,8 @@ jobs:
     - name: Test with pytest
       run: |
         pytest tests/ --cov=ask --cov-report=xml
+    - name: Check skill README front matter
+      # Fails when a skill README lacks a title/description, so a newly added
+      # skill cannot silently ship a page with no search metadata.
+      run: |
+        python3 scripts/add_skill_frontmatter.py --check

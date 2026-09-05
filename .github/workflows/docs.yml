@@ -30,6 +30,11 @@ jobs:
       - name: Compile manifest
         run: ask skill compile
 
+      - name: Add SEO front matter to new skill READMEs
+        # Runs before the site build so a newly added skill gets its page
+        # title/description without a manual step. Idempotent.
+        run: python scripts/add_skill_frontmatter.py
+
       - name: Generate site
         run: python scripts/generate_site.py
 
@@ -37,6 +42,6 @@ jobs:
         run: |
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
-          git add docs/ skills/manifest.json
+          git add docs/ skills/ README.md
           git diff --cached --quiet || git commit -m "chore: regenerate docs site [skip ci]"
           git push
