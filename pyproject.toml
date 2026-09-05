@@ -5,13 +5,16 @@ build-backend = "hatchling.build"
 [project]
 name = "agent-skill-kit"
 version = "0.9.1"
-description = "Centralized skills repository and CLI toolkit for AI agents"
+description = "CLI to write an agent skill once and deploy it to Claude Code, Codex, Gemini CLI, Cursor and Antigravity"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.9"
-keywords = ["ai", "agents", "skills", "cli", "codex", "gemini", "claude"]
+keywords = [
+    "ai", "agents", "agent-skills", "skills", "cli", "package-manager",
+    "codex", "gemini", "claude", "claude-code", "cursor", "antigravity", "mcp",
+]
 authors = [
-    { name = "Nava" }
+    { name = "Navanithan S", email = "gua@navins.biz" }
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -30,6 +33,13 @@ dependencies = [
     "pyyaml>=6.0",
     "rich>=13.0.0",
 ]
+
+[project.urls]
+Homepage      = "https://navanithans.github.io/Agent-Skill-Kit/"
+Documentation = "https://navanithans.github.io/Agent-Skill-Kit/docs/"
+Repository    = "https://github.com/NavanithanS/Agent-Skill-Kit"
+Changelog     = "https://github.com/NavanithanS/Agent-Skill-Kit/blob/master/CHANGELOG.md"
+Issues        = "https://github.com/NavanithanS/Agent-Skill-Kit/issues"
 
 [project.optional-dependencies]
 dev = [

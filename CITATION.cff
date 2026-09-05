@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+title: "Agent Skill Kit (ASK)"
+message: "If you use this software, please cite it."
+type: software
+authors:
+  - family-names: "S"
+    given-names: "Navanithan"
+    email: "gua@navins.biz"
+repository-code: "https://github.com/NavanithanS/Agent-Skill-Kit"
+url: "https://navanithans.github.io/Agent-Skill-Kit/"
+abstract: >-
+  A command-line package manager for AI agent skills. Define a skill once in a
+  standard format and deploy it to Claude Code, OpenAI Codex, Gemini CLI,
+  Cursor and Antigravity in each tool's native format, with per-agent format
+  adapters, token-budget linting and trigger-collision auditing.
+keywords:
+  - agent-skills
+  - ai-agents
+  - claude-code
+  - codex
+  - gemini-cli
+  - cursor
+  - cli
+  - developer-tools
+license: MIT
+version: 0.9.1
