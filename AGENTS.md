@@ -14,6 +14,21 @@
 - `ask test` runs the offline trigger/collision audit over each skill's `tests/evals.yaml`; add `--strict` for a CI gate.
 - `ask mcp serve` runs ASK as a read-only MCP server (optional `[mcp]` extra) so agents can discover skills at runtime.
 - `python -m pytest` runs the full test suite from `tests/`.
+- `python3 scripts/generate_site.py` regenerates the docs site, the skill hub, and the README skill table.
+- `python3 scripts/add_skill_frontmatter.py` adds SEO front matter to skill READMEs; `--check` is the CI gate (exits 1 when a README needs work).
+
+## Generated Files — Do Not Hand-Edit
+These are overwritten by `scripts/generate_site.py` and auto-committed by `.github/workflows/docs.yml`:
+- `docs/index.html` — edit the template in `generate_site.py` (`generate_index_page`), never the output.
+- `skills/README.md` — edit `generate_skill_index()`.
+- The `README.md` block between `<!-- SKILLS:START -->` and `<!-- SKILLS:END -->` — edit `sync_readme_table()`. Everything outside the markers is hand-written and preserved.
+
+## Publishing & Site Constraints
+- GitHub Pages builds Jekyll from the **repo root**, so every non-excluded markdown file becomes a public page. When adding a new per-skill directory type, add it to `exclude:` in `_config.yml` or it will publish as an orphan page.
+- Do not remove `url`, `baseurl`, or `google_site_verification` from `_config.yml`. The first two keep canonical URLs correct; the third holds Search Console ownership.
+- A skill's `README.md` is the canonical public page; `SKILL.md` is excluded to avoid duplicate pages.
+- A `README.md` in a directory with no `SKILL.md` is the skill's deployed *instruction file* (see `ask/utils/skill_registry.py`), so `add_skill_frontmatter.py` deliberately skips it. Keep that guard.
+- See `wiki/concepts/site-and-seo.md` for the full picture, including how to verify a deploy — a failed Jekyll build silently serves the previous version.
 
 ## Coding Style & Naming Conventions
 - Use Python 3.9+ conventions with 4-space indentation and standard library-friendly, readable code.

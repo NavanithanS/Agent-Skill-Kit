@@ -50,3 +50,40 @@ Comprehensive lint pass auditing all wiki pages against codebase state at v0.9.1
 
 Sources: agents/base.py, agents/antigravity/adapter.py, ask/commands/copy.py, ask/utils/filesystem.py, ask/cli.py, skills/** directory listing, CHANGELOG.md, pyproject.toml.
 
+
+## [2026-09-05] update | Search discoverability: Pages config, SEO metadata, generated docs
+
+Implemented Phases 1–3 of the search-visibility plan after an audit found **zero pages indexed by Google** on both `github.com/NavanithanS/Agent-Skill-Kit` and `navanithans.github.io` (verified with live `site:` queries in a browser; search APIs silently ignore the `site:` operator). The repo also had `repositoryTopics: null`, `licenseInfo: null`, and no `_config.yml`, so Jekyll was publishing all ~400 markdown files with one shared meta description.
+
+Changes:
+
+- **[NEW] `_config.yml`** — enables `jekyll-sitemap` (site had no `sitemap.xml`), sets explicit `url`/`baseurl` (required: Pages previously auto-derived `baseurl`, and omitting it would strip `/Agent-Skill-Kit` from every canonical), carries `google_site_verification`, and excludes 27 paths. Exclusions cover agent instruction files, `wiki/`, source dirs, per-skill `tests|scripts|assets|resources|reference|references`, and `SKILL.md` (which duplicated each skill's `README.md` page at `/SKILL`).
+- **[NEW] `scripts/add_skill_frontmatter.py`** — gives all 42 skill READMEs a unique `title:` and ≤155-char `description:` from `skill.yaml`. Guards: skips any README that serves as a skill's `_instruction_file` (no `SKILL.md`), since adapters deploy that file to agents; humanizes slug-like H1s; strips redundant `Ask ` prefixes; restores acronyms.
+- **`scripts/generate_site.py`** — added canonical/OG/Twitter/verification tags to the generated `<head>`, plus a server-rendered static skill index (docs page went from **162 → 880** crawlable words with 42 real internal links). New `generate_skill_index()` writes `skills/README.md` as a crawlable hub; new `sync_readme_table()` maintains the README table between `SKILLS:START/END` markers.
+- **[NEW] `LICENSE`** (MIT — was declared in `pyproject.toml` but absent, so GitHub reported no license, blocking directory submissions), **`CITATION.cff`**, **`robots.txt`**.
+- **`pyproject.toml`** — added `[project.urls]` (PyPI is the only page-1 result for the brand phrase and linked nowhere: `home_page: None`, `project_urls: None`), author email, expanded keywords.
+- **`README.md`** — restructured opening (changelog moved below the fold; content verified preserved in `CHANGELOG.md`), added the generated 42-row skill table.
+- **`.github/workflows/docs.yml`** — now commits `skills/README.md` and `README.md`. The existing `[skip ci]` prevents the `skills/**` trigger from looping.
+- **4 new skill READMEs** — `ask-owasp-security-review`, `ask-hold-code`, `ask-smart-booking-test`, `ask-wiki-init` had none.
+- **[NEW] `concepts/site-and-seo.md`**, indexed in `index.md`.
+
+Corrections to existing wiki content:
+
+- **skills-catalog.md**: `workflows/` was recorded as holding 1 skill (`skill-creator`). It holds **none** — that directory has no `skill.yaml` and no `SKILL.md`, is not registered by `SkillRegistry`, and is absent from `manifest.json` (42, not 43). Marked superseded; the directory remains unresolved (delete or promote).
+
+Bugs found and fixed during review (two reviewer passes plus an independent code review):
+
+- **`generate_site.py` had a backslash inside an f-string expression** — a hard `SyntaxError` on Python 3.9–3.11, which `ci.yml` tests and `requires-python` declares. Both scripts now verified compiling *and running* on 3.9/3.10/3.11/3.12.
+- **Front matter destroyed repo content.** An earlier revision truncated any `description` over 155 chars *in the file*, silently dropping a sentence from `ask-effective-llm-coder`, `ask-shadcn-mechanic`, `ask-brainstorm` and `ask-solution-architect`. Restored from HEAD; the script now only fills an *absent* description, since 155 is a display limit, not a storage limit.
+- **The agent-list suffix was appended before truncation**, so it was clipped first — 19 generated descriptions ended in a dangling `… For Antigravity, Gemini CLI, Claude…`. The suffix is now appended only when the whole string fits.
+- **`sync_readme_table`'s failure was silent** — its boolean return was discarded while `docs.yml` committed `README.md` unconditionally, so a removed marker would ship a stale table behind a green build. Now exits non-zero (verified).
+- **`--check` was documented "for CI" but no workflow ran it.** Wired into `ci.yml`; `docs.yml` now also runs the script itself so a newly added skill gets metadata automatically.
+- Smaller: empty-description produced a malformed `". For Claude Code."`; `rstrip('.')` was a no-op on descriptions ending `…"dead code."`, yielding `.".`; folded YAML newlines could break the markdown table; README marker ordering was unguarded; `str.title()` lowercased acronyms (`Ast Mapper`).
+
+Method note: the first content-preservation check excluded the `description` field as "intentionally changed", which is exactly why the data loss above went unnoticed for two passes. The check now covers every field.
+
+Verification: `ask validate` 42/42 · `pytest` 47/47 · `python -m build` OK · generators idempotent · all 42 READMEs carry a unique title and valid description · non-description front-matter keys and README bodies byte-identical to HEAD.
+
+Not done (requires owner action): Search Console verification, GitHub topics/description, social preview image, PyPI release.
+
+Sources: _config.yml, scripts/generate_site.py, scripts/add_skill_frontmatter.py, ask/utils/skill_registry.py, agents/*/adapter.py, .github/workflows/{docs,ci,release}.yml, pyproject.toml, live Google SERPs.

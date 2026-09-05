@@ -2,13 +2,16 @@
 title: Skills Catalog
 type: overview
 tags: [skills, catalog, library]
-updated: 2026-08-02
+updated: 2026-09-05
 sources: 1
 ---
 
 # Skills Catalog
 
-All skills in `skills/` as of 2026-08-02. Total: **42** skills across 4 categories.
+All skills in `skills/` as of 2026-09-05. Total: **42** registered skills across **3** populated categories (`coding/` 26, `planning/` 6, `tooling/` 10).
+
+> **Superseded:** an earlier lint pass recorded `workflows/` as holding 1 skill.
+> It holds none — see below.
 
 ## coding/ (26 skills)
 
@@ -67,8 +70,13 @@ All skills in `skills/` as of 2026-08-02. Total: **42** skills across 4 categori
 | ask-system-architect-prime | Repo audits, complexity analysis, refactoring recommendations |
 | ask-wiki-init | Scaffolds the LLM Wiki pattern into any project |
 
-## workflows/ (1 skill)
+## workflows/ (0 registered skills)
 
-| Skill | Description |
-|---|---|
-| skill-creator | Reference workflow for skill creation (Gold Standard template) |
+`skills/workflows/skill-creator/` contains only `workflow.md` — **no `skill.yaml`
+and no `SKILL.md`** — so `SkillRegistry` does not register it and it is absent
+from `skills/manifest.json` (which holds 42, not 43). It duplicates the real
+`tooling/ask-skill-creator`.
+
+It is excluded from the Jekyll build so it does not publish as an orphan page,
+but the directory itself is unresolved: it should either be deleted or promoted
+into a proper skill. See [concepts/site-and-seo.md](concepts/site-and-seo.md).
