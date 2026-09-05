@@ -1,5 +1,5 @@
 ---
-title: Shadcn/UI Architect — Agent Skill Kit
+title: Shadcn/UI Architect
 name: ask-shadcn-architect
 description: Strictly enforces shadcn/ui patterns, imports, and CLI usage when creating or modifying React UI components.
 globs:

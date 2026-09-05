@@ -1,5 +1,5 @@
 ---
-title: Explaining Code — Agent Skill Kit
+title: Explaining Code
 description: Explains code using analogies, ASCII diagrams, and step-by-step walkthroughs. For Codex, Gemini CLI, Claude Code, Antigravity and Cursor.
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Docker Expert — Agent Skill Kit
+title: Docker Expert
 description: Expert guidance on Docker, Docker Compose, and container optimization. Focuses on multi-stage builds and security.
 ---
 

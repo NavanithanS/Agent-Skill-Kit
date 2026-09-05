@@ -1,5 +1,5 @@
 ---
-title: Smart Booking Test — Agent Skill Kit
+title: Smart Booking Test
 description: An advanced autonomous testing skill for verifying end-to-end booking flows. Specializes in Flights, Movies, and Tours with integrated Payment Gateway…
 ---
 

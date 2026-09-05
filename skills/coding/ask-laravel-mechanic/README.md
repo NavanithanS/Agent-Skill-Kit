@@ -1,5 +1,5 @@
 ---
-title: Laravel Mechanic — Agent Skill Kit
+title: Laravel Mechanic
 description: Senior maintenance skill. Enforces "Zero Data Loss" policies and handles Mongo/SQL debugging. For Codex, Gemini CLI, Claude Code, Antigravity and Cursor.
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Conceptual Integrity Sentinel — Agent Skill Kit
+title: Conceptual Integrity Sentinel
 description: Principal-level engineering agent that audits repositories for architectural drift, bloated abstractions, and "dead code."
 ---
 

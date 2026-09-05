@@ -1,5 +1,5 @@
 ---
-title: Impact Sentinel — Agent Skill Kit
+title: Impact Sentinel
 description: Guidelines for impact analysis, breaking change detection, strategic database design, and comprehensive database indexing review.
 ---
 

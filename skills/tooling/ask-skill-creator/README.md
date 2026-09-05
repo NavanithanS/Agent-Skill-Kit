@@ -1,5 +1,5 @@
 ---
-title: Skill Creator — Agent Skill Kit
+title: Skill Creator
 description: Teaches AI agents how to create skills for Agent Skill Kit. For Codex, Gemini CLI, Claude Code, Antigravity and Cursor.
 ---
 

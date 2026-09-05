@@ -1,5 +1,5 @@
 ---
-title: Hold Code — Agent Skill Kit
+title: Hold Code
 description: Planning-mode lock that prevents code generation until the user explicitly approves implementation.
 ---
 

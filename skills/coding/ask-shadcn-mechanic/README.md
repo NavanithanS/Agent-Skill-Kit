@@ -1,5 +1,5 @@
 ---
-title: Shadcn/UI Mechanic — Agent Skill Kit
+title: Shadcn/UI Mechanic
 name: ask-shadcn-mechanic
 description: Expert maintenance skill for shadcn/ui. Handles component customization, responsive layout debugging, and Form/Zod wiring while strictly enforcing UI/UX design integrity.
 globs:

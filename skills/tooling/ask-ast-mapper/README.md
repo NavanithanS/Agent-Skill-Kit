@@ -1,5 +1,5 @@
 ---
-title: AST Mapper — Agent Skill Kit
+title: AST Mapper
 description: Read-only subagent designed to generate lightweight AST (Abstract Syntax Tree) dependency maps. For Codex, Gemini CLI, Claude Code and Antigravity.
 ---
 

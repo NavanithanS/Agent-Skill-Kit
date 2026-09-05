@@ -1,5 +1,5 @@
 ---
-title: Wiki Init — Agent Skill Kit
+title: Wiki Init
 description: Scaffolds the LLM Wiki pattern into any project — a persistent, compounding knowledge base maintained by AI agents.
 ---
 

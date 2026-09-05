@@ -1,5 +1,5 @@
 ---
-title: Commit Assistance — Agent Skill Kit
+title: Commit Assistance
 description: Assist with code review and staging. NEVER automatically commits. For Antigravity, Cursor, Gemini CLI, Claude Code and Codex.
 ---
 

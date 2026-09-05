@@ -1,5 +1,5 @@
 ---
-title: System Architect Prime — Agent Skill Kit
+title: System Architect Prime
 description: Principal Software Architect for repository audits, complexity analysis, and actionable refactoring recommendations
 ---
 

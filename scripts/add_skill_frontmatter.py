@@ -101,7 +101,8 @@ def build_frontmatter(skill_yaml: Path, readme_text: str) -> dict:
     meta = yaml.safe_load(skill_yaml.read_text(encoding="utf-8")) or {}
     name = meta.get("name", skill_yaml.parent.name)
 
-    title = f"{page_title(readme_text, name)} — Agent Skill Kit"
+    # No product-name suffix: jekyll-seo-tag appends "| Agent Skill Kit".
+    title = page_title(readme_text, name)
 
     # Collapse whitespace: a folded YAML description can carry newlines, which
     # would break the generated markdown table downstream.
@@ -131,18 +132,24 @@ def build_frontmatter(skill_yaml: Path, readme_text: str) -> dict:
     return {"title": title, "description": truncate(description)}
 
 
+# jekyll-seo-tag renders "<page title> | <site.title>", so the front matter
+# must NOT carry the product name itself — doing so published
+# "Unit Test Generation — Agent Skill Kit | Agent Skill Kit".
 SUFFIX = " — Agent Skill Kit"
 
 
 def is_weak_title(title: str) -> bool:
     """True for a title this script previously generated badly.
 
-    Two shapes are worth rewriting: a raw slug ("ask-context-janitor"), and a
-    redundant "Ask " prefix that duplicates the appended product name. A title
-    a human wrote deliberately matches neither, so it is left alone.
+    Three shapes are worth rewriting: a raw slug ("ask-context-janitor"), a
+    redundant "Ask " prefix, and the legacy " — Agent Skill Kit" suffix that
+    duplicates the site name jekyll-seo-tag already appends. A title a human
+    wrote deliberately matches none of them, so it is left alone.
     """
-    heading = title[: -len(SUFFIX)] if title.endswith(SUFFIX) else title
-    return bool(SLUG_H1_RE.match(heading.strip())) or heading.startswith("Ask ")
+    if title.endswith(SUFFIX):
+        return True
+    heading = title.strip()
+    return bool(SLUG_H1_RE.match(heading)) or heading.startswith("Ask ")
 
 
 FRONTMATTER_RE = re.compile(r"\A---\r?\n(.*?)\r?\n---\r?\n?", re.DOTALL)

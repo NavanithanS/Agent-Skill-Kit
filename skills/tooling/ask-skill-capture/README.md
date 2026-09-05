@@ -1,5 +1,5 @@
 ---
-title: Skill Capture — Agent Skill Kit
+title: Skill Capture
 description: Meta-skill. Analyzes the current session's lessons and saves them as a permanent reusable skill.
 ---
 

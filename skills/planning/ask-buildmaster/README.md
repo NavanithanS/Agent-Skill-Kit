@@ -1,5 +1,5 @@
 ---
-title: 'Buildmaster: Smart Epic Orchestration Agent — Agent Skill Kit'
+title: 'Buildmaster: Smart Epic Orchestration Agent'
 name: ask-buildmaster
 description: Smart Epic Orchestration Agent - Acts as PM + Tech Lead + Delivery Manager for epic planning, execution, and delivery.
 ---

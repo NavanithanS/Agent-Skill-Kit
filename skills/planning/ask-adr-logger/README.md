@@ -1,5 +1,5 @@
 ---
-title: ADR Logger — Agent Skill Kit
+title: ADR Logger
 name: ask-adr-logger
 description: Automatically records Architectural Decision Records (ADRs) when a significant technical decision is made.
 ---

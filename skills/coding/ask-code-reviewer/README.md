@@ -1,5 +1,5 @@
 ---
-title: AI Code Reviewer — Agent Skill Kit
+title: AI Code Reviewer
 description: An AI code reviewer that provides constructive feedback on code changes. For Codex, Gemini CLI, Claude Code, Antigravity and Cursor.
 ---
 

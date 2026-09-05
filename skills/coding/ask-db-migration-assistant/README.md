@@ -1,5 +1,5 @@
 ---
-title: DB Migration Assistant — Agent Skill Kit
+title: DB Migration Assistant
 name: ask-db-migration-assistant
 description: Ensures safe database schema updates by requiring migration and rollback scripts before execution.
 ---

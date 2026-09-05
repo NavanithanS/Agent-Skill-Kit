@@ -1,5 +1,5 @@
 ---
-title: Vue Mechanic — Agent Skill Kit
+title: Vue Mechanic
 description: Expert maintenance skill for Vue 3 within Laravel Inertia. Fixes navigation reloads, prop mismatches, and reactivity issues.
 ---
 

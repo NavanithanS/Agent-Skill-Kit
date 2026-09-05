@@ -1,5 +1,5 @@
 ---
-title: OWASP Security Review — Agent Skill Kit
+title: OWASP Security Review
 description: Conduct a thorough static security review of code, identifying vulnerabilities aligned with OWASP Top 10 risks, with severity ratings and remediation…
 ---
 

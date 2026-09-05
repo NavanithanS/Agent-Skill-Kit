@@ -1,5 +1,5 @@
 ---
-title: Parallel Auditor — Agent Skill Kit
+title: Parallel Auditor
 description: Orchestrator skill that splits a target repository into chunks and runs multiple audit subagents in parallel.
 ---
 
