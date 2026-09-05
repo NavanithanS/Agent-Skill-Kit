@@ -116,3 +116,20 @@ Fix: `_config.yml` now lists all nine GitHub Pages defaults alongside the two op
 Root cause of the miss: the config could not be validated locally (no Jekyll toolchain), and the post-deploy verification checked sitemap/canonical/exclusions but never asserted that a generated internal link actually resolved. Link resolution is now part of the documented verification step.
 
 Sources: _config.yml, live navanithans.github.io/Agent-Skill-Kit responses, sitemap.xml.
+
+## [2026-09-05] update | Fix (part 2): readme_index must allow front matter
+
+Restoring the GitHub Pages default plugin list did **not** fix the 404s on `/skills/<category>/<skill>/`. Pages rebuilt cleanly (build `1cbfd6a5`, status `built`, no error) and the URLs still 404'd with 43 `README.html` entries in the sitemap.
+
+Actual root cause: `jekyll-readme-index` skips any `README.md` carrying YAML front matter — its documented default. Every skill README gained front matter in v0.10.0 for per-page titles and descriptions, so the plugin ignored all 42.
+
+Two independent conditions had been making the clean URLs work, and the v0.10.0 SEO work broke both simultaneously:
+
+1. No `_config.yml` existed, so the Pages default plugins (including `jekyll-readme-index`) were active — broken by adding a `plugins:` list.
+2. Skill READMEs had no front matter, so the plugin processed them — broken by adding `title:`/`description:`.
+
+Fixing only the first left the second violated, which is why the earlier fix appeared to fail. `_config.yml` now sets `readme_index: {with_frontmatter: true}` alongside the restored plugin list; both keys are required and neither is sufficient alone.
+
+Diagnostic note: the first fix was pushed and verified as *deployed* (Pages API build status + `Last-Modified` matching the build) before concluding it was ineffective, rather than assuming a propagation delay. That distinction is what isolated the second cause.
+
+Sources: _config.yml, jekyll-readme-index documented defaults, GitHub Pages builds API, live sitemap.xml.

@@ -70,6 +70,28 @@ pages had sensible `<title>`s before any front matter existed.
 **Every default must stay listed in `_config.yml`.** Add new plugins alongside
 them, never instead of them.
 
+## `readme_index` must allow front matter
+
+Listing the plugin is necessary but **not sufficient**. `jekyll-readme-index`
+skips any `README.md` that has YAML front matter — its documented default —
+so it must be told otherwise:
+
+```yaml
+readme_index:
+  with_frontmatter: true
+```
+
+Two independent conditions used to make the directory URLs work, and the SEO
+work broke both at once:
+
+1. No `_config.yml` existed, so the Pages defaults (including
+   `jekyll-readme-index`) were active.
+2. Skill READMEs had no front matter, so the plugin processed them.
+
+Adding a `plugins:` list broke (1); adding per-page `title:`/`description:`
+front matter broke (2). Restoring the plugin list alone left the URLs still
+404ing, because condition (2) was still violated. **Both keys are required.**
+
 ## Two settings that are load-bearing
 
 - **`url` + `baseurl`** — before `_config.yml` existed, Pages auto-derived

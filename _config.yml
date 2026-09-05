@@ -36,6 +36,15 @@ plugins:
   - jekyll-seo-tag                 # canonical, OG, JSON-LD, verification meta
   - jekyll-sitemap                 # /sitemap.xml (not a Pages default)
 
+# jekyll-readme-index SKIPS any README.md that has YAML front matter — that is
+# its documented default. Every skill README carries front matter (added for
+# per-page titles/descriptions), so without this the plugin ignores all of
+# them: they render as README.html and every /skills/<cat>/<name>/ URL 404s.
+# Both this key and jekyll-readme-index above are required; neither alone is
+# sufficient.
+readme_index:
+  with_frontmatter: true
+
 exclude:
   # --- Agent instruction files: not public documentation ---
   - AGENTS.md
