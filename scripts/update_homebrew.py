@@ -116,6 +116,17 @@ def git_commit_push(tap_path, version, dry_run=False):
 
     try:
         subprocess.run(["git", "-C", str(tap_path), "add", "."], check=True)
+
+        # An already-current tap is success, not failure. `git commit` exits
+        # non-zero when there is nothing staged, which would fail the release
+        # job on a re-run or a repeated publish of the same version.
+        staged = subprocess.run(
+            ["git", "-C", str(tap_path), "diff", "--cached", "--quiet"]
+        )
+        if staged.returncode == 0:
+            print(f"Tap already at v{version}; nothing to commit.")
+            return
+
         subprocess.run(["git", "-C", str(tap_path), "commit", "-m", f"Update agent-skill-kit to v{version}"], check=True)
         subprocess.run(["git", "-C", str(tap_path), "push"], check=True)
         print("Successfully pushed changes to remote.")

@@ -183,7 +183,11 @@ Three distinct defects, only the first of which produced an error message:
 2. **Checksum sourced from the wrong artifact.** `update_homebrew.py` hashed a locally rebuilt `dist/` tarball, but `homebrew-update` runs `python -m build` in a *separate job* from the one that uploaded to PyPI. Python sdists embed mtimes, so the two tarballs can differ byte-for-byte and the formula would pin a hash Homebrew can never match. Now reads the sdist digest from the PyPI JSON API (with retries for CDN lag), which is authoritative because that is the file Homebrew downloads. The rebuild step was removed from `release.yml`; a local `dist/` is now only cross-checked and reported, never authoritative.
 3. **Unbounded regexes.** `re.sub(r'url\s+"[^"]+"', …)` and the `sha256` equivalent had no `count=1`, so they rewrote *every* match. Harmless against the tap's current resource-free formula, but verified destructive against a formula with `resource` blocks: all 7 distinct hashes collapsed to one. Now `re.subn(..., count=1)`, and a zero-replacement result exits non-zero rather than pushing an unchanged formula — the silent no-op that let the tap sit at 0.8.1.
 
+4. **An already-current tap counted as failure.** `git_commit_push` ran `git commit` unconditionally, and that exits non-zero with nothing staged — so re-running the job, or republishing the same version, failed even with a working token and a correct formula. It now checks `git diff --cached --quiet` first and treats "nothing to commit" as success (verified: exit 0, tap untouched).
+
 Tap manually brought to 0.10.0 (commit `7e917775`) after verifying the formula hash against the actual downloaded tarball.
+
+Note on testing: re-running a *past* workflow run executes the code from that run's commit, so it cannot exercise these fixes. The repaired pipeline is first exercised end-to-end at the next release.
 
 **Separate discovery — the documented install path is broken for all new users.** Current Homebrew refuses third-party taps until explicitly trusted: `Refusing to load formula … from untrusted tap`. The README now leads with PyPI, documents the required `brew trust` step, and warns about `PATH` shadowing (a conda/virtualenv `pip` install masks the Homebrew binary, which produced a false-positive `ask --version` of 0.10.0 while brew actually had 0.1.5 installed).
 
