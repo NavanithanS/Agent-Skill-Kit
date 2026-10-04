@@ -87,7 +87,7 @@ triggers: ["phrase 1", "phrase 2"]
 
 ## Skill Name Convention
 
-Skill names must be kebab-case, 2–50 characters. Category dirs are `coding/`, `planning/`, `tooling/`, `workflows/`.
+Skill names must be kebab-case, 2–50 characters. Category dirs are `coding/`, `planning/`, `tooling/` (the only values `validate_category()` accepts).
 
 ## Knowledge Base (Wiki)
 
