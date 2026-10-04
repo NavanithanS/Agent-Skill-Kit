@@ -257,6 +257,7 @@ Features:
 - **Version Checks**: Compares installed version vs source.
 - **Interactive**: Select which skills to update (or use `--yes` to update all).
 - **Safe**: Automatic backup (`SKILL.md.bak`) created before overwriting.
+- **Dependencies are not added**: `ask update` refreshes skills you already have. If an updated skill gains a new `depends_on` (for example, `ask-explaining-code` 1.1.0 now uses `ask-ste-writing`), install it with `ask copy <agent> --skill <dependency>`.
 
 ### 9. Add Support for New Agents
 Want to use **Windsurf** or **Aider**? Use the scaffold wizard:

@@ -1,5 +1,48 @@
 # 🚀 Agent Skill Kit Releases
 
+## v0.10.1
+**Date**: October 4, 2026
+**Theme**: Output You Can Read
+
+Agents now do more of the work, so more of our time goes into reading what they
+produced. This release adds two tools for that, based on
+[Andrej Karpathy's post](https://x.com/karpathy/status/2105819303471976479) on
+understanding LLM output. It also fixes the docs site and the Homebrew release
+path after v0.10.0.
+
+### ✍️ New Skill: `ask-ste-writing`
+- Applies about 80% of **ASD-STE100 Simplified Technical English**, the controlled language of aircraft maintenance manuals.
+- Hard limits: 20 words per instruction, 25 per description, 6 sentences per paragraph, noun clusters of 3 words or fewer.
+- No progressive or perfect tenses, and no passive voice in procedures. Plain words: *use*, not *utilize*; *before*, not *prior to*.
+- Ships `scripts/check_ste.py`, a standard-library checker you can pipe any draft into.
+
+### 🗺️ `ask-explaining-code` 1.1.0: Pick the Format
+- Replaces "always draw an ASCII diagram" with a format ladder: prose → ASCII/Mermaid diagram → a self-contained HTML explainer. Video is offered only on request.
+- HTML explainers are disposable files written to the temp directory, laid out as a reference sheet with labelled panels and annotated real code.
+- Now explains diffs, PRs and the agent's own changes, not only existing code.
+- Depends on `ask-ste-writing`. `ask copy` installs both; this is the library's first `depends_on`.
+
+### 🐛 Fixes Worth Knowing
+- **Skill pages 404'd after v0.10.0.** A `_config.yml` plugin list removed `jekyll-readme-index`, and that plugin also skipped READMEs with front matter. `/skills/<category>/<name>/` URLs work again.
+- **Page titles said "Agent Skill Kit" twice.** Fixed.
+- **Homebrew could pin a checksum that never matches.** The formula checksum now comes from the file PyPI actually serves, and a re-run on an up-to-date tap no longer fails.
+- **Homebrew install docs** now cover the `brew trust` step that current Homebrew needs for third-party taps.
+
+### ⬆️ Upgrading
+No commands, flags, or skill formats changed.
+
+```bash
+pip install --upgrade agent-skill-kit
+ask update
+```
+
+`ask update` does not install new dependencies. If you already use
+`ask-explaining-code`, add the new skill once:
+
+```bash
+ask copy claude --skill ask-ste-writing   # use your agent name
+```
+
 ## v0.10.0
 **Date**: September 5, 2026
 **Theme**: Making the Library Findable

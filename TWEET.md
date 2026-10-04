@@ -1,19 +1,33 @@
-🚨 Agent Skill Kit v0.10.0 is out! 🚀
+## Release post
 
-This one has no new commands. I audited why nobody could find ASK and got an uncomfortable answer: **zero pages indexed by Google.** Not ranking badly — not indexed at all.
+🚨 Agent Skill Kit v0.10.1 is out! 🚀
 
-Turns out the repo had no `_config.yml`, so GitHub Pages was publishing ~400 files with no sitemap and *one shared meta description* across every skill page. The docs page built its whole skill list in JS, so crawlers saw 162 words. And the MIT license was declared in `pyproject.toml` but the LICENSE file didn't exist, so GitHub called it unlicensed.
+Agents write more of our code now. So our job shifts to reading what they made. @karpathy had a great post on this, and this release turns two of its ideas into skills.
 
-Fixed in v0.10.0:
-🗺️ Real sitemap.xml + 275 junk pages excluded
-🏷️ Unique title/description per skill, enforced in CI
-🔗 Docs page: 162 → 880 crawlable words, 42 real links
-📄 LICENSE added, PyPI now links back to the docs
+✍️ New: ask-ste-writing
+Agent prose in ~80% ASD-STE100, the controlled English of aircraft maintenance manuals. Max 20 words per instruction, active voice, one meaning per word. Comes with a checker script.
 
-Also fixed a fun one: `ask --version` read a hardcoded string inside a `try/except` that could never fire. It reads real package metadata now.
+🗺️ ask-explaining-code 1.1.0
+Picks the format: prose → diagram → a throwaway HTML explainer of your diff. No more ASCII art for a one-liner.
 
-If you maintain an open-source project, go run `site:yourdomain` on Google. You may not like the answer.
+Also fixed: skill pages that 404'd after v0.10.0, and a Homebrew checksum that could never match.
+
+pip install --upgrade agent-skill-kit
 
 👉 https://navanithans.github.io/Agent-Skill-Kit/
 
-#AI #LLMs #AgentSkillKit #DeveloperTools #SEO
+#AI #LLMs #AgentSkillKit #DeveloperTools
+
+---
+
+## Quote post
+
+Quote: https://x.com/karpathy/status/2105819303471976479
+
+Turned this into two open agent skills (Claude Code, Codex, Gemini CLI, Cursor):
+
+✍️ ask-ste-writing: agent prose in ~80% ASD-STE100
+🗺️ ask-explaining-code: prose → diagram → throwaway HTML explainer
+
+pip install agent-skill-kit
+ask copy claude --skill ask-explaining-code

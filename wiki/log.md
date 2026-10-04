@@ -212,3 +212,15 @@ Sources: Karpathy X post, ASD-STE100 overview image, `ask/utils/validators.py`, 
 - Found: `ask update` and MCP `get_skill` do not resolve `depends_on`. This change adds the first real dependency. Fixed in content (key STE limits inline in `ask-explaining-code`); documented the gap in `entities/skill.md`. The code fix in `update.py` is open.
 - Fixed `check_ste.py` false positives: `~~~` fences and headings without blank lines around them.
 - Fixed the hand-written README "Coding Skills" table (stale explaining-code row, missing ste-writing row).
+
+## [2026-10-04] update | v0.10.1 release prep
+
+Version bumped 0.10.0 → 0.10.1 (patch). This follows the 0.9.1 precedent of shipping new skills in a patch. No CLI commands, flags or skill formats changed.
+
+Files bumped: `pyproject.toml`, `CITATION.cff`, `wiki/overview.md`, `wiki/index.md`. Written: `CHANGELOG.md` [0.10.1] (includes the post-0.10.0 site and Homebrew fixes), `RELEASE_NOTES.md` v0.10.1, `TWEET.md`, and a README note that `ask update` does not install new dependencies.
+
+Not bumped yet: `agent-skill-kit.rb` and `Formula/agent-skill-kit.rb`. The sdist sha256 exists only after the PyPI upload. Bump url, version, test assertion and sha256 after publish, using the curl command in `concepts/release-protocol.md`.
+
+Verified: `ask --version` reports 0.10.1 after `pip install -e .`, `python -m build` succeeds, 47 tests pass, `ask validate` passes 43/43.
+
+Open: `PUBLISHING.md` says to tag `vX.Y.Z`, but existing tags have no `v` (`0.10.0`, `0.9.1`).
