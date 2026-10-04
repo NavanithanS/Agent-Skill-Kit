@@ -4,7 +4,7 @@ Content catalog for the Agent Skill Kit wiki. Updated on every page addition or 
 
 ## Overview
 
-- [overview.md](overview.md) — **High-level project orientation**. Provides a comprehensive introduction to ASK (v0.10.0), including its core "package manager" metaphor, the 6 supported AI agent targets (Claude, Gemini, Cursor, Codex, Antigravity, Universal), all 15 CLI commands and their purposes, the core data flow, the safe copy protocol, and a summary of the 42 currently available skills.
+- [overview.md](overview.md) — **High-level project orientation**. Provides a comprehensive introduction to ASK (v0.10.0), including its core "package manager" metaphor, the 6 supported AI agent targets (Claude, Gemini, Cursor, Codex, Antigravity, Universal), all 15 CLI commands and their purposes, the core data flow, the safe copy protocol, and a summary of the 43 currently available skills.
 
 ## Concepts
 
@@ -13,6 +13,7 @@ Content catalog for the Agent Skill Kit wiki. Updated on every page addition or 
 - [concepts/release-protocol.md](concepts/release-protocol.md) — **Release Management Checklist**. A step-by-step guide for maintaining consistency during version bumps. Covers updating Python files, pyproject.toml, Homebrew formulas, CHANGELOG, manifest.json, and README.md.
 - [concepts/eval-harness.md](concepts/eval-harness.md) — **Skill Evaluation (`ask test`)**. Explains the two-layer evaluation system: Layer 1 (offline TF-IDF lexical collision audit) and Layer 2 (live LLM-as-judge behavioral evaluation). Covers the `tests/evals.yaml` format and the underlying TF-IDF index.
 - [concepts/site-and-seo.md](concepts/site-and-seo.md) — **Pages Site & Search Discoverability**. How the GitHub Pages site is actually built by *two* pipelines (Jekyll from the repo root, plus `scripts/generate_site.py`), which files are generated and must never be hand-edited (`docs/index.html`, `skills/README.md`, the README `SKILLS` block), why `_config.yml`'s `exclude:` list is large, the load-bearing `url`/`baseurl`/`google_site_verification` keys, the skill README front-matter contract and its instruction-file guard, how to verify a deploy, and the `robots.txt` limitation.
+- [concepts/output-formats.md](concepts/output-formats.md) — **Output Formats for Understanding Agent Work**. Why `ask-ste-writing` (80% ASD-STE100) is a separate skill, the prose → diagram → HTML format ladder in `ask-explaining-code`, the STE limits and checker script, and trigger-audit notes. Source: Karpathy's post on understanding LLM output.
 - [concepts/mcp-server.md](concepts/mcp-server.md) — **MCP Server (`ask mcp serve`)**. Documents the read-only Model Context Protocol server that allows agents to discover and pull ASK skills at runtime. Explains the `list_skills`, `search_skills`, and `get_skill` tools, and how it shares the TF-IDF routing index with the eval harness.
 
 ## Entities
@@ -21,7 +22,7 @@ Content catalog for the Agent Skill Kit wiki. Updated on every page addition or 
 
 ## Reference
 
-- [skills-catalog.md](skills-catalog.md) — **Full Skills Directory**. A complete list of all 42 skills currently shipped with ASK, organized by category: `coding/` (26), `planning/` (6), `tooling/` (10), and `workflows/` (1), along with descriptions for each.
+- [skills-catalog.md](skills-catalog.md) — **Full Skills Directory**. A complete list of all 43 skills currently shipped with ASK, organized by category: `coding/` (27), `planning/` (6), and `tooling/` (10), along with descriptions for each.
 
 ## Meta
 

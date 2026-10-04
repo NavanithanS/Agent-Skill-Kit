@@ -1,20 +1,42 @@
 ---
 title: Explaining Code
-description: Explains code using analogies, ASCII diagrams, and step-by-step walkthroughs. For Codex, Gemini CLI, Claude Code, Antigravity and Cursor.
+description: 'Explains code, diffs and agent changes step by step with analogies: STE prose, diagrams of how modules connect, or a self-contained HTML explainer.'
 ---
 
 # Explaining Code
 
-A skill that helps users understand code through analogies, ASCII diagrams, and conversational step-by-step walkthroughs.
+A skill that helps users understand code, diffs, and the changes an agent made. It picks the output format that fits: plain prose, a diagram, or a self-contained HTML explainer.
 
 ## Purpose
 
-To make complex code accessible and understandable by breaking down technical concepts into relatable analogies, visual representations, and clear explanations. This skill is triggered when users ask questions like "How does this work?", "Explain this code", or "What's happening here?"
+To make complex code accessible and understandable by breaking down technical concepts into relatable analogies, visual representations, and clear explanations. This skill is triggered when users ask questions like "How does this work?", "Explain this code", "Explain this diff", or "What did you change?"
+
+Agents now write more of the code, so more of our work is reading and checking what they produced. The format ladder below follows [Andrej Karpathy's post](https://x.com/karpathy/status/2105819303471976479) on this: prose is often not the easiest format to understand, and an LLM can cheaply build a diagram or a one-off web page instead.
+
+## Output formats
+
+Use the lowest step that makes the explanation clear. Go up a step when the reader asks or is still lost.
+
+| Step | Format | Use it for |
+|------|--------|-----------|
+| 1 | Prose | One function or one small concept |
+| 2 | Diagram (ASCII inline, Mermaid if it renders) | Flow, state, call stacks, module structure |
+| 3 | Self-contained HTML file | Multi-part systems, large diffs, before/after comparisons, or when asked |
+| 4 | Explainer video | Only when the user asks. It needs external tools or API keys |
+
+**Prose** follows the [`ask-ste-writing`](../ask-ste-writing/) rules (about 80% ASD-STE100): short sentences, active voice, one meaning per word. `ask copy ask-explaining-code` installs that skill as a dependency.
+
+**HTML explainers** are disposable:
+- One `.html` file with no build step. Use a CDN only when needed (for example, to render Mermaid).
+- Write it to the OS temp directory, or to a path the user names. Give the path; do not paste the HTML into chat.
+- Do not add it to the repo.
+
+Lay an HTML explainer out as a reference sheet: labelled panels (A, B, C…) with one topic each, annotations on real lines from the code or diff, tables instead of paragraphs, ✓/✗ columns for before/after, and a title block that names the source files and the commit or branch.
 
 ## Core Principles
 
 1. **Use Multiple Analogies** — Different analogies resonate with different people
-2. **Visualize with ASCII** — Diagrams make abstract concepts concrete
+2. **Pick the Right Format** — Prose, diagram, or HTML page, by complexity (see Output formats)
 3. **Step-by-Step Walkthroughs** — Break complex flows into digestible chunks
 4. **Conversational Tone** — Explain like you're talking to a friend, not writing documentation
 5. **Highlight Misconceptions** — Address common misunderstandings proactively
@@ -115,10 +137,9 @@ When explaining code, use this format:
 
 1. **Quick Summary** (1-2 sentences)
 2. **Big Picture Analogy** (relatable comparison)
-3. **Visual Diagram** (ASCII art showing structure/flow)
+3. **Diagram or HTML path** (chosen from the output formats)
 4. **Step-by-Step Walkthrough** (numbered explanation)
-5. **Key Concepts** (important takeaways)
-6. **Common Pitfalls** (what could go wrong)
+5. **Common Pitfalls** (what could go wrong)
 
 ## Examples
 

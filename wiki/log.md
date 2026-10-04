@@ -194,3 +194,21 @@ Note on testing: re-running a *past* workflow run executes the code from that ru
 Verification note: `ask --version` is not sufficient to test a Homebrew install. Use `type -a ask` and the explicit `/opt/homebrew/bin/ask`.
 
 Sources: .github/workflows/release.yml, scripts/update_homebrew.py, tap repo commit history, PyPI JSON API, live brew behaviour.
+
+## [2026-10-04] ingest | Karpathy post on understanding LLM output → ask-ste-writing + explaining-code 1.1.0
+
+Ingested Karpathy's post ranking output formats for understanding agent work (STE prose < diagrams < HTML < video) and an ASD-STE100 overview sheet.
+
+- New skill `coding/ask-ste-writing` (80% STE rules + `scripts/check_ste.py`, 8 unit tests).
+- `ask-explaining-code` 1.1.0: format ladder, HTML explainer style, scope widened to diffs and agent changes, `depends_on: [ask-ste-writing]`. Both skills under 500 tokens.
+- First trigger-eval files for both skills. The initial audit exposed routing gaps; descriptions and triggers were fixed, not the prompts. Now 10/10 routed, 2 contested.
+- Fixed stale `workflows/` category in `CLAUDE.md`, `GEMINI.md`, `overview.md`, `skills-catalog.md`, `entities/skill.md`. Counts now 43 (coding 27).
+- New page: [concepts/output-formats.md](concepts/output-formats.md).
+
+Sources: Karpathy X post, ASD-STE100 overview image, `ask/utils/validators.py`, `ask/utils/eval/trigger_scorer.py`.
+
+## [2026-10-04] lint | Impact + code review of the STE / explainer change
+
+- Found: `ask update` and MCP `get_skill` do not resolve `depends_on`. This change adds the first real dependency. Fixed in content (key STE limits inline in `ask-explaining-code`); documented the gap in `entities/skill.md`. The code fix in `update.py` is open.
+- Fixed `check_ste.py` false positives: `~~~` fences and headings without blank lines around them.
+- Fixed the hand-written README "Coding Skills" table (stale explaining-code row, missing ste-writing row).

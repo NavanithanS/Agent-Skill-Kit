@@ -1,0 +1,16 @@
+name: ask-ste-writing
+version: 1.0.0
+category: coding
+description: "Rewrites wordy docs, runbooks, PR descriptions and summaries in ~80% ASD-STE100, a controlled language: short sentences, active voice, plain words."
+tags:
+  - writing
+  - ste100
+  - plain-english
+  - documentation
+  - readability
+agents:
+  - codex
+  - gemini
+  - claude
+  - antigravity
+  - cursor

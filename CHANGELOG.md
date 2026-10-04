@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+### New Skills
+- **`ask-ste-writing`**: Applies ~80% ASD-STE100 Simplified Technical English to agent prose (docs, runbooks, PR descriptions, summaries). Hard limits on sentence and paragraph length, verb forms and noun clusters, plus a plain-word table. Ships `scripts/check_ste.py`, a standard-library checker with unit tests.
+
+### Improvements
+- **`ask-explaining-code` 1.1.0**: Replaces the mandatory ASCII diagram with a format ladder (prose → ASCII/Mermaid diagram → self-contained HTML explainer; video only on request). Now also covers diffs, PRs and the agent's own changes. Depends on `ask-ste-writing` for its prose. Placeholder test replaced with trigger evals and a structural validator.
+- **Docs**: Removed stale `workflows/` category mentions from `CLAUDE.md`, `GEMINI.md` and the wiki. `validate_category()` accepts only `coding`, `planning` and `tooling`.
+
 ## [0.10.0] - 2026-09-05
 
 ### New Features

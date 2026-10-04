@@ -61,7 +61,7 @@ All skills, with a link to each one's reference page. Full index: **[browse the 
 | [`ask-db-migration-assistant`](skills/coding/ask-db-migration-assistant/) | coding | Ensures safe database schema updates by requiring migration and rollback scripts before execution. |
 | [`ask-docker-expert`](skills/coding/ask-docker-expert/) | coding | Expert guidance on Docker, Docker Compose, and container optimization. Focuses on multi-stage builds and security. |
 | [`ask-effective-llm-coder`](skills/coding/ask-effective-llm-coder/) | coding | Guides the agent in effective LLM-assisted coding using best practices for declarative workflows, simplicity, tenacity, and iterative refinement. |
-| [`ask-explaining-code`](skills/coding/ask-explaining-code/) | coding | Explains code using analogies, ASCII diagrams, and step-by-step walkthroughs |
+| [`ask-explaining-code`](skills/coding/ask-explaining-code/) | coding | Explains code, diffs and agent changes step by step with analogies: STE prose, diagrams of how modules connect, or a self-contained HTML explainer. |
 | [`ask-fastapi-architect`](skills/coding/ask-fastapi-architect/) | coding | Expert scaffolding for FastAPI projects. Enforces Pydantic V2, Async Database patterns, and Dependency Injection. |
 | [`ask-flutter-architect`](skills/coding/ask-flutter-architect/) | coding | Senior Flutter skill using FVM. Enforces project-specific standards: Provider, Layer-First Architecture, Stream-based Services, and strict coding conventions. |
 | [`ask-flutter-mechanic`](skills/coding/ask-flutter-mechanic/) | coding | Maintenance skill for Flutter projects using FVM. Handles clean builds, iOS/Android specific fixes, asset generation, and release protocols. |
@@ -76,6 +76,7 @@ All skills, with a link to each one's reference page. Full index: **[browse the 
 | [`ask-security-sentinel`](skills/coding/ask-security-sentinel/) | coding | Pre-flight security checker. Scans for exposed secrets and vulnerable patterns properly. |
 | [`ask-shadcn-architect`](skills/coding/ask-shadcn-architect/) | coding | Strictly enforces shadcn/ui patterns, imports, and CLI usage when creating or modifying React UI components. |
 | [`ask-shadcn-mechanic`](skills/coding/ask-shadcn-mechanic/) | coding | Expert maintenance skill for shadcn/ui. Handles component customization, responsive layout debugging, and Form/Zod wiring while strictly enforcing UI/UX design integrity. |
+| [`ask-ste-writing`](skills/coding/ask-ste-writing/) | coding | Rewrites wordy docs, runbooks, PR descriptions and summaries in ~80% ASD-STE100, a controlled language: short sentences, active voice, plain words. |
 | [`ask-unit-test-generation`](skills/coding/ask-unit-test-generation/) | coding | Automates creation of comprehensive unit tests for functions or classes, emphasizing coverage of edge cases and assertions. |
 | [`ask-vue-architect`](skills/coding/ask-vue-architect/) | coding | Expert scaffolding for Vue 3. Specialized for Laravel Inertia stacks, but supports Nuxt/Vite. Enforces Composition API & TypeScript. |
 | [`ask-vue-mechanic`](skills/coding/ask-vue-mechanic/) | coding | Expert maintenance skill for Vue 3 within Laravel Inertia. Fixes navigation reloads, prop mismatches, and reactivity issues. |
@@ -364,7 +365,7 @@ ASK comes with a curated collection of skills to boost your AI agent's capabilit
 | **[code-reviewer](skills/coding/ask-code-reviewer/README.md)** | AI code reviewer providing constructive feedback | • Code quality checks<br>• Security & performance review<br>• Learning best practices |
 | **[effective-llm-coder](skills/coding/ask-effective-llm-coder/README.md)** | Guides agent in declarative, simple, tenacious coding | • Declarative workflows<br>• Simplicity & tenacity<br>• Iterative refinement |
 | **[commit-assistance](skills/coding/ask-commit-assistance/README.md)** | Assist with code review, staging, and committing | • Pre-commit review<br>• Meaningful commit messages<br>• Staging files |
-| **[explaining-code](skills/coding/ask-explaining-code/README.md)** | Explains code using analogies and diagrams | • Understanding complex code<br>• Visualizing flow<br>• Learning new codebases |
+| **[explaining-code](skills/coding/ask-explaining-code/README.md)** | Explains code, diffs and agent changes as prose, diagrams or an HTML explainer | • Understanding complex code<br>• Reviewing what an agent changed<br>• Visualizing flow |
 | **[flutter-architect](skills/coding/ask-flutter-architect/README.md)** | Senior Flutter skill using FVM | • Layer-First Architecture<br>• Stream-based Services<br>• Strict coding conventions |
 | **[flutter-mechanic](skills/coding/ask-flutter-mechanic/README.md)** | Maintenance skill for Flutter projects using FVM | • Clean Build Protocol<br>• iOS/Android fixes<br>• Release protocols |
 | **[laravel-architect](skills/coding/ask-laravel-architect/README.md)** | Senior scaffolding skill for Laravel (SQL/Mongo) | • Logic Layer separation<br>• Hybrid SQL/Mongo Relations<br>• Test-Driven Scaffolding |
@@ -381,6 +382,7 @@ ASK comes with a curated collection of skills to boost your AI agent's capabilit
 | **[readme-gardener](skills/coding/ask-readme-gardener/README.md)** | Keeps documentation in sync with code | • Updating API docs<br>• Documenting new features<br>• Maintaining README accuracy |
 | **[shadcn-architect](skills/coding/ask-shadcn-architect/README.md)** | Enforces shadcn/ui patterns and consistency | • Preventing style bloat<br>• Enforcing import rules<br>• Promoting accessibility |
 | **[shadcn-mechanic](skills/coding/ask-shadcn-mechanic/README.md)** | Expert maintenance for shadcn/ui components | • Customizing variants (CVA)<br>• Debugging form validation<br>• Fixing Tailwind layout limits |
+| **[ste-writing](skills/coding/ask-ste-writing/README.md)** | Writes in ~80% ASD-STE100 Simplified Technical English | • Clearer PR descriptions and docs<br>• Runbooks for non-native readers<br>• Checking drafts with `check_ste.py` |
 | **[security-sentinel](skills/coding/ask-security-sentinel/README.md)** | Pre-flight security checker for secrets/vulns | • Blocking commits with secrets<br>• Detecting SQL injection<br>• Flagging unsafe Blade usage |
 | **[nextjs-architect](skills/coding/ask-nextjs-architect/README.md)** | Expert scaffolding for Next.js 14+ (App Router) | • Server Components<br>• Server Actions<br>• Metadata API |
 | **[fastapi-architect](skills/coding/ask-fastapi-architect/README.md)** | Expert scaffolding for FastAPI projects | • Pydantic V2<br>• Async SQLAlchemy<br>• Dep Injection |

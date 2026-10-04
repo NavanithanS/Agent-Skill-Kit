@@ -2,18 +2,18 @@
 title: Skills Catalog
 type: overview
 tags: [skills, catalog, library]
-updated: 2026-09-05
+updated: 2026-10-04
 sources: 1
 ---
 
 # Skills Catalog
 
-All skills in `skills/` as of 2026-09-05. Total: **42** registered skills across **3** populated categories (`coding/` 26, `planning/` 6, `tooling/` 10).
+All skills in `skills/` as of 2026-10-04. Total: **43** registered skills across **3** categories (`coding/` 27, `planning/` 6, `tooling/` 10).
 
 > **Superseded:** an earlier lint pass recorded `workflows/` as holding 1 skill.
 > It holds none — see below.
 
-## coding/ (26 skills)
+## coding/ (27 skills)
 
 | Skill | Description |
 |---|---|
@@ -25,7 +25,7 @@ All skills in `skills/` as of 2026-09-05. Total: **42** registered skills across
 | ask-db-migration-assistant | Safe database schema updates requiring migration + rollback scripts |
 | ask-docker-expert | Docker, Docker Compose, and container optimization |
 | ask-effective-llm-coder | Guides effective LLM-assisted coding with declarative workflows |
-| ask-explaining-code | Explains code with analogies, ASCII diagrams, step-by-step walkthroughs |
+| ask-explaining-code | Explains code, diffs and agent changes; picks prose, diagram or HTML explainer by complexity (depends on ask-ste-writing) |
 | ask-fastapi-architect | FastAPI scaffolding with Pydantic V2 and async patterns |
 | ask-flutter-architect | Flutter scaffolding using FVM, Provider, Layer-First Architecture |
 | ask-flutter-mechanic | Flutter maintenance — clean builds, iOS/Android fixes, asset gen |
@@ -40,6 +40,7 @@ All skills in `skills/` as of 2026-09-05. Total: **42** registered skills across
 | ask-security-sentinel | Pre-flight secret scanning and vulnerable pattern detection |
 | ask-shadcn-architect | shadcn/ui patterns, imports, and CLI usage enforcement |
 | ask-shadcn-mechanic | shadcn/ui maintenance and fixes |
+| ask-ste-writing | ~80% ASD-STE100 Simplified Technical English rules + `check_ste.py` checker |
 | ask-unit-test-generation | Comprehensive unit test generation with edge case coverage |
 | ask-vue-architect | Vue 3 scaffolding for Laravel Inertia and Nuxt/Vite stacks |
 | ask-vue-mechanic | Vue 3 maintenance — navigation reloads, prop mismatches |
@@ -70,13 +71,8 @@ All skills in `skills/` as of 2026-09-05. Total: **42** registered skills across
 | ask-system-architect-prime | Repo audits, complexity analysis, refactoring recommendations |
 | ask-wiki-init | Scaffolds the LLM Wiki pattern into any project |
 
-## workflows/ (0 registered skills)
+## workflows/ (removed)
 
-`skills/workflows/skill-creator/` contains only `workflow.md` — **no `skill.yaml`
-and no `SKILL.md`** — so `SkillRegistry` does not register it and it is absent
-from `skills/manifest.json` (which holds 42, not 43). It duplicates the real
-`tooling/ask-skill-creator`.
-
-It is excluded from the Jekyll build so it does not publish as an orphan page,
-but the directory itself is unresolved: it should either be deleted or promoted
-into a proper skill. See [concepts/site-and-seo.md](concepts/site-and-seo.md).
+> **Superseded:** this section described an unregistered `skills/workflows/skill-creator/`.
+> That directory was deleted in `6b8fcf4`. `workflows/` is not a valid category:
+> `validate_category()` accepts only `coding`, `planning` and `tooling`.

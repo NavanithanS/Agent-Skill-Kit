@@ -1,16 +1,21 @@
 name: ask-explaining-code
-version: 1.0.0
+version: 1.1.0
 category: coding
-description: Explains code using analogies, ASCII diagrams, and step-by-step walkthroughs
+description: "Explains code, diffs and agent changes step by step with analogies: STE prose, diagrams of how modules connect, or a self-contained HTML explainer."
 tags:
   - code-explanation
   - learning
   - teaching
   - analogies
   - visualization
+  - diagrams
+  - mermaid
+  - html
 agents:
   - codex
   - gemini
   - claude
   - antigravity
   - cursor
+depends_on:
+  - ask-ste-writing
