@@ -2,6 +2,27 @@
 
 ## [Unreleased]
 
+## [0.10.1] - 2026-10-04
+
+### New Skills
+- **`ask-ste-writing`**: Applies ~80% ASD-STE100 Simplified Technical English to agent prose (docs, runbooks, PR descriptions, summaries). Hard limits on sentence and paragraph length, verb forms and noun clusters, plus a plain-word table. Ships `scripts/check_ste.py`, a standard-library checker with unit tests.
+
+### Improvements
+- **`ask-explaining-code` 1.1.0**: Replaces the mandatory ASCII diagram with a format ladder (prose → ASCII/Mermaid diagram → self-contained HTML explainer; video only on request). Now also covers diffs, PRs and the agent's own changes. Depends on `ask-ste-writing` for its prose. Placeholder test replaced with trigger evals and a structural validator.
+- **Docs**: Removed stale `workflows/` category mentions from `CLAUDE.md`, `GEMINI.md` and the wiki. `validate_category()` accepts only `coding`, `planning` and `tooling`.
+- **README**: `ask update` documents that it does not install new dependencies. Install them with `ask copy`.
+
+### Bug Fixes
+- **Docs site: skill pages 404'd after v0.10.0.** The `plugins:` key in `_config.yml` replaced GitHub Pages' default plugin set, which dropped `jekyll-readme-index`. That plugin also skips READMEs with front matter, which every skill README gained in v0.10.0. Both are fixed, so `/skills/<category>/<name>/` URLs resolve again.
+- **Docs site: duplicated page titles.** `jekyll-seo-tag` already appends "| Agent Skill Kit", so the front-matter suffix rendered it twice. `add_skill_frontmatter.py` no longer adds it.
+- **Homebrew: wrong checksum source.** `scripts/update_homebrew.py` hashed a locally rebuilt sdist, which can differ byte-for-byte from the file on PyPI. It now reads the sdist sha256 from the PyPI JSON API. Its regexes replace only the first match, and it exits non-zero when nothing was replaced.
+- **Homebrew: re-runs failed on an up-to-date tap.** The tap update treated "nothing to commit" as an error. It now succeeds.
+- **Homebrew: v0.10.0 formula checksum corrected** in `agent-skill-kit.rb` and `Formula/agent-skill-kit.rb`.
+- **README: Homebrew install.** Documents the `brew trust` step that current Homebrew requires for third-party taps, and how `PATH` shadowing can hide the Homebrew binary.
+
+### Notes
+- No CLI commands, flags, or skill formats changed. `ask copy ask-explaining-code` now also installs `ask-ste-writing`; this is the first skill in the library with a `depends_on`.
+
 ## [0.10.0] - 2026-09-05
 
 ### New Features

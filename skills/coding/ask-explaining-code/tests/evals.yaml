@@ -1,0 +1,11 @@
+# Trigger eval cases for `ask test` (Layer 1, offline collision audit).
+#
+# `should_fire`: paraphrased user prompts this skill should own. Write them the
+# way a real user would phrase the request — do NOT just echo the skill's
+# trigger phrases, or the audit measures nothing.
+should_fire:
+  - "help me understand what this recursive function is doing step by step"
+  - "summarize what changes you just made to the auth module and why"
+  - "draw me how these modules talk to each other"
+  - "give me a web page that explains this payment flow"
+  - "i don't get this decorator, can you break it down with an analogy"

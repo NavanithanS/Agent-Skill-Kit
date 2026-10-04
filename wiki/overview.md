@@ -2,13 +2,13 @@
 title: Agent Skill Kit — Overview
 type: overview
 tags: [architecture, cli, skills, adapters]
-updated: 2026-08-02
+updated: 2026-10-04
 sources: 5
 ---
 
 # Agent Skill Kit (ASK)
 
-**ASK** is a CLI tool (`ask`) that acts as a package manager for AI agent skills. It manages a central library of reusable skill definitions and deploys them to multiple AI agents in their native formats. Current version: **v0.10.0**.
+**ASK** is a CLI tool (`ask`) that acts as a package manager for AI agent skills. It manages a central library of reusable skill definitions and deploys them to multiple AI agents in their native formats. Current version: **v0.10.1**.
 
 ## Core Metaphor
 
@@ -31,7 +31,7 @@ Think of ASK like `npm` or `pip`, but for AI agent instructions:
 
 ## Skill Library Structure
 
-Skills live in `skills/<category>/<skill-name>/`. Categories: `coding/`, `planning/`, `tooling/`, `workflows/`.
+Skills live in `skills/<category>/<skill-name>/`. Categories: `coding/`, `planning/`, `tooling/`.
 
 Each skill directory (Gold Standard format):
 ```
@@ -85,14 +85,13 @@ ask copy <skill> [--agent <name>]
 
 See [adapter-pattern.md](concepts/adapter-pattern.md) for details.
 
-## Skill Count (as of 2026-08-02)
+## Skill Count (as of 2026-10-04)
 
 | Category | Count |
 |---|---|
-| coding | 26 |
+| coding | 27 |
 | planning | 6 |
 | tooling | 10 |
-| workflows | 1 |
-| **Total** | **42** |
+| **Total** | **43** |
 
 See [skills-catalog.md](skills-catalog.md) for the full list.

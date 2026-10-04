@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "generated": "2026-09-05T01:43:47.870738",
+  "generated": "2026-10-04T13:42:46.264414",
   "skills": [
     {
       "name": "ask-add-agent",
@@ -269,7 +269,7 @@
     },
     {
       "name": "ask-explaining-code",
-      "description": "Explains code using analogies, ASCII diagrams, and step-by-step walkthroughs",
+      "description": "Explains code, diffs and agent changes step by step with analogies: STE prose, diagrams of how modules connect, or a self-contained HTML explainer.",
       "category": "coding",
       "agents": [
         "codex",
@@ -278,12 +278,14 @@
         "antigravity",
         "cursor"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "triggers": [
         "explain this code",
-        "how does this work",
+        "help me understand",
         "walk me through",
-        "break down this logic"
+        "explain this diff",
+        "what did you change",
+        "diagram how this connects"
       ],
       "path": "coding/ask-explaining-code"
     },
@@ -690,6 +692,27 @@
       "version": "1.0.0",
       "triggers": [],
       "path": "planning/ask-solution-architect"
+    },
+    {
+      "name": "ask-ste-writing",
+      "description": "Rewrites wordy docs, runbooks, PR descriptions and summaries in ~80% ASD-STE100, a controlled language: short sentences, active voice, plain words.",
+      "category": "coding",
+      "agents": [
+        "codex",
+        "gemini",
+        "claude",
+        "antigravity",
+        "cursor"
+      ],
+      "version": "1.0.0",
+      "triggers": [
+        "write in STE",
+        "simplified technical english",
+        "plain english",
+        "too wordy",
+        "make this easier to read"
+      ],
+      "path": "coding/ask-ste-writing"
     },
     {
       "name": "ask-system-architect-prime",

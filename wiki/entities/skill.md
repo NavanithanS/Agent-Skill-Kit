@@ -2,7 +2,7 @@
 title: Skill
 type: entity
 tags: [skill, library, yaml, SKILL.md, frontmatter]
-updated: 2026-08-02
+updated: 2026-10-04
 sources: 4
 ---
 
@@ -57,7 +57,8 @@ triggers: ["review my code", "check this PR"]
 | `coding/` | Language/framework-specific dev skills |
 | `planning/` | Architecture, ADRs, project management |
 | `tooling/` | Meta-skills (skill creation, context, auditing) |
-| `workflows/` | Multi-step process skills and reference templates |
+
+These three are the only categories `validate_category()` (`ask/utils/validators.py`) accepts. `workflows/` was removed in `6b8fcf4`.
 
 ## Lifecycle
 
@@ -69,7 +70,9 @@ triggers: ["review my code", "check this PR"]
 
 ## Dependency Resolution
 
-`SkillRegistry` resolves `depends_on` chains with cycle detection. A skill won't install unless its dependencies are satisfied.
+`SkillRegistry` resolves `depends_on` chains with cycle detection. `ask copy` installs the dependencies first, and `ask validate` fails on a missing or circular dependency.
+
+> **Known gap (2026-10-04):** only `ask copy` resolves dependencies. `ask update` (`ask/commands/update.py`) overwrites each installed skill alone, and MCP `get_skill` returns one skill. So a skill that gains a `depends_on` in a new version reaches existing users without its dependency. Until that is fixed, a dependent `SKILL.md` must still work alone: put the key rules inline and use the dependency for the full detail. First real use: `ask-explaining-code` → `ask-ste-writing`.
 
 ## Token Limits
 

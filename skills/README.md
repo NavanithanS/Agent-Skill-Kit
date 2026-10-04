@@ -1,11 +1,11 @@
 ---
-title: "Skill library — 42 agent skills for Claude Code, Codex, Gemini CLI and Cursor"
-description: "Browse all 42 Agent Skill Kit skills across coding, planning, tooling. Each installs to Claude Code, Codex, Gemini CLI, Cursor or Antigravity with one command."
+title: "Skill library — 43 agent skills for Claude Code, Codex, Gemini CLI and Cursor"
+description: "Browse all 43 Agent Skill Kit skills across coding, planning, tooling. Each installs to Claude Code, Codex, Gemini CLI, Cursor or Antigravity with one command."
 ---
 
 # Skill library
 
-All 42 skills in [Agent Skill Kit](https://navanithans.github.io/Agent-Skill-Kit/), across 3 categories. Every skill installs to any of 5 agents with a single command:
+All 43 skills in [Agent Skill Kit](https://navanithans.github.io/Agent-Skill-Kit/), across 3 categories. Every skill installs to any of 5 agents with a single command:
 
 ```bash
 ask copy claude --skill <skill-name>
@@ -13,7 +13,7 @@ ask copy claude --skill <skill-name>
 
 Prefer a UI? Use the [interactive command builder](https://navanithans.github.io/Agent-Skill-Kit/docs/).
 
-## Coding (26)
+## Coding (27)
 
 ### [ask-bug-finder](coding/ask-bug-finder/)
 
@@ -81,7 +81,7 @@ ask copy claude --skill ask-effective-llm-coder
 
 ### [ask-explaining-code](coding/ask-explaining-code/)
 
-Explains code using analogies, ASCII diagrams, and step-by-step walkthroughs
+Explains code, diffs and agent changes step by step with analogies: STE prose, diagrams of how modules connect, or a self-contained HTML explainer.
 
 ```bash
 ask copy claude --skill ask-explaining-code
@@ -197,6 +197,14 @@ Expert maintenance skill for shadcn/ui. Handles component customization, respons
 
 ```bash
 ask copy claude --skill ask-shadcn-mechanic
+```
+
+### [ask-ste-writing](coding/ask-ste-writing/)
+
+Rewrites wordy docs, runbooks, PR descriptions and summaries in ~80% ASD-STE100, a controlled language: short sentences, active voice, plain words.
+
+```bash
+ask copy claude --skill ask-ste-writing
 ```
 
 ### [ask-unit-test-generation](coding/ask-unit-test-generation/)

@@ -17,7 +17,7 @@ The core philosophy is "Define Once, Deploy Anywhere," using an adapter pattern 
 - **CLI Layer (`ask/cli.py`, `ask/commands/`):** Entry point and command orchestration.
 - **Registry Layer (`ask/utils/skill_registry.py`, `ask/utils/agent_registry.py`):** Responsible for discovering and parsing skills and agent adapters from the filesystem.
 - **Adapter Layer (`agents/*/adapter.py`):** Agent-specific logic for transforming skills and determining installation paths. All adapters inherit from `BaseAdapter` in `agents/base.py`.
-- **Skill Library (`skills/`):** Categorized directory of reusable skills (`coding/`, `planning/`, `tooling/`, `workflows/`).
+- **Skill Library (`skills/`):** Categorized directory of reusable skills (`coding/`, `planning/`, `tooling/`).
 
 ## Building and Running
 

@@ -1,0 +1,11 @@
+# Trigger eval cases for `ask test` (Layer 1, offline collision audit).
+#
+# `should_fire`: paraphrased user prompts this skill should own. Write them the
+# way a real user would phrase the request — do NOT just echo the skill's
+# trigger phrases, or the audit measures nothing.
+should_fire:
+  - "make this PR description easier to read, shorter sentences please"
+  - "rewrite these setup docs so non-native english speakers can follow them"
+  - "this runbook is too wordy, tighten the wording for the on-call team"
+  - "use the aerospace controlled language style for these instructions"
+  - "your summary is hard to parse, say it again in plain simple english"
