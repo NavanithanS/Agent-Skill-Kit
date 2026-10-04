@@ -224,3 +224,11 @@ Not bumped yet: `agent-skill-kit.rb` and `Formula/agent-skill-kit.rb`. The sdist
 Verified: `ask --version` reports 0.10.1 after `pip install -e .`, `python -m build` succeeds, 47 tests pass, `ask validate` passes 43/43.
 
 Open: `PUBLISHING.md` says to tag `vX.Y.Z`, but existing tags have no `v` (`0.10.0`, `0.9.1`).
+
+## [2026-10-04] update | v0.10.1 published
+
+- PR #1 merged. Tag `0.10.1` and GitHub release published. The `pypi-publish` job succeeded.
+- `homebrew-update` failed: tap checkout worked, but the push returned **403**, so `TAP_GITHUB_TOKEN` has read access and no write access. Owner action: give it `Contents: Read and write` on the tap repo.
+- Tap updated by hand with `update_homebrew.py --tap ~/development/homebrew-Agent-Skill-Kit --push`. Before the push, the sha256 `794de51f…` was checked against the sdist downloaded from PyPI.
+- Repo copies `agent-skill-kit.rb` and `Formula/agent-skill-kit.rb` bumped to 0.10.1 with the same sha256.
+- The PR's "Skill Lint" check failed on 4 skills that were already over the limit (commit-assistance, impact-sentinel, shadcn-mechanic, wiki-init). It has failed on master since 2026-09-05.

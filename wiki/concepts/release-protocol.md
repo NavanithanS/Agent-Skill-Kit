@@ -73,6 +73,8 @@ Releases are automated: `.github/workflows/release.yml` fires on `release: publi
 
 `TAP_GITHUB_TOKEN` needs `Contents: Read and write` on the tap repo. PATs expire — when the job fails with `Bad credentials`, regenerate it rather than debugging the workflow.
 
+> **v0.10.1:** the token checked out the tap but the push failed with `403 Permission … denied`. That means the token lacks *write* permission. It is not expired. Fix the token's permissions. Until then, update the tap by hand from a machine with push access: `python3 scripts/update_homebrew.py --tap <local tap clone> --push`. The script takes the sha256 from PyPI.
+
 A PyPI version can never be reused, so verify `ask --version`, `python -m build`, and the full test suite *before* creating the release.
 
 ## Related
